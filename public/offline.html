@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0B0F17" />
+    <title>Offline · CourtConnect</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --oled: #0b0f17;
+        --surface: #161f30;
+        --emerald: #10b981;
+        --muted: #94a3b8;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        min-height: 100dvh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background:
+          radial-gradient(40rem 28rem at 10% -10%, rgba(16, 185, 129, 0.12), transparent 60%),
+          radial-gradient(36rem 24rem at 100% 0%, rgba(6, 182, 212, 0.08), transparent 60%),
+          var(--oled);
+        color: #f8fafc;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      .card {
+        width: 100%;
+        max-width: 420px;
+        padding: 28px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 28px;
+        background: rgba(22, 31, 48, 0.84);
+        box-shadow: 0 30px 80px -40px rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(18px);
+        text-align: center;
+      }
+      .mark {
+        width: 54px;
+        height: 54px;
+        margin: 0 auto;
+        display: grid;
+        place-items: center;
+        border-radius: 16px;
+        background: var(--emerald);
+        color: var(--oled);
+        font-size: 28px;
+        font-weight: 800;
+        box-shadow: 0 0 40px -8px rgba(16, 185, 129, 0.75);
+      }
+      .eyebrow {
+        margin: 18px 0 0;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--emerald);
+      }
+      h1 {
+        margin: 10px 0 0;
+        font-size: 26px;
+        line-height: 1.15;
+        letter-spacing: -0.03em;
+      }
+      p {
+        margin: 12px 0 0;
+        font-size: 13px;
+        line-height: 1.65;
+        color: var(--muted);
+      }
+      .actions {
+        display: grid;
+        gap: 10px;
+        margin-top: 22px;
+      }
+      a,
+      button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 46px;
+        border: 0;
+        border-radius: 14px;
+        font: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .primary {
+        background: var(--emerald);
+        color: var(--oled);
+      }
+      .secondary {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.03);
+        color: #cbd5e1;
+      }
+      .note {
+        margin-top: 18px;
+        font-size: 10px;
+        color: #64748b;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <div class="mark">⚡</div>
+      <p class="eyebrow">CourtConnect</p>
+      <h1>You&rsquo;re offline.</h1>
+      <p>
+        Live court availability needs a connection, but your cached digital pass
+        may still work. Open My Bookings to check in offline.
+      </p>
+      <div class="actions">
+        <a class="primary" href="/my-bookings">Open My Bookings</a>
+        <button class="secondary" type="button" onclick="location.reload()">
+          Retry connection
+        </button>
+      </div>
+      <div class="note">Saved passes use your device&rsquo;s local cache.</div>
+    </main>
+  </body>
+</html>

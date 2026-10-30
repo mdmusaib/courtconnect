@@ -1,0 +1,221 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  PLAYER
+  OWNER
+  ADMIN
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  EXPIRED
+  MAINTENANCE
+}
+
+enum BlockType {
+  PERMANENT_RECURRING // e.g., Daily Morning/Evening Coaching or Membership
+  TEMPORARY // e.g., Maintenance, Rain, Private Event
+}
+
+enum PaymentMode {
+  FULL_ONLINE
+  ADVANCE_ONLINE
+  OFFLINE_CASH
+  PHONE_BOOKING
+  MANUAL_EXTERNAL
+}
+
+enum VerificationStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+enum RefundStatus {
+  NONE
+  PENDING
+  PROCESSED
+  FAILED
+}
+
+enum DisputeStatus {
+  OPEN
+  UNDER_REVIEW
+  RESOLVED
+  REJECTED
+}
+
+enum DisputeResolution {
+  NONE
+  FULL_REFUND
+  PARTIAL_REFUND
+  REJECTED
+}
+
+enum AdminActionType {
+  VENUE_VERIFIED
+  VENUE_REJECTED
+  DISPUTE_RESOLVED
+  REFUND_OVERRIDDEN
+  REFUND_PROCESSED
+}
+
+model User {
+  id               String        @id @default(uuid())
+  firebaseUid      String?       @unique
+  phone            String        @unique
+  name             String
+  role             Role          @default(PLAYER)
+  venues           Venue[]
+  bookings         Booking[]
+  pushTokens       PushToken[]
+  disputes         Dispute[]     @relation("PlayerDisputes")
+  resolvedDisputes Dispute[]     @relation("ResolvedDisputes")
+  adminActions     AdminAction[]
+  createdAt        DateTime      @default(now())
+
+  @@index([role])
+}
+
+model Venue {
+  id                 String             @id @default(uuid())
+  ownerId            String
+  owner              User               @relation(fields: [ownerId], references: [id])
+  name               String
+  city               String             @default("Melvisharam")
+  address            String
+  amenities          String[] // e.g., ["Parking", "Floodlights", "Changing Room"]
+  verificationStatus VerificationStatus @default(PENDING)
+  verificationNotes  String?
+  verifiedAt         DateTime?
+  courts             Court[]
+  createdAt          DateTime           @default(now())
+
+  @@index([verificationStatus])
+}
+
+model Court {
+  id         String      @id @default(uuid())
+  venueId    String
+  venue      Venue       @relation(fields: [venueId], references: [id])
+  name       String // e.g., "Court A (5v5)"
+  sportType  String // e.g., "Football", "Cricket", "Badminton"
+  price      Float // Hourly base rate set by turf owner
+  bookings   Booking[]
+  slotBlocks SlotBlock[]
+}
+
+model Booking {
+  id                   String        @id @default(uuid())
+  userId               String? // Nullable for walk-in/phone offline entries
+  user                 User?         @relation(fields: [userId], references: [id])
+  courtId              String
+  court                Court         @relation(fields: [courtId], references: [id])
+  slotStart            DateTime
+  slotEnd              DateTime
+  status               BookingStatus @default(PENDING)
+  paymentMode          PaymentMode   @default(FULL_ONLINE)
+  paidAmount           Float // Total amount paid by player (includes ₹25 fee if online)
+  dueAmount            Float // Balance due at venue counter
+  convenienceFee       Float // ₹25 for online app bookings, ₹0 for owner direct entries
+  ownerPayout          Float // 100% of court rate guaranteed to turf owner
+  utrNumber            String?       @unique // 12-digit UPI Reference Number extracted via AI Vision
+  receiptUrl           String? // Uploaded GPay/PhonePe screenshot storage URL
+  aiVerifiedAmount     Float? // Amount read from the receipt by Gemini Vision
+  aiVerifiedStatus     String? // Gemini payment status, e.g. SUCCESS
+  aiVerifiedModel      String? // Vision model used, e.g. gemini-2.5-flash
+  aiVerifiedApp        String? // Payment app shown on the receipt
+  aiVerifiedPayee      String? // Payee name/UPI ID shown on the receipt
+  aiVerifiedConfidence Float? // Gemini confidence score (0–1)
+  aiVerifiedAt         DateTime? // When the receipt was verified
+  manualName           String? // Customer name for walk-in or phone manual entries
+  cancelledAt          DateTime?
+  cancellationReason   String?
+  refundAmount         Float         @default(0)
+  refundStatus         RefundStatus  @default(NONE)
+  refundPolicy         String?
+  refundedAt           DateTime?
+  confirmationSentAt   DateTime?
+  reminderSentAt       DateTime?
+  disputes             Dispute[]
+  createdAt            DateTime      @default(now())
+
+  @@index([status])
+  @@index([slotStart])
+}
+
+model PushToken {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token      String   @unique
+  platform   String   @default("web")
+  userAgent  String?
+  createdAt  DateTime @default(now())
+  lastUsedAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Dispute {
+  id             String            @id @default(uuid())
+  bookingId      String
+  booking        Booking           @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  playerId       String?
+  player         User?             @relation("PlayerDisputes", fields: [playerId], references: [id])
+  status         DisputeStatus     @default(OPEN)
+  reason         String
+  details        String?
+  resolution     DisputeResolution @default(NONE)
+  resolutionNote String?
+  refundAmount   Float             @default(0)
+  resolvedById   String?
+  resolvedBy     User?             @relation("ResolvedDisputes", fields: [resolvedById], references: [id])
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  resolvedAt     DateTime?
+
+  @@index([status])
+  @@index([bookingId])
+}
+
+model AdminAction {
+  id         String          @id @default(uuid())
+  adminId    String
+  admin      User            @relation(fields: [adminId], references: [id])
+  action     AdminActionType
+  entityType String
+  entityId   String
+  summary    String
+  metadata   Json?
+  createdAt  DateTime        @default(now())
+
+  @@index([createdAt])
+  @@index([entityType, entityId])
+}
+
+model SlotBlock {
+  id         String    @id @default(uuid())
+  courtId    String
+  court      Court     @relation(fields: [courtId], references: [id])
+  blockType  BlockType @default(TEMPORARY)
+  reason     String // e.g., "Morning Membership (6 AM - 8 AM)", "Turf Maintenance"
+  startTime  String? // e.g., "06:00" (for daily recurring blocks)
+  endTime    String? // e.g., "08:00" (for daily recurring blocks)
+  startDate  DateTime? // Specific start date/time (for temporary blocks)
+  endDate    DateTime? // Specific end date/time (for temporary blocks)
+  daysOfWeek Int[] // e.g., [0,1,2,3,4,5,6] (0 = Sunday) for recurring days
+  createdAt  DateTime  @default(now())
+
+  @@index([courtId])
+  @@index([blockType])
+}
