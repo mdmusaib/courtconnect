@@ -292,25 +292,36 @@ export async function POST(request: Request) {
     setSessionCookie(response, token);
     return response;
   } catch (error) {
-    console.error("Auth session sync failed:", error);
-
-    if (
+    const err = error instanceof Error ? error : new Error(String(error));
+    const prismaCode =
       typeof error === "object" &&
       error !== null &&
-      "code" in error &&
-      (error as { code?: unknown }).code === "P2002"
-    ) {
-      return jsonError(
-        "This phone number is already linked to another account.",
-        409,
-        "PHONE_ALREADY_LINKED",
+      "code" in error
+        ? (error as { code?: string }).code
+        : undefined;
+
+    console.error(
+      "[auth/sync] database user sync failed:",
+      prismaCode ? `prisma_code=${prismaCode} ` : "",
+      err.message,
+      err.stack ?? "",
+    );
+
+    // A concurrent request created the same phone first; keep the conflict
+    // explicit instead of surfacing a raw Prisma error.
+    if (prismaCode === "P2002") {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "This phone number is already linked to another account.",
+        },
+        { status: 409, headers: { "Cache-Control": "no-store" } },
       );
     }
 
-    return jsonError(
-      "Could not create your session. Please try again.",
-      500,
-      "SESSION_SYNC_FAILED",
+    return NextResponse.json(
+      { success: false, error: err.message },
+      { status: 500, headers: { "Cache-Control": "no-store" } },
     );
   }
 }

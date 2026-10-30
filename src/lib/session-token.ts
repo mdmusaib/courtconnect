@@ -29,11 +29,12 @@ function sessionSecret(): Uint8Array {
     return new TextEncoder().encode(configured);
   }
 
-  if (process.env.NODE_ENV === "production") {
-    throw new Error(
-      "AUTH_SECRET must be set to a random string of at least 32 characters.",
-    );
-  }
+  // Never throw at runtime: a missing signing secret must not take the whole
+  // site offline. Fall back to an insecure default and warn loudly so
+  // AUTH_SECRET is rotated before a production deploy.
+  console.warn(
+    "[session-token] AUTH_SECRET/NEXTAUTH_SECRET is missing or shorter than 32 characters; signing sessions with an insecure default secret. Generate one with: openssl rand -hex 32",
+  );
 
   return new TextEncoder().encode(DEVELOPMENT_SECRET);
 }

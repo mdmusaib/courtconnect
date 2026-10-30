@@ -6,15 +6,31 @@ const globalForPrisma = globalThis as unknown as {
 
 function getOptimizedDatabaseUrl(): string | undefined {
   const url = process.env.DATABASE_URL;
-  if (!url) return undefined;
-
-  // Optimize Neon connection pooling with PgBouncer
-  if (url.includes("-pooler") && !url.includes("pgbouncer=true")) {
-    const separator = url.includes("?") ? "&" : "?";
-    return `${url}${separator}pgbouncer=true&connect_timeout=15`;
+  if (!url) {
+    console.warn(
+      "[prisma] DATABASE_URL is not set; database queries will fail until a Neon connection string is provided.",
+    );
+    return undefined;
   }
 
-  return url;
+  let optimized = url;
+
+  // Use Neon PgBouncer (transaction mode) pooling so concurrent Netlify
+  // serverless cold starts share a connection pool instead of each opening
+  // a dedicated session and exhausting Neon max connections.
+  if (optimized.includes("-pooler") && !optimized.includes("pgbouncer=true")) {
+    const separator = optimized.includes("?") ? "&" : "?";
+    optimized = `${optimized}${separator}pgbouncer=true`;
+  }
+
+  // Guard every connection attempt with a short timeout so a slow cold start
+  // surfaces as a clear Prisma error instead of hanging the function.
+  if (!optimized.includes("connect_timeout=")) {
+    const separator = optimized.includes("?") ? "&" : "?";
+    optimized = `${optimized}${separator}connect_timeout=15`;
+  }
+
+  return optimized;
 }
 
 const connectionUrl = getOptimizedDatabaseUrl();
