@@ -11,6 +11,7 @@ import {
   Wallet,
   Zap,
 } from "lucide-react";
+import { DevRoleSwitcher } from "@/components/auth/DevRoleSwitcher";
 import { RoleBadge } from "@/components/auth/RoleBadge";
 import { SignOutButton } from "@/components/auth/SignOutButton";
 import { displayPhone, type UserRole } from "@/lib/auth-types";
@@ -117,6 +118,7 @@ export function AdminShell({
             <div className="mt-2 flex flex-wrap items-center gap-1.5">
               {adminRole && <RoleBadge role={adminRole} />}
             </div>
+            <DevRoleSwitcher className="mt-2 w-full justify-center" />
             <div className="mt-3 flex items-center gap-1.5 rounded-lg border border-cyan-400/12 bg-cyan-400/[0.05] px-2 py-1.5 text-[9px] font-medium text-cyan-200">
               <ShieldEllipsis className="size-3" />
               Global platform access
@@ -190,7 +192,8 @@ export function AdminShell({
           </Link>
 
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-400/15 bg-cyan-400/[0.06] px-2.5 py-1 text-[9px] font-medium text-cyan-200">
+            <DevRoleSwitcher />
+            <span className="hidden items-center gap-1.5 rounded-full border border-cyan-400/15 bg-cyan-400/[0.06] px-2.5 py-1 text-[9px] font-medium text-cyan-200 sm:inline-flex">
               <ShieldEllipsis className="size-3" />
               Super Admin
             </span>

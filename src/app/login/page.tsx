@@ -6,16 +6,15 @@ import { LoginPanel } from "./LoginPanel";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Sign in",
+  title: "Switch demo role",
   robots: { index: false, follow: false },
 };
 
 const REASONS: Record<string, string> = {
-  owner:
-    "Sign in with an owner or admin phone number to open the turf owner dashboard.",
-  admin:
-    "Sign in with a platform admin phone number to open the super admin console.",
-  checkout: "Sign in to hold your slot and continue to secure UPI checkout.",
+  owner: "Choose a role to open the turf owner dashboard with seeded venue data.",
+  admin: "Choose a role to open the super admin console and dispute tools.",
+  checkout:
+    "Choose a role to continue to checkout. Phone verification is disabled.",
 };
 
 function safeNext(value: string | undefined): string | undefined {

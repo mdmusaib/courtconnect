@@ -5,8 +5,7 @@ import { PushNotificationCard } from "@/components/notifications/PushNotificatio
 import { OfflinePassCache } from "@/components/pwa/OfflinePassCache";
 import { getPlayerBookings } from "@/lib/booking-data";
 import { formatINR } from "@/lib/format";
-import { getSessionUser } from "@/lib/session";
-import { redirect } from "next/navigation";
+import { requireSessionUser } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 
@@ -15,12 +14,7 @@ export const metadata = {
 };
 
 export default async function MyBookingsPage() {
-  const player = await getSessionUser();
-
-  if (!player) {
-    redirect("/login?next=%2Fmy-bookings");
-  }
-
+  const player = await requireSessionUser();
   const bookings = await getPlayerBookings(player.phone);
 
   const confirmed = bookings.filter(
@@ -60,7 +54,7 @@ export default async function MyBookingsPage() {
         backHref="/"
         backLabel="Home"
         title="My bookings"
-        subtitle={player ? `Player · ${player.name}` : "Passes and game history"}
+        subtitle={`Player · ${player.name}`}
         right={
           <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-400/15 bg-cyan-400/[0.06] px-2.5 py-1 text-[10px] font-medium text-cyan-200">
             <WifiOff className="size-3" />

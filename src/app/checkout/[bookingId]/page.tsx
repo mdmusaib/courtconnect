@@ -11,7 +11,7 @@ import {
   formatSlotRange,
   formatTime,
 } from "@/lib/format";
-import { getSessionUser } from "@/lib/session";
+import { requireSessionUser } from "@/lib/session";
 import type { CheckoutBookingData } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -28,12 +28,8 @@ export default async function CheckoutPage({
   const { bookingId } = await params;
   const [booking, player] = await Promise.all([
     getBookingDetails(bookingId),
-    getSessionUser(),
+    requireSessionUser(),
   ]);
-
-  if (!player) {
-    redirect(`/login?next=${encodeURIComponent(`/checkout/${bookingId}`)}`);
-  }
 
   if (!booking) {
     notFound();

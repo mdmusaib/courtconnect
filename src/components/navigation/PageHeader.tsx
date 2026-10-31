@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ChevronLeft, MapPin, Ticket } from "lucide-react";
 import { AuthMenu } from "@/components/auth/AuthMenu";
+import { DevRoleSwitcher } from "@/components/auth/DevRoleSwitcher";
 import { Logo } from "@/components/brand/Logo";
 
 export function BrandHeader({
@@ -25,6 +26,7 @@ export function BrandHeader({
           >
             <Ticket className="size-4" />
           </Link>
+          <DevRoleSwitcher />
           <AuthMenu />
         </div>
       </div>

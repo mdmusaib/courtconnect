@@ -12,9 +12,14 @@ import {
 import { useRouter } from "next/navigation";
 import { PhoneAuthModal } from "@/components/PhoneAuthModal";
 import { useToast } from "@/components/ui/ToastProvider";
-import { signOutMockClient } from "@/lib/auth-mock";
 import type { SessionUser } from "@/lib/auth-types";
 import { displayPhone } from "@/lib/auth-types";
+import {
+  DEMO_ACCOUNTS,
+  signOutDemoClient,
+  switchDemoRole,
+  type DemoRole,
+} from "@/lib/demo-auth";
 
 interface LoginOptions {
   next?: string;
@@ -26,6 +31,7 @@ interface AuthContextValue {
   user: SessionUser | null;
   loading: boolean;
   refresh: () => Promise<SessionUser | null>;
+  signInAs: (role: DemoRole, destination?: string) => Promise<SessionUser>;
   signOut: () => Promise<void>;
   openLogin: (options?: LoginOptions) => void;
   closeLogin: () => void;
@@ -97,8 +103,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setLoginOptions(null);
   }, []);
 
-  const handleSuccess = useCallback(
-    (signedInUser: SessionUser) => {
+  const completeSignIn = useCallback(
+    (signedInUser: SessionUser, destination?: string | null) => {
       setUser(signedInUser);
       toast({
         title: `Signed in as ${displayPhone(signedInUser.phone)}`,
@@ -111,7 +117,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         variant: "success",
       });
 
-      const destination = safeNext(loginOptions?.next);
       setLoginOptions(null);
       router.refresh();
 
@@ -119,11 +124,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         router.push(destination);
       }
     },
-    [loginOptions?.next, router, toast],
+    [router, toast],
+  );
+
+  const handleSuccess = useCallback(
+    (signedInUser: SessionUser) => {
+      completeSignIn(signedInUser, safeNext(loginOptions?.next));
+    },
+    [completeSignIn, loginOptions?.next],
+  );
+
+  const signInAs = useCallback(
+    async (role: DemoRole, destination?: string) => {
+      const signedInUser = await switchDemoRole(role);
+      const target =
+        safeNext(destination) ?? DEMO_ACCOUNTS[role].destination;
+
+      completeSignIn(signedInUser, target);
+      return signedInUser;
+    },
+    [completeSignIn],
   );
 
   const signOut = useCallback(async () => {
-    await signOutMockClient();
+    await signOutDemoClient();
     setUser(null);
     toast({
       title: "Signed out",
@@ -150,8 +174,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [router, toast]);
 
   const value = useMemo(
-    () => ({ user, loading, refresh, signOut, openLogin, closeLogin }),
-    [user, loading, refresh, signOut, openLogin, closeLogin],
+    () => ({
+      user,
+      loading,
+      refresh,
+      signInAs,
+      signOut,
+      openLogin,
+      closeLogin,
+    }),
+    [user, loading, refresh, signInAs, signOut, openLogin, closeLogin],
   );
 
   return (

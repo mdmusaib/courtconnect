@@ -12,7 +12,7 @@ import { CancelBookingPanel } from "@/components/booking/CancelBookingPanel";
 import { PageHeader } from "@/components/navigation/PageHeader";
 import { calculateRefundQuote } from "@/lib/cancellation";
 import { getBookingDetails } from "@/lib/booking-data";
-import { getSessionUser } from "@/lib/session";
+import { requireSessionUser } from "@/lib/session";
 import {
   formatDateKey,
   formatDateKeyLong,
@@ -41,10 +41,10 @@ export default async function CancelBookingPage({
   const { id } = await params;
   const [booking, player] = await Promise.all([
     getBookingDetails(id),
-    getSessionUser(),
+    requireSessionUser(),
   ]);
 
-  if (!booking || !player || booking.userId !== player.id) {
+  if (!booking || booking.userId !== player.id) {
     notFound();
   }
 

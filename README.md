@@ -5,12 +5,12 @@ CourtConnect is a mobile-first turf booking PWA for Melvisharam and Vellore. Pla
 ## Stack
 
 - Next.js 15 App Router, React 19, TypeScript, Tailwind CSS 4
-- Mock phone OTP authentication (shared test OTP `1234`) with `firebase-admin` ID-token verification kept as an optional compatibility path
-- Signed HTTP-only session cookies with edge-safe RBAC middleware
+- One-tap demo role switching for Player, Owner, and Admin — no OTP, SMS, Firebase, or third-party identity provider
+- Signed HTTP-only HS256 session JWT written by `/api/auth/sync`; middleware auth checks are bypassed for feature testing
 - Prisma 6 with Neon PostgreSQL
 - Redis slot locks (`ioredis`, NX + 300-second expiry)
 - Gemini 2.5 Flash receipt verification (`@google/genai`)
-- Firebase Cloud Messaging for booking confirmations and match-day reminders
+- Push notification delivery disabled in this build (FCM removed); booking confirmations and passes remain in-app
 - PWA manifest + service worker with offline pass caching
 
 ## Player routes
@@ -18,20 +18,20 @@ CourtConnect is a mobile-first turf booking PWA for Melvisharam and Vellore. Pla
 | Route | Purpose |
 | --- | --- |
 | `/` | Venue discovery, search, sport filters, next-game card |
-| `/login` | Mock phone OTP sign-in (OTP `1234`); returns to the requested page |
-| `/profile` | Verified phone, role badge, account links, sign out, push alerts |
+| `/login` | One-tap demo role picker; returns to the requested page |
+| `/profile` | Demo identity, role badge, account links, sign out, notification status |
 | `/venue/[id]` | Venue details, amenities, court picker |
 | `/venue/[id]/book` | Interactive 7-day slot matrix |
-| `/checkout/[bookingId]` | UPI deep links, itemized breakdown, auto-upload receipt (signed-in players only) |
+| `/checkout/[bookingId]` | UPI deep links, itemized breakdown, auto-upload receipt (falls back to the demo player when no cookie is set) |
 | `/booking/success/[id]` | Confirmed digital pass with QR code |
 | `/booking/cancel/[id]` | Refund estimate, cancellation reason, and confirmed release |
 | `/my-bookings` | Active and past bookings, push alerts, offline-ready passes |
 
-Protected player routes redirect to `/login?next=…`. The session API at
-`/api/auth/sync` accepts a verified mock phone identity (or a Firebase ID token
-when configured), creates a new `PLAYER` on first sign-in — or the matching
-`OWNER`/`ADMIN` role for the demo numbers — and sets the HTTP-only session
-cookie.
+Player routes render without a login wall. When no session cookie is present,
+server pages fall back to the seeded demo player so bookings, passes, and
+checkout still resolve. `/api/auth/sync` accepts `{ "role": "PLAYER" | "OWNER" |
+"ADMIN" }` (or a demo phone number), reuses or creates the matching seeded
+account, and writes the HTTP-only session cookie.
 
 ## Owner routes
 
@@ -42,7 +42,7 @@ cookie.
 | `/owner/quick-entry` | Counter-focused quick-entry desk with the direct-entry modal open on load |
 | `OwnerQuickEntryModal.tsx` | 1-tap direct-entry modal used from the dashboard, calendar, and quick-entry desk |
 
-Owner direct entries use `POST /api/owner/bookings`. Walk-in cash, phone, and direct ground QR bookings are created as confirmed with a ₹0 platform fee, bypassing receipt upload and AI verification. The owner console reads the signed-in session; only `OWNER` and `ADMIN` roles can open `/owner/*`.
+Owner direct entries use `POST /api/owner/bookings`. Walk-in cash, phone, and direct ground QR bookings are created as confirmed with a ₹0 platform fee, bypassing receipt upload and AI verification. The owner console reads the selected session; when no cookie is present, or a player session opens `/owner/*`, it falls back to the seeded owner identity. An `ADMIN` session entering the owner console is mapped to that same seeded owner so the dashboard has venue data to render.
 
 ## Super Admin routes
 
@@ -54,7 +54,7 @@ Owner direct entries use `POST /api/owner/bookings`. Walk-in cash, phone, and di
 | `/admin/disputes` | Review player disputes and apply full, partial, or rejected refund overrides |
 | `/admin/revenue` | Redirects to `/admin/payouts` |
 
-Admin mutations are recorded in `AdminAction` with the acting admin, entity, summary, and before/after metadata. Only `VERIFIED` venues appear in player discovery and can be opened or booked. `/admin/*` is restricted to `ADMIN` sessions at both the middleware and API layers.
+Admin mutations are recorded in `AdminAction` with the acting admin, entity, summary, and before/after metadata. Only `VERIFIED` venues appear in player discovery and can be opened or booked. `/admin/*` is open in this testing build: a missing or non-admin session resolves to the seeded platform admin, and admin API actions attribute changes to that account instead of returning `403`.
 
 ## Cancellation & refund policy
 
@@ -89,35 +89,31 @@ Required environment variables live in `.env`:
 - `GEMINI_API_KEY` — Google AI Studio key for receipt vision
 - `NEXT_PUBLIC_UPI_ID` — UPI collection ID used by checkout deep links
 - `CRON_SECRET` — protects the match-day reminder endpoint in production
-- `NEXT_PUBLIC_FIREBASE_API_KEY`, `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`, `NEXT_PUBLIC_FIREBASE_PROJECT_ID`, `NEXT_PUBLIC_FIREBASE_APP_ID` — optional; only needed for the legacy Firebase phone-auth branch or web push
-- `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`, `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID`, `NEXT_PUBLIC_FIREBASE_VAPID_KEY` — required only for web push
-- `FIREBASE_SERVICE_ACCOUNT_JSON`, `FIREBASE_SERVICE_ACCOUNT_BASE64`, or `FIREBASE_PROJECT_ID` + `FIREBASE_CLIENT_EMAIL` + `FIREBASE_PRIVATE_KEY` — optional; server credentials for Firebase ID-token verification and FCM
-- `DEMO_PLAYER_PHONE`, `DEMO_OWNER_PHONE`, `DEMO_ADMIN_PHONE` — optional seed account overrides
 
-See `.env.example` for the full template. Replace `NEXT_PUBLIC_UPI_ID` with a real collection ID before accepting live payments.
+No Firebase environment variables are required. See `.env.example` for the full template. Replace `NEXT_PUBLIC_UPI_ID` with a real collection ID before accepting live payments.
 
 ## Authentication & RBAC
 
-The checked-in build uses a mock phone OTP flow so every route can be exercised
-without an SMS provider:
+This testing build has no login wall, OTP, SMS, or third-party identity
+provider. One tap on a role button writes an HTTP-only session cookie through
+`POST /api/auth/sync`:
 
-1. `src/components/PhoneAuthModal.tsx` accepts any 10-digit mobile number. The
-   shared test OTP is **`1234`**; no SMS is sent.
-2. `src/lib/auth-mock.ts` verifies the OTP, mints a short-lived mock phone
-   token, and posts the token to `POST /api/auth/sync`.
-3. The sync route validates the token (or accepts the test OTP directly),
-   resolves the user by canonical phone number, and creates a missing account.
-   The demo owner/admin numbers receive those roles; every other new number is
-   created as `PLAYER`.
-4. A 7-day HS256 session JWT is written to the `courtconnect_session` cookie
-   (`HttpOnly`, `Secure` in production, `SameSite=Lax`). Middleware verifies it
-   on the edge without a database round-trip.
-5. Page layouts and API handlers re-read the user from PostgreSQL, so server-side
-   authorization always uses the current role.
-
-`POST /api/auth/sync` also still accepts `{ idToken }` and verifies it with
-Firebase Admin when Firebase credentials are configured. The UI uses the mock
-flow by default.
+1. The header role switcher (`src/components/auth/DevRoleSwitcher.tsx`),
+   `/login` role buttons, and `PhoneAuthModal.tsx` post
+   `{ "role": "PLAYER" | "OWNER" | "ADMIN" }` to `/api/auth/sync`. No phone
+   number or verification code is required.
+2. The sync route resolves the matching seeded account (upserting it if it is
+   missing), then writes a 7-day HS256 JWT to the `courtconnect_session` cookie
+   (`HttpOnly`, `Secure` in production, `SameSite=Lax`). The token is signed
+   with `AUTH_SECRET` and exposes only `sub`, `uid`, `phone`, `role`, and
+   `name`.
+3. Server pages and API handlers re-read the user from PostgreSQL through
+   `getSessionUser`. `requireSessionUser` and `requireRole` fall back to the
+   matching demo identity instead of redirecting, so pages still render when the
+   cookie is absent or the database is unavailable.
+4. `src/middleware.ts` is a pass-through. No request is redirected to `/login`,
+   and no API returns `401 AUTH_REQUIRED` or `403 ROLE_FORBIDDEN` for a missing
+   or mismatched role.
 
 | Demo phone | Role | Name |
 | --- | --- | --- |
@@ -125,39 +121,39 @@ flow by default.
 | `+91 98765 43211` | `PLAYER` | Arjun Kumar |
 | `+91 98765 43212` | `ADMIN` | Platform Admin |
 
-| Route | Requirement |
+| Route | Behavior in this build |
 | --- | --- |
-| `/owner/*` | `OWNER` or `ADMIN` |
-| `/admin/*` | `ADMIN` |
-| `/checkout/*` | Any authenticated user; the booking must belong to that user |
-| `/my-bookings`, `/profile`, `/booking/cancel/*` | Any authenticated user |
+| `/owner/*` | Any session renders; a missing or player session resolves to the demo owner, and an admin session is mapped to that owner so seeded venue data appears |
+| `/admin/*` | Any session renders; a missing or non-admin session resolves to the seeded platform admin |
+| `/checkout/*` | Any session; the booking must belong to that user, with the demo player as the fallback identity |
+| `/my-bookings`, `/profile`, `/booking/cancel/*` | Any session; missing sessions fall back to the demo player |
 
-Unauthenticated page requests redirect to `/login?next=…`. Signed-in users with
-the wrong role are redirected home with a one-time toast explaining which role
-is required. API routes independently return `401 AUTH_REQUIRED` or
-`403 ROLE_FORBIDDEN`; they never rely on middleware alone.
-
-> **Production warning:** the shared OTP and client-minted mock token are for
-> local demos only. Replace `src/lib/auth-mock.ts` with a real SMS provider (or
-> re-enable the Firebase phone-auth path) before accepting production traffic.
+> **Production warning:** role switching is intentionally unauthenticated for
+> demos. Restore a real identity provider and re-enable middleware and API role
+> checks before accepting production traffic.
 
 ## Demo data
 
-The seed is idempotent and creates:
+The seed is idempotent and creates deterministic accounts and IDs that the role
+switcher reuses:
 
-- Owner `Test Owner` (`9876543210`) with role `OWNER`
-- Demo player `Arjun Kumar` (`9876543211`) with role `PLAYER`
-- Platform admin `Platform Admin` (`9876543212`) with role `ADMIN`
+| Role | Name | Phone | Seed ID |
+| --- | --- | --- | --- |
+| `OWNER` | Test Owner | `9876543210` | `6f1c2a10-0000-4000-8000-000000000001` |
+| `PLAYER` | Arjun Kumar | `9876543211` | `6f1c2a10-0000-4000-8000-000000000002` |
+| `ADMIN` | Platform Admin | `9876543212` | `6f1c2a10-0000-4000-8000-000000000003` |
+
+The seed also creates:
+
 - 3 venues and 7 courts across Melvisharam and Vellore, including one pending venue
 - **Test Court (₹1 Mobile Test)** at Melvisharam Turf Arena, priced at ₹1/hour for end-to-end mobile payment testing
 - 5 bookings: confirmed upcoming, past confirmed, pending checkout, cancelled/refunded, and confirmed cricket
 - 2 disputes and an initial admin audit entry
 
-To use the seeded accounts, open the sign-in modal and pick a demo account chip
-(or type its number), then enter OTP `1234`. When a seeded phone signs in,
-`/api/auth/sync` preserves its existing role. New phone numbers become players.
-Promote any other owner or admin from Prisma Studio (`npx prisma studio`) or
-with SQL:
+Because the demo IDs match the seed, bookings, venues, and disputes stay
+attached to the selected identity. Use the header role switcher to move between
+Player, Owner, and Admin without signing out. To promote any other account, use
+Prisma Studio (`npx prisma studio`) or SQL:
 
 ```sql
 UPDATE "User" SET role = 'OWNER' WHERE phone = '9876543210';
@@ -204,13 +200,27 @@ In development, booking creation falls back to database-only conflict checks if 
 
 ## Push notifications
 
-Players can enable device alerts from `/my-bookings`. The browser registers an FCM token through `POST /api/notifications/tokens`; disabling the toggle calls `DELETE /api/notifications/tokens`. Confirmed bookings trigger an instant push from receipt verification, and cancellations send a refund update.
+Push delivery is disabled in this build. `src/lib/fcm.ts` is a no-op stub that
+keeps the previous return shapes, so booking confirmation, cancellation, and
+reminder code paths still run without Firebase credentials. `/my-bookings`
+shows a static notification card, while confirmed passes and offline caching
+continue to work in-app.
 
-Match-day reminders look 24 hours ahead for confirmed bookings that have not been reminded yet:
+The token endpoints remain for compatibility:
+
+- `POST /api/notifications/tokens` stores a posted device token against the
+  current demo user.
+- `DELETE /api/notifications/tokens` removes that token.
+- No token is registered automatically, and no notification is delivered.
+
+Match-day reminders look 24 hours ahead for confirmed bookings that have not
+been reminded yet:
 
 ```bash
 curl -X POST http://localhost:3000/api/notifications/match-day \
   -H "Authorization: Bearer $CRON_SECRET"
 ```
 
-The endpoint also accepts `x-cron-secret`. Without `CRON_SECRET`, it is callable only outside production. Run it from a scheduler at least once per hour. The FCM helpers skip sending cleanly when credentials are missing, so local development works without Firebase.
+The endpoint also accepts `x-cron-secret`. Without `CRON_SECRET`, it is callable
+only outside production. The sweep currently responds with `configured: false`
+and sends nothing, so it is safe to leave scheduled or disabled.

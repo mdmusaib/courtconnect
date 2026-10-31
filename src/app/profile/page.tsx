@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import {
   ArrowUpRight,
   BadgeCheck,
@@ -19,7 +18,7 @@ import {
   initialsForName,
   roleLabel,
 } from "@/lib/auth-types";
-import { getSessionUser } from "@/lib/session";
+import { requireSessionUser } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 
@@ -29,12 +28,7 @@ export const metadata = {
 };
 
 export default async function ProfilePage() {
-  const user = await getSessionUser();
-
-  if (!user) {
-    redirect("/login?next=%2Fprofile");
-  }
-
+  const user = await requireSessionUser();
   const canUseOwnerDashboard = user.role === "OWNER" || user.role === "ADMIN";
   const canUseAdminDashboard = user.role === "ADMIN";
 
@@ -67,7 +61,7 @@ export default async function ProfilePage() {
                 </p>
                 <p className="mt-1 flex items-center gap-1.5 text-[10px] text-slate-500">
                   <BadgeCheck className="size-3 text-cyan-300" />
-                  Demo phone OTP · {roleLabel(user.role)}
+                  Demo role session · {roleLabel(user.role)}
                 </p>
               </div>
             </div>
@@ -89,7 +83,7 @@ export default async function ProfilePage() {
             <Fact
               icon={<Phone className="size-3.5" />}
               label="Sign-in"
-              value="Phone OTP"
+              value="Role switcher"
             />
           </div>
         </section>
