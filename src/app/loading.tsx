@@ -26,7 +26,7 @@ export default function HomeLoading() {
         {[0, 1, 2, 3].map((block) => (
           <section
             key={block}
-            className="mt-8 overflow-hidden rounded-3xl border border-white/[0.07] bg-surface/85"
+            className="mt-8 overflow-hidden rounded-3xl border border-line bg-card"
           >
             <ShimmerBox className="h-44 rounded-none" />
             <div className="p-4">
@@ -39,7 +39,7 @@ export default function HomeLoading() {
                 <ShimmerBox className="h-6 w-24 rounded-full" />
                 <ShimmerBox className="h-6 w-16 rounded-full" />
               </div>
-              <div className="mt-4 flex items-center justify-between border-t border-white/6 pt-3">
+              <div className="mt-4 flex items-center justify-between border-t border-line pt-3">
                 <ShimmerBox className="h-5 w-20" />
                 <ShimmerBox className="h-4 w-28" />
               </div>

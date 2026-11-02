@@ -41,7 +41,7 @@ export default async function LoginPage({
       <main className="mx-auto flex max-w-lg flex-col px-4 pt-10">
         <Link
           href="/"
-          className="inline-flex w-fit items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500 transition hover:text-emerald-300"
+          className="inline-flex w-fit items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500 transition hover:text-primary"
         >
           <ArrowLeft className="size-3" />
           Back to venues

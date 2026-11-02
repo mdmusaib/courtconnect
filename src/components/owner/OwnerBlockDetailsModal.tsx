@@ -102,18 +102,18 @@ export function OwnerBlockDetailsModal({
       />
 
       {/* Modal Dialog */}
-      <div className="relative z-10 w-full max-w-md overflow-hidden rounded-3xl border border-white/10 bg-[#121926] p-5 shadow-2xl sm:p-6">
+      <div className="relative z-10 w-full max-w-md overflow-hidden rounded-3xl border border-line bg-white p-5 shadow-lift sm:p-6">
         {/* Header Badge */}
-        <div className="flex items-start justify-between gap-3 border-b border-white/6 pb-4">
+        <div className="flex items-start justify-between gap-3 border-b border-line pb-4">
           <div className="flex items-center gap-2.5">
             {isRecurring ? (
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/15 px-3 py-1 text-xs font-semibold text-indigo-300">
-                <Lock className="size-3.5 text-indigo-400" />
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700">
+                <Lock className="size-3.5 text-indigo-600" />
                 🔒 Membership Block
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-rose-500/30 bg-rose-500/15 px-3 py-1 text-xs font-semibold text-rose-300">
-                <Wrench className="size-3.5 text-rose-400" />
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">
+                <Wrench className="size-3.5 text-rose-600" />
                 🛠️ Maintenance
               </span>
             )}
@@ -121,14 +121,14 @@ export function OwnerBlockDetailsModal({
           <button
             type="button"
             onClick={() => onOpenChange(false)}
-            className="grid size-8 place-items-center rounded-xl border border-white/8 bg-white/[0.03] text-slate-400 transition hover:bg-white/[0.08] hover:text-white"
+            className="grid size-8 place-items-center rounded-xl border border-line bg-slate-50 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
           >
             <X className="size-4" />
           </button>
         </div>
 
         {error && (
-          <div className="mt-3 rounded-xl border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-xs text-rose-300">
+          <div className="mt-3 rounded-xl border border-rose-300 bg-rose-50 px-3 py-2 text-xs text-rose-700">
             {error}
           </div>
         )}
@@ -136,45 +136,45 @@ export function OwnerBlockDetailsModal({
         {/* Content */}
         <div className="mt-4 space-y-4">
           <div>
-            <h3 className="text-lg font-semibold tracking-tight text-white">
+            <h3 className="text-lg font-semibold tracking-tight text-slate-900">
               {block.reason}
             </h3>
-            <p className="mt-0.5 text-xs text-slate-400">
+            <p className="mt-0.5 text-xs text-slate-500">
               {block.courtName} · {block.venueName}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-3.5 space-y-2.5 text-xs">
-            <div className="flex items-center justify-between text-slate-300">
-              <span className="inline-flex items-center gap-1.5 text-slate-400">
-                <Clock className="size-3.5 text-emerald-400" />
+          <div className="rounded-2xl border border-line bg-slate-50 p-3.5 space-y-2.5 text-xs">
+            <div className="flex items-center justify-between text-slate-600">
+              <span className="inline-flex items-center gap-1.5 text-slate-500">
+                <Clock className="size-3.5 text-primary" />
                 Active Hours
               </span>
-              <span className="font-semibold text-white">{timeLabel}</span>
+              <span className="font-semibold text-slate-900">{timeLabel}</span>
             </div>
 
             {isRecurring && daysLabel && (
-              <div className="flex items-center justify-between text-slate-300">
-                <span className="inline-flex items-center gap-1.5 text-slate-400">
-                  <Repeat className="size-3.5 text-indigo-400" />
+              <div className="flex items-center justify-between text-slate-600">
+                <span className="inline-flex items-center gap-1.5 text-slate-500">
+                  <Repeat className="size-3.5 text-indigo-600" />
                   Frequency
                 </span>
-                <span className="font-semibold text-indigo-300">{daysLabel}</span>
+                <span className="font-semibold text-indigo-700">{daysLabel}</span>
               </div>
             )}
 
-            <div className="flex items-center justify-between text-slate-300">
-              <span className="inline-flex items-center gap-1.5 text-slate-400">
-                <Calendar className="size-3.5 text-cyan-400" />
+            <div className="flex items-center justify-between text-slate-600">
+              <span className="inline-flex items-center gap-1.5 text-slate-500">
+                <Calendar className="size-3.5 text-cyan-600" />
                 Type
               </span>
-              <span className="font-medium text-slate-300">
+              <span className="font-medium text-slate-600">
                 {isRecurring ? "Permanent Daily Recurring" : "Temporary Closure"}
               </span>
             </div>
           </div>
 
-          <p className="text-[11px] leading-relaxed text-slate-400">
+          <p className="text-[11px] leading-relaxed text-slate-500">
             Players on the PWA cannot book online during these blocked hours. Unblocking frees the slot immediately.
           </p>
 
@@ -184,7 +184,7 @@ export function OwnerBlockDetailsModal({
               type="button"
               onClick={handleTriggerEdit}
               disabled={isDeleting}
-              className="inline-flex h-10 items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] px-4 text-xs font-semibold text-white transition hover:bg-white/[0.08]"
+              className="inline-flex h-10 items-center justify-center gap-1.5 rounded-xl border border-line bg-slate-50 px-4 text-xs font-semibold text-slate-700 transition hover:bg-slate-100"
             >
               <Edit3 className="size-3.5" />
               Edit Block
@@ -194,7 +194,7 @@ export function OwnerBlockDetailsModal({
               type="button"
               onClick={handleUnblock}
               disabled={isDeleting}
-              className="inline-flex h-10 items-center justify-center gap-1.5 rounded-xl border border-rose-500/30 bg-rose-600 px-4 text-xs font-semibold text-white shadow-lg transition hover:bg-rose-500 disabled:opacity-50"
+              className="inline-flex h-10 items-center justify-center gap-1.5 rounded-xl border border-rose-300 bg-rose-600 px-4 text-xs font-semibold text-white shadow-md transition hover:bg-rose-700 disabled:opacity-50"
             >
               {isDeleting ? (
                 <Loader2 className="size-3.5 animate-spin" />

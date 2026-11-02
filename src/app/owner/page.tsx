@@ -52,50 +52,50 @@ export default async function OwnerDashboardPage() {
 
   return (
     <div className="animate-fade-up">
-      <section className="relative overflow-hidden rounded-3xl border border-white/8 bg-gradient-to-br from-[#17243a] via-surface to-oled p-5 shadow-[0_30px_90px_-55px_rgba(0,0,0,1)] sm:p-7">
+      <section className="relative overflow-hidden rounded-3xl border border-line bg-gradient-to-br from-white via-white to-primary-soft p-5 shadow-card sm:p-7">
         <div className="pointer-events-none absolute -right-24 -top-28 size-72 rounded-full bg-emerald-400/[0.09] blur-3xl" />
         <div className="pointer-events-none absolute -bottom-32 left-1/3 size-72 rounded-full bg-cyan-400/[0.05] blur-3xl" />
 
         <div className="relative flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
           <div className="max-w-2xl">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/20 bg-emerald-400/[0.08] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-300">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-primary-soft px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-700">
                 <LayoutDashboard className="size-3" />
                 Owner command centre
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/8 bg-white/[0.03] px-3 py-1 text-[10px] font-medium text-slate-400">
-                <Sparkles className="size-3 text-cyan-300" />
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-slate-50 px-3 py-1 text-[10px] font-medium text-slate-500">
+                <Sparkles className="size-3 text-cyan-600" />
                 AI-free direct entry
               </span>
             </div>
 
-            <h1 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            <h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
               Your turf, at a glance.
             </h1>
-            <p className="mt-2 max-w-xl text-sm leading-relaxed text-slate-400">
+            <p className="mt-2 max-w-xl text-sm leading-relaxed text-slate-500">
               {formatDateKeyLong(data.todayKey)} · {data.courtCount} courts ·{" "}
               {data.venues.map((venue) => venue.name).join(" · ")}
             </p>
 
             <div className="mt-5 flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-xl border border-white/8 bg-white/[0.03] px-3 py-2 text-[11px] text-slate-300">
-                <TrendingUp className="size-3.5 text-emerald-400" />
+              <span className="inline-flex items-center gap-1.5 rounded-xl border border-line bg-white/70 px-3 py-2 text-[11px] text-slate-600">
+                <TrendingUp className="size-3.5 text-primary" />
                 Booked value{" "}
-                <strong className="font-semibold text-white">
+                <strong className="font-semibold text-slate-900">
                   {formatINR(data.totalRevenue)}
                 </strong>
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-xl border border-white/8 bg-white/[0.03] px-3 py-2 text-[11px] text-slate-300">
-                <Banknote className="size-3.5 text-amber-300" />
+              <span className="inline-flex items-center gap-1.5 rounded-xl border border-line bg-white/70 px-3 py-2 text-[11px] text-slate-600">
+                <Banknote className="size-3.5 text-amber-700" />
                 Direct{" "}
-                <strong className="font-semibold text-white">
+                <strong className="font-semibold text-slate-900">
                   {formatINR(data.directRevenue)}
                 </strong>
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-xl border border-white/8 bg-white/[0.03] px-3 py-2 text-[11px] text-slate-300">
-                <Wallet className="size-3.5 text-cyan-300" />
+              <span className="inline-flex items-center gap-1.5 rounded-xl border border-line bg-white/70 px-3 py-2 text-[11px] text-slate-600">
+                <Wallet className="size-3.5 text-cyan-600" />
                 Online payout{" "}
-                <strong className="font-semibold text-white">
+                <strong className="font-semibold text-slate-900">
                   {formatINR(data.onlinePayout)}
                 </strong>
               </span>
@@ -106,7 +106,7 @@ export default async function OwnerDashboardPage() {
             <OwnerQuickEntryModal courts={courts} todayKey={data.todayKey} />
             <Link
               href="/owner/calendar"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-sm font-semibold text-white transition hover:border-white/20 hover:bg-white/[0.07] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-2xl border border-line bg-white px-4 text-sm font-semibold text-slate-700 transition hover:border-slate-900/20 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
             >
               <CalendarDays className="size-4" />
               Open calendar
@@ -124,44 +124,44 @@ export default async function OwnerDashboardPage() {
                 ? `${data.pendingCount} online hold${data.pendingCount === 1 ? "" : "s"}`
                 : `${data.maintenanceCount} maintenance block${data.maintenanceCount === 1 ? "" : "s"}`
             }
-            accent="text-emerald-300"
-            iconClass="border-emerald-400/20 bg-emerald-400/10"
+            accent="text-emerald-600"
+            iconClass="border-emerald-200 bg-primary-soft"
           />
           <Metric
             icon={Banknote}
             label="Cash collected"
             value={formatINR(data.cashCollected)}
             hint="Walk-in cash logged today"
-            accent="text-amber-300"
-            iconClass="border-amber-400/20 bg-amber-400/10"
+            accent="text-amber-700"
+            iconClass="border-amber-200 bg-amber-50"
           />
           <Metric
             icon={Wallet}
             label="Online payouts due"
             value={formatINR(data.onlinePayout)}
             hint="100% court rate, 0% commission"
-            accent="text-cyan-300"
-            iconClass="border-cyan-400/20 bg-cyan-400/10"
+            accent="text-cyan-600"
+            iconClass="border-cyan-200 bg-cyan-50"
           />
           <Metric
             icon={Gauge}
             label="Occupancy"
             value={`${data.occupancyRate}%`}
             hint={`${data.bookedHours}h booked across ${data.courtCount} courts`}
-            accent="text-violet-300"
-            iconClass="border-violet-400/20 bg-violet-400/10"
+            accent="text-violet-600"
+            iconClass="border-violet-200 bg-violet-50"
           />
         </div>
       </section>
 
       <div className="mt-4 grid gap-4 xl:grid-cols-[1.45fr_1fr]">
-        <section className="overflow-hidden rounded-3xl border border-white/8 bg-surface/70">
-          <div className="flex items-start justify-between gap-3 border-b border-white/6 px-5 py-4">
+        <section className="overflow-hidden rounded-3xl border border-line bg-card">
+          <div className="flex items-start justify-between gap-3 border-b border-line px-5 py-4">
             <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-400">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
                 Live today
               </p>
-              <h2 className="mt-0.5 text-lg font-semibold tracking-tight text-white">
+              <h2 className="mt-0.5 text-lg font-semibold tracking-tight text-slate-900">
                 Court flow
               </h2>
               <p className="mt-0.5 text-[11px] text-slate-500">
@@ -170,7 +170,7 @@ export default async function OwnerDashboardPage() {
             </div>
             <Link
               href="/owner/calendar"
-              className="inline-flex items-center gap-1 rounded-full border border-white/8 bg-white/[0.03] px-2.5 py-1.5 text-[10px] font-medium text-slate-300 transition hover:border-emerald-400/25 hover:text-emerald-300"
+              className="inline-flex items-center gap-1 rounded-full border border-line bg-slate-50 px-2.5 py-1.5 text-[10px] font-medium text-slate-600 transition hover:border-emerald-300 hover:text-primary"
             >
               Full calendar
               <ArrowRight className="size-3" />
@@ -179,10 +179,10 @@ export default async function OwnerDashboardPage() {
 
           {schedule.length === 0 ? (
             <div className="px-5 py-12 text-center">
-              <div className="mx-auto grid size-12 place-items-center rounded-2xl border border-white/8 bg-white/[0.03] text-slate-500">
+              <div className="mx-auto grid size-12 place-items-center rounded-2xl border border-line bg-slate-50 text-slate-500">
                 <CalendarPlus className="size-5" />
               </div>
-              <p className="mt-3 text-sm font-semibold text-white">
+              <p className="mt-3 text-sm font-semibold text-slate-900">
                 No court activity yet today.
               </p>
               <p className="mx-auto mt-1 max-w-sm text-xs leading-relaxed text-slate-500">
@@ -191,14 +191,14 @@ export default async function OwnerDashboardPage() {
               </p>
             </div>
           ) : (
-            <div className="divide-y divide-white/[0.045]">
+            <div className="divide-y divide-slate-900/5">
               {schedule.map((booking) => (
                 <div
                   key={booking.id}
-                  className="flex items-center gap-3 px-4 py-3 transition hover:bg-white/[0.02] sm:px-5"
+                  className="flex items-center gap-3 px-4 py-3 transition hover:bg-slate-50 sm:px-5"
                 >
                   <div className="w-[4.6rem] shrink-0">
-                    <p className="text-[11px] font-semibold text-white">
+                    <p className="text-[11px] font-semibold text-slate-900">
                       {formatSlotRange(
                         new Date(booking.slotStart),
                         new Date(booking.slotEnd),
@@ -213,7 +213,7 @@ export default async function OwnerDashboardPage() {
 
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-1.5">
-                      <p className="truncate text-xs font-semibold text-white">
+                      <p className="truncate text-xs font-semibold text-slate-900">
                         {booking.courtName}
                       </p>
                       <BookingSourceTag
@@ -227,7 +227,7 @@ export default async function OwnerDashboardPage() {
                   </div>
 
                   <div className="shrink-0 text-right">
-                    <p className="text-xs font-semibold text-white">
+                    <p className="text-xs font-semibold text-slate-900">
                       {booking.status === "MAINTENANCE"
                         ? "Blocked"
                         : formatINR(booking.ownerPayout)}
@@ -249,17 +249,17 @@ export default async function OwnerDashboardPage() {
         </section>
 
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
-          <section className="rounded-3xl border border-white/8 bg-surface/70 p-5">
+          <section className="rounded-3xl border border-line bg-card p-5">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-300">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-600">
                   Court load
                 </p>
-                <h2 className="mt-0.5 text-base font-semibold text-white">
+                <h2 className="mt-0.5 text-base font-semibold text-slate-900">
                   Occupancy by court
                 </h2>
               </div>
-              <span className="rounded-full border border-white/8 bg-white/[0.03] px-2 py-1 text-[9px] text-slate-400">
+              <span className="rounded-full border border-line bg-slate-50 px-2 py-1 text-[9px] text-slate-500">
                 {data.bookedHours}h total
               </span>
             </div>
@@ -269,7 +269,7 @@ export default async function OwnerDashboardPage() {
                 <div key={item.court.id}>
                   <div className="flex items-center justify-between gap-3">
                     <div className="min-w-0">
-                      <p className="truncate text-[11px] font-medium text-white">
+                      <p className="truncate text-[11px] font-medium text-slate-900">
                         {item.court.name}
                       </p>
                       <p className="truncate text-[9px] text-slate-500">
@@ -277,7 +277,7 @@ export default async function OwnerDashboardPage() {
                       </p>
                     </div>
                     <div className="shrink-0 text-right">
-                      <p className="text-[11px] font-semibold text-white">
+                      <p className="text-[11px] font-semibold text-slate-900">
                         {item.utilization}%
                       </p>
                       <p className="text-[9px] text-slate-500">
@@ -285,7 +285,7 @@ export default async function OwnerDashboardPage() {
                       </p>
                     </div>
                   </div>
-                  <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/[0.06]">
+                  <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-slate-100">
                     <div
                       className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-cyan-400"
                       style={{ width: `${item.utilization}%` }}
@@ -296,30 +296,30 @@ export default async function OwnerDashboardPage() {
             </div>
           </section>
 
-          <section className="rounded-3xl border border-emerald-400/12 bg-gradient-to-br from-emerald-400/[0.08] via-surface/70 to-surface/70 p-5">
+          <section className="rounded-3xl border border-emerald-200 bg-gradient-to-br from-primary-soft via-white to-white p-5">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-300">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-700">
                   Next up
                 </p>
-                <h2 className="mt-0.5 text-base font-semibold text-white">
+                <h2 className="mt-0.5 text-base font-semibold text-slate-900">
                   {nextBooking ? "Next confirmed game" : "No upcoming game yet"}
                 </h2>
               </div>
-              <span className="grid size-9 place-items-center rounded-xl border border-emerald-400/20 bg-emerald-400/10 text-emerald-300">
+              <span className="grid size-9 place-items-center rounded-xl border border-emerald-200 bg-primary-soft text-primary">
                 <Clock3 className="size-4" />
               </span>
             </div>
 
             {nextBooking ? (
               <>
-                <p className="mt-3 text-xl font-semibold tracking-tight text-white">
+                <p className="mt-3 text-xl font-semibold tracking-tight text-slate-900">
                   {formatSlotRange(
                     new Date(nextBooking.slotStart),
                     new Date(nextBooking.slotEnd),
                   )}
                 </p>
-                <p className="mt-0.5 text-[11px] text-slate-400">
+                <p className="mt-0.5 text-[11px] text-slate-500">
                   {formatDateKeyLong(
                     formatDateKey(new Date(nextBooking.slotStart)),
                   )}{" "}
@@ -336,14 +336,14 @@ export default async function OwnerDashboardPage() {
                 </div>
                 <Link
                   href="/owner/calendar"
-                  className="mt-4 inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-300 transition hover:text-emerald-200"
+                  className="mt-4 inline-flex items-center gap-1.5 text-[11px] font-semibold text-primary transition hover:text-primary-deep"
                 >
                   See it on the calendar
                   <ArrowUpRight className="size-3.5" />
                 </Link>
               </>
             ) : (
-              <p className="mt-3 text-xs leading-relaxed text-slate-400">
+              <p className="mt-3 text-xs leading-relaxed text-slate-500">
                 Fill the next slot with a walk-in or phone booking. Direct
                 entries are confirmed instantly with a ₹0 platform fee.
               </p>
@@ -352,20 +352,20 @@ export default async function OwnerDashboardPage() {
         </div>
       </div>
 
-      <section className="mt-4 overflow-hidden rounded-3xl border border-white/8 bg-surface/70">
-        <div className="flex items-start justify-between gap-3 border-b border-white/6 px-5 py-4">
+      <section className="mt-4 overflow-hidden rounded-3xl border border-line bg-card">
+        <div className="flex items-start justify-between gap-3 border-b border-line px-5 py-4">
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-violet-300">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-violet-600">
               Direct ledger
             </p>
-            <h2 className="mt-0.5 text-lg font-semibold tracking-tight text-white">
+            <h2 className="mt-0.5 text-lg font-semibold tracking-tight text-slate-900">
               Recent direct entries
             </h2>
             <p className="mt-0.5 text-[11px] text-slate-500">
               Walk-in, phone, and ground QR bookings logged by your team.
             </p>
           </div>
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-400/20 bg-violet-400/[0.08] px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-violet-200">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-200 bg-violet-50 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-violet-700">
             <Zap className="size-3" />
             ₹0 platform fee
           </span>
@@ -373,7 +373,7 @@ export default async function OwnerDashboardPage() {
 
         {data.recentDirectEntries.length === 0 ? (
           <div className="px-5 py-10 text-center">
-            <p className="text-sm font-semibold text-white">
+            <p className="text-sm font-semibold text-slate-900">
               No direct entries yet.
             </p>
             <p className="mx-auto mt-1 max-w-sm text-xs leading-relaxed text-slate-500">
@@ -385,7 +385,7 @@ export default async function OwnerDashboardPage() {
           <div className="overflow-x-auto">
             <table className="w-full min-w-[640px] text-left">
               <thead>
-                <tr className="border-b border-white/6 text-[9px] uppercase tracking-[0.14em] text-slate-500">
+                <tr className="border-b border-line text-[9px] uppercase tracking-[0.14em] text-slate-500">
                   <th className="px-5 py-2.5 font-medium">Court</th>
                   <th className="px-3 py-2.5 font-medium">Source</th>
                   <th className="px-3 py-2.5 font-medium">Slot</th>
@@ -393,11 +393,11 @@ export default async function OwnerDashboardPage() {
                   <th className="px-5 py-2.5 text-right font-medium">Amount</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/[0.045]">
+              <tbody className="divide-y divide-slate-900/5">
                 {data.recentDirectEntries.map((entry) => (
-                  <tr key={entry.id} className="transition hover:bg-white/[0.02]">
+                  <tr key={entry.id} className="transition hover:bg-slate-50">
                     <td className="px-5 py-3">
-                      <p className="text-xs font-medium text-white">
+                      <p className="text-xs font-medium text-slate-900">
                         {entry.courtName}
                       </p>
                       <p className="text-[9px] text-slate-500">
@@ -411,7 +411,7 @@ export default async function OwnerDashboardPage() {
                       />
                     </td>
                     <td className="px-3 py-3">
-                      <p className="text-[11px] text-slate-300">
+                      <p className="text-[11px] text-slate-600">
                         {formatDateKeyLong(
                           formatDateKey(new Date(entry.slotStart)),
                         )}
@@ -423,14 +423,14 @@ export default async function OwnerDashboardPage() {
                         )}
                       </p>
                     </td>
-                    <td className="px-3 py-3 text-[11px] text-slate-400">
+                    <td className="px-3 py-3 text-[11px] text-slate-500">
                       {entry.customerName ?? "—"}
                     </td>
                     <td className="px-5 py-3 text-right">
-                      <p className="text-xs font-semibold text-white">
+                      <p className="text-xs font-semibold text-slate-900">
                         {formatINR(entry.ownerPayout)}
                       </p>
-                      <p className="text-[9px] text-amber-300/80">
+                      <p className="text-[9px] text-amber-700">
                         {entry.dueAmount > 0
                           ? `${formatINR(entry.dueAmount)} due`
                           : "Collected"}
@@ -463,7 +463,7 @@ function Metric({
   iconClass: string;
 }) {
   return (
-    <div className="rounded-2xl border border-white/8 bg-black/10 p-3.5 backdrop-blur-sm">
+    <div className="rounded-2xl border border-line bg-white/70 p-3.5 backdrop-blur-sm">
       <div className="flex items-center gap-2">
         <span
           className={`grid size-8 place-items-center rounded-xl border ${iconClass}`}
@@ -474,7 +474,7 @@ function Metric({
           {label}
         </p>
       </div>
-      <p className="mt-2.5 text-xl font-semibold tracking-tight text-white sm:text-2xl">
+      <p className="mt-2.5 text-xl font-semibold tracking-tight text-slate-900 sm:text-2xl">
         {value}
       </p>
       <p className="mt-0.5 truncate text-[9px] text-slate-500">{hint}</p>

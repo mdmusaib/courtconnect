@@ -25,11 +25,11 @@ export function getBookingSourceTheme(
     return {
       label: "Maintenance",
       icon: Wrench,
-      pillClass: "border-rose-400/25 bg-rose-400/10 text-rose-200",
-      dotClass: "bg-rose-400",
-      iconClass: "text-rose-300",
+      pillClass: "border-rose-200 bg-rose-50 text-rose-700",
+      dotClass: "bg-rose-500",
+      iconClass: "text-rose-600",
       blockClass:
-        "border-rose-400/25 bg-rose-400/[0.12] text-rose-50 hover:border-rose-300/40",
+        "border-rose-200 bg-rose-50 text-rose-800 hover:border-rose-300",
     };
   }
 
@@ -37,11 +37,11 @@ export function getBookingSourceTheme(
     return {
       label: "Walk-in",
       icon: Banknote,
-      pillClass: "border-amber-400/25 bg-amber-400/10 text-amber-200",
-      dotClass: "bg-amber-400",
-      iconClass: "text-amber-300",
+      pillClass: "border-amber-200 bg-amber-50 text-amber-700",
+      dotClass: "bg-amber-500",
+      iconClass: "text-amber-600",
       blockClass:
-        "border-amber-400/25 bg-amber-400/[0.12] text-amber-50 hover:border-amber-300/40",
+        "border-amber-200 bg-amber-50 text-amber-800 hover:border-amber-300",
     };
   }
 
@@ -49,11 +49,11 @@ export function getBookingSourceTheme(
     return {
       label: "Phone",
       icon: Phone,
-      pillClass: "border-cyan-400/25 bg-cyan-400/10 text-cyan-200",
-      dotClass: "bg-cyan-400",
-      iconClass: "text-cyan-300",
+      pillClass: "border-cyan-200 bg-cyan-50 text-cyan-700",
+      dotClass: "bg-cyan-500",
+      iconClass: "text-cyan-600",
       blockClass:
-        "border-cyan-400/25 bg-cyan-400/[0.12] text-cyan-50 hover:border-cyan-300/40",
+        "border-cyan-200 bg-cyan-50 text-cyan-800 hover:border-cyan-300",
     };
   }
 
@@ -61,11 +61,11 @@ export function getBookingSourceTheme(
     return {
       label: "Ground QR",
       icon: QrCode,
-      pillClass: "border-violet-400/25 bg-violet-400/10 text-violet-200",
-      dotClass: "bg-violet-400",
-      iconClass: "text-violet-300",
+      pillClass: "border-violet-200 bg-violet-50 text-violet-700",
+      dotClass: "bg-violet-500",
+      iconClass: "text-violet-600",
       blockClass:
-        "border-violet-400/25 bg-violet-400/[0.12] text-violet-50 hover:border-violet-300/40",
+        "border-violet-200 bg-violet-50 text-violet-800 hover:border-violet-300",
     };
   }
 
@@ -73,11 +73,11 @@ export function getBookingSourceTheme(
     return {
       label: "Online hold",
       icon: Globe2,
-      pillClass: "border-emerald-400/25 bg-emerald-400/10 text-emerald-200",
-      dotClass: "bg-emerald-400",
-      iconClass: "text-emerald-300",
+      pillClass: "border-emerald-200 bg-primary-soft text-emerald-700",
+      dotClass: "bg-emerald-500",
+      iconClass: "text-primary",
       blockClass:
-        "border-dashed border-emerald-400/30 bg-emerald-400/[0.07] text-emerald-50 hover:border-emerald-300/50",
+        "border-dashed border-emerald-300 bg-primary-soft text-emerald-800 hover:border-emerald-400",
     };
   }
 
@@ -85,22 +85,22 @@ export function getBookingSourceTheme(
     return {
       label: status === "CANCELLED" ? "Cancelled" : "Expired",
       icon: Globe2,
-      pillClass: "border-slate-500/25 bg-slate-500/10 text-slate-300",
-      dotClass: "bg-slate-500",
-      iconClass: "text-slate-400",
+      pillClass: "border-slate-200 bg-slate-100 text-slate-600",
+      dotClass: "bg-slate-400",
+      iconClass: "text-slate-500",
       blockClass:
-        "border-slate-500/25 bg-slate-500/[0.08] text-slate-300 hover:border-slate-400/40",
+        "border-slate-200 bg-slate-100 text-slate-600 hover:border-slate-300",
     };
   }
 
   return {
     label: "Online",
     icon: Globe2,
-    pillClass: "border-emerald-400/25 bg-emerald-400/10 text-emerald-200",
-    dotClass: "bg-emerald-400",
-    iconClass: "text-emerald-300",
+    pillClass: "border-emerald-200 bg-primary-soft text-emerald-700",
+    dotClass: "bg-emerald-500",
+    iconClass: "text-primary",
     blockClass:
-      "border-emerald-400/30 bg-emerald-400/[0.13] text-emerald-50 hover:border-emerald-300/50",
+      "border-emerald-200 bg-emerald-50 text-emerald-800 hover:border-emerald-300",
   };
 }
 

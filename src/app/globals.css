@@ -1,45 +1,51 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-oled: #0b0f17;
-  --color-surface: #161f30;
-  --color-surface-raised: #1b273b;
-  --color-neon: #10b981;
-  --color-cyber: #06b6d4;
-  --color-line: #1e293b;
+  --color-page: #f6f8f7;
+  --color-card: #ffffff;
+  --color-surface: #edf2f0;
+  --color-line: #e3e9e7;
+  --color-primary: #059669;
+  --color-primary-deep: #047857;
+  --color-primary-soft: #e9f5ef;
+  --color-cyber: #0891b2;
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 10px 30px -14px rgb(15 23 42 / 0.1);
+  --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.05), 0 18px 44px -18px rgb(15 23 42 / 0.16);
+  --shadow-primary: 0 10px 22px -10px rgb(5 150 105 / 0.45);
+  --shadow-nav: 0 -10px 30px -18px rgb(15 23 42 / 0.14);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --animate-fade-up: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-pop: pop 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-float: float 8s ease-in-out infinite;
   --animate-shimmer: shimmer 2s linear infinite;
+  --animate-confetti: confetti-fall 2.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html {
-  background-color: #0b0f17;
+  background-color: #f6f8f7;
   scroll-behavior: smooth;
 }
 
 body {
   min-height: 100dvh;
-  background-color: #0b0f17;
+  background-color: #f6f8f7;
   background-image:
-    radial-gradient(58rem 38rem at 8% -12%, rgba(16, 185, 129, 0.12), transparent 62%),
-    radial-gradient(48rem 32rem at 100% 2%, rgba(6, 182, 212, 0.08), transparent 60%),
-    linear-gradient(180deg, #0b0f17 0%, #0b0f17 55%, #0a0e15 100%);
+    radial-gradient(58rem 38rem at 8% -12%, rgba(5, 150, 105, 0.06), transparent 62%),
+    radial-gradient(48rem 32rem at 100% 2%, rgba(8, 145, 178, 0.05), transparent 60%);
   background-attachment: fixed;
-  color: #f8fafc;
+  color: #0f172a;
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: rgba(16, 185, 129, 0.35);
-  color: #ffffff;
+  background: rgba(5, 150, 105, 0.18);
+  color: #0f172a;
 }
 
 button,
@@ -98,6 +104,17 @@ button {
   }
 }
 
+@keyframes confetti-fall {
+  from {
+    opacity: 1;
+    transform: translate3d(0, -8vh, 0) rotate(0deg);
+  }
+  to {
+    opacity: 0.5;
+    transform: translate3d(var(--drift, 0px), 105vh, 0) rotate(720deg);
+  }
+}
+
 @layer utilities {
   .no-scrollbar {
     scrollbar-width: none;
@@ -114,8 +131,8 @@ button {
 
   .pitch-grid {
     background-image:
-      linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+      linear-gradient(rgba(15, 23, 42, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15, 23, 42, 0.06) 1px, transparent 1px);
     background-size: 34px 34px;
   }
 

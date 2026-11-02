@@ -12,10 +12,10 @@ export function VerificationBadge({
 }) {
   const style =
     status === "VERIFIED"
-      ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-300"
+      ? "border-emerald-200 bg-primary-soft text-emerald-700"
       : status === "REJECTED"
-        ? "border-rose-400/20 bg-rose-400/10 text-rose-300"
-        : "border-amber-400/20 bg-amber-400/10 text-amber-300";
+        ? "border-rose-200 bg-rose-50 text-rose-700"
+        : "border-amber-200 bg-amber-50 text-amber-700";
 
   return (
     <span
@@ -30,12 +30,12 @@ export function VerificationBadge({
 export function DisputeBadge({ status }: { status: DisputeStatusValue }) {
   const style =
     status === "OPEN"
-      ? "border-amber-400/20 bg-amber-400/10 text-amber-300"
+      ? "border-amber-200 bg-amber-50 text-amber-700"
       : status === "UNDER_REVIEW"
-        ? "border-cyan-400/20 bg-cyan-400/10 text-cyan-300"
+        ? "border-cyan-200 bg-cyan-50 text-cyan-700"
         : status === "RESOLVED"
-          ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-300"
-          : "border-rose-400/20 bg-rose-400/10 text-rose-300";
+          ? "border-emerald-200 bg-primary-soft text-emerald-700"
+          : "border-rose-200 bg-rose-50 text-rose-700";
 
   const label = status.replace("_", " ");
 
@@ -52,12 +52,12 @@ export function DisputeBadge({ status }: { status: DisputeStatusValue }) {
 export function RefundBadge({ status }: { status: RefundStatusValue }) {
   const style =
     status === "PROCESSED"
-      ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-300"
+      ? "border-emerald-200 bg-primary-soft text-emerald-700"
       : status === "PENDING"
-        ? "border-amber-400/20 bg-amber-400/10 text-amber-300"
+        ? "border-amber-200 bg-amber-50 text-amber-700"
         : status === "FAILED"
-          ? "border-rose-400/20 bg-rose-400/10 text-rose-300"
-          : "border-white/8 bg-white/[0.03] text-slate-500";
+          ? "border-rose-200 bg-rose-50 text-rose-700"
+          : "border-line bg-slate-50 text-slate-500";
 
   return (
     <span
@@ -79,10 +79,10 @@ export function ResolutionBadge({
 
   const style =
     resolution === "FULL_REFUND"
-      ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-300"
+      ? "border-emerald-200 bg-primary-soft text-emerald-700"
       : resolution === "PARTIAL_REFUND"
-        ? "border-cyan-400/20 bg-cyan-400/10 text-cyan-300"
-        : "border-rose-400/20 bg-rose-400/10 text-rose-300";
+        ? "border-cyan-200 bg-cyan-50 text-cyan-700"
+        : "border-rose-200 bg-rose-50 text-rose-700";
 
   return (
     <span
@@ -103,8 +103,8 @@ export function PaymentModeBadge({ mode }: { mode: string }) {
     <span
       className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[9px] font-medium capitalize ${
         direct
-          ? "border-violet-400/20 bg-violet-400/[0.08] text-violet-200"
-          : "border-white/8 bg-white/[0.03] text-slate-400"
+          ? "border-violet-200 bg-violet-50 text-violet-700"
+          : "border-line bg-slate-50 text-slate-500"
       }`}
     >
       {label}

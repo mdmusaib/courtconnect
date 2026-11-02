@@ -76,13 +76,13 @@ export default async function OwnerCalendarPage({
         <div>
           <Link
             href="/owner"
-            className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500 transition hover:text-emerald-300"
+            className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500 transition hover:text-primary"
           >
             <ArrowLeft className="size-3" />
             Owner overview
           </Link>
-          <h2 className="mt-1 flex items-center gap-2 text-lg font-semibold tracking-tight text-white">
-            <CalendarDays className="size-4 text-emerald-400" />
+          <h2 className="mt-1 flex items-center gap-2 text-lg font-semibold tracking-tight text-slate-900">
+            <CalendarDays className="size-4 text-primary" />
             Multi-court calendar
           </h2>
         </div>

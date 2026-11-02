@@ -57,33 +57,33 @@ export default async function CheckoutPage({
           subtitle={booking.court.venue.name}
         />
         <main className="mx-auto max-w-lg px-4 pt-10">
-          <div className="rounded-3xl border border-white/8 bg-surface/80 p-6 text-center">
-            <div className="mx-auto grid size-14 place-items-center rounded-2xl border border-rose-400/20 bg-rose-400/10 text-rose-300">
+          <div className="rounded-3xl border border-line bg-card p-6 text-center shadow-card">
+            <div className="mx-auto grid size-14 place-items-center rounded-2xl border border-rose-200 bg-rose-50 text-rose-600">
               <XCircle className="size-6" />
             </div>
-            <h1 className="mt-4 text-xl font-semibold text-white">
+            <h1 className="mt-4 text-xl font-semibold text-slate-900">
               This booking can&apos;t be paid
             </h1>
-            <p className="mt-2 text-sm leading-relaxed text-slate-400">
+            <p className="mt-2 text-sm leading-relaxed text-slate-500">
               The current status is {booking.status.toLowerCase()}. The slot hold
               may have expired or the booking was changed.
             </p>
             <div className="mt-4 flex justify-center">
               <StatusBadge status={booking.status} />
             </div>
-            <div className="mt-5 rounded-2xl border border-white/6 bg-white/[0.02] p-3 text-left">
+            <div className="mt-5 rounded-2xl border border-line bg-slate-50 p-3 text-left">
               <p className="text-[10px] uppercase tracking-[0.16em] text-slate-500">
                 {dateLabel} · {timeLabel}
               </p>
-              <p className="mt-1 text-sm font-semibold text-white">
+              <p className="mt-1 text-sm font-semibold text-slate-900">
                 {booking.court.venue.name}
               </p>
-              <p className="text-xs text-slate-400">{booking.court.name}</p>
+              <p className="text-xs text-slate-500">{booking.court.name}</p>
             </div>
             <Link
               href={`/venue/${booking.court.venue.id}/book?courtId=${booking.court.id}`}
               prefetch={true}
-              className="mt-5 inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-emerald-400 px-5 text-xs font-semibold text-oled transition-all duration-100 active:scale-95 hover:bg-emerald-300"
+              className="mt-5 inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-primary px-5 text-xs font-semibold text-white shadow-primary transition-all duration-100 active:scale-95 hover:bg-primary-deep"
             >
               Pick another slot
               <ArrowRight className="size-3.5" />
@@ -125,21 +125,21 @@ export default async function CheckoutPage({
   };
 
   return (
-    <div className="min-h-dvh pb-28">
+    <div className="min-h-dvh pb-32">
       <PageHeader
         backHref={`/venue/${booking.court.venue.id}/book?courtId=${booking.court.id}`}
         backLabel="Slots"
         title="Checkout"
         subtitle={`${booking.court.venue.name} · ${dateLabel}`}
         right={
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-400/15 bg-cyan-400/[0.06] px-2.5 py-1 text-[10px] font-medium text-cyan-200">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-200 bg-cyan-50 px-2.5 py-1 text-[10px] font-medium text-cyan-700">
             <Clock3 className="size-3" />
-           1 min hold
+            1 min hold
           </span>
         }
       />
 
-      <main className="mx-auto max-w-5xl px-4 pt-5">
+      <main className="mx-auto max-w-lg px-4 pt-5">
         <CheckoutPanel
           booking={checkoutBooking}
           upiId={process.env.NEXT_PUBLIC_UPI_ID ?? "courtconnect@upi"}

@@ -77,7 +77,7 @@ export function VenueVerificationActions({
 
   if (done) {
     return (
-      <div className="flex items-center gap-2 rounded-xl border border-emerald-400/15 bg-emerald-400/[0.06] px-3 py-2 text-[10px] leading-relaxed text-emerald-200">
+      <div className="flex items-center gap-2 rounded-xl border border-emerald-200 bg-primary-soft px-3 py-2 text-[10px] leading-relaxed text-emerald-700">
         <CheckCircle2 className="size-3.5 shrink-0" />
         {done}
       </div>
@@ -95,7 +95,7 @@ export function VenueVerificationActions({
               setDone(null);
               setError(null);
             }}
-            className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-emerald-400 px-3 text-[10px] font-semibold text-oled transition hover:bg-emerald-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
+            className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-primary px-3 text-[10px] font-semibold text-white shadow-primary transition hover:bg-primary-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
           >
             <ShieldCheck className="size-3.5" />
             {status === "REJECTED" ? "Re-verify venue" : "Verify venue"}
@@ -109,7 +109,7 @@ export function VenueVerificationActions({
               setDone(null);
               setError(null);
             }}
-            className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-rose-400/20 bg-rose-400/[0.06] px-3 text-[10px] font-semibold text-rose-200 transition hover:border-rose-400/40 hover:bg-rose-400/[0.1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300"
+            className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-rose-200 bg-rose-50 px-3 text-[10px] font-semibold text-rose-600 transition hover:border-rose-300 hover:bg-rose-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/50"
           >
             <ShieldX className="size-3.5" />
             Reject
@@ -125,9 +125,9 @@ export function VenueVerificationActions({
   }
 
   return (
-    <div className="rounded-xl border border-white/8 bg-oled/60 p-3">
+    <div className="rounded-xl border border-line bg-slate-50 p-3">
       <div className="flex items-center justify-between gap-3">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500">
           {mode === "VERIFY" ? "Approve listing" : "Reject listing"}
         </p>
         <button
@@ -137,7 +137,7 @@ export function VenueVerificationActions({
             setNotes("");
             setError(null);
           }}
-          className="grid size-6 place-items-center rounded-full border border-white/8 text-slate-500 transition hover:text-white"
+          className="grid size-6 place-items-center rounded-full border border-line text-slate-500 transition hover:text-slate-900"
           aria-label="Cancel"
         >
           <X className="size-3" />
@@ -154,11 +154,11 @@ export function VenueVerificationActions({
             ? "Optional review note for the audit trail"
             : "What should the owner fix before resubmitting?"
         }
-        className="mt-2 w-full rounded-lg border border-white/10 bg-oled/80 px-2.5 py-2 text-[11px] text-white outline-none transition placeholder:text-slate-600 focus:border-emerald-400/40 focus:ring-2 focus:ring-emerald-400/15"
+        className="mt-2 w-full rounded-lg border border-line bg-white px-2.5 py-2 text-[11px] text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-primary/40 focus:ring-2 focus:ring-primary/15"
       />
 
       {error && (
-        <p className="mt-2 rounded-lg border border-rose-400/20 bg-rose-400/[0.06] px-2.5 py-1.5 text-[10px] text-rose-200">
+        <p className="mt-2 rounded-lg border border-rose-200 bg-rose-50 px-2.5 py-1.5 text-[10px] text-rose-700">
           {error}
         </p>
       )}
@@ -170,8 +170,8 @@ export function VenueVerificationActions({
           disabled={busy}
           className={`inline-flex h-8 items-center gap-1.5 rounded-lg px-3 text-[10px] font-semibold transition focus-visible:outline-none focus-visible:ring-2 disabled:opacity-60 ${
             mode === "VERIFY"
-              ? "bg-emerald-400 text-oled hover:bg-emerald-300 focus-visible:ring-emerald-300"
-              : "bg-rose-400 text-oled hover:bg-rose-300 focus-visible:ring-rose-300"
+              ? "bg-primary text-white hover:bg-primary-deep focus-visible:ring-primary/50"
+              : "bg-rose-500 text-white hover:bg-rose-600 focus-visible:ring-rose-500/50"
           }`}
         >
           {busy ? (
@@ -187,7 +187,7 @@ export function VenueVerificationActions({
               ? "Confirm verification"
               : "Confirm rejection"}
         </button>
-        <span className="text-[9px] text-slate-600">
+        <span className="text-[9px] text-slate-400">
           Written to the admin audit log
         </span>
       </div>

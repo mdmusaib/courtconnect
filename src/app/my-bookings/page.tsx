@@ -3,6 +3,7 @@ import { BookingTabs } from "@/components/booking/BookingTabs";
 import { PageHeader } from "@/components/navigation/PageHeader";
 import { PushNotificationCard } from "@/components/notifications/PushNotificationCard";
 import { OfflinePassCache } from "@/components/pwa/OfflinePassCache";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { getPlayerBookings } from "@/lib/booking-data";
 import { formatINR } from "@/lib/format";
 import { requireSessionUser } from "@/lib/session";
@@ -56,7 +57,7 @@ export default async function MyBookingsPage() {
         title="My bookings"
         subtitle={`Player · ${player.name}`}
         right={
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-400/15 bg-cyan-400/[0.06] px-2.5 py-1 text-[10px] font-medium text-cyan-200">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-200 bg-cyan-50 px-2.5 py-1 text-[10px] font-medium text-cyan-700">
             <WifiOff className="size-3" />
             Offline
           </span>
@@ -64,26 +65,26 @@ export default async function MyBookingsPage() {
       />
 
       <main className="mx-auto max-w-4xl px-4 pt-6">
-        <section className="animate-fade-up overflow-hidden rounded-3xl border border-white/8 bg-gradient-to-br from-surface via-surface to-oled p-5">
+        <section className="animate-fade-up overflow-hidden rounded-3xl border border-line bg-white p-5 shadow-card">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-400">
-                Your court time
-              </p>
-              <h1 className="mt-1 text-2xl font-semibold tracking-tight text-white">
-                {upcomingCount > 0
-                  ? "You have a game coming up."
-                  : "Ready for your next game?"}
-              </h1>
-              <p className="mt-1.5 text-xs text-slate-400">
+              <SectionHeader
+                eyebrow="Your court time"
+                title={
+                  upcomingCount > 0
+                    ? "You have a game coming up."
+                    : "Ready for your next game?"
+                }
+              />
+              <p className="mt-1.5 text-xs text-slate-500">
                 Passes, payments, and past games in one place.
               </p>
             </div>
-            <div className="hidden rounded-2xl border border-white/8 bg-white/[0.03] px-3 py-2 text-right sm:block">
+            <div className="hidden rounded-2xl border border-line bg-slate-50 px-3 py-2 text-right sm:block">
               <p className="text-[9px] uppercase tracking-[0.16em] text-slate-500">
                 Upcoming
               </p>
-              <p className="text-xl font-semibold text-emerald-400">
+              <p className="text-xl font-semibold text-primary">
                 {upcomingCount}
               </p>
             </div>
@@ -128,12 +129,12 @@ function Stat({
   label: string;
 }) {
   return (
-    <div className="rounded-2xl border border-white/6 bg-white/[0.025] px-3 py-2.5">
+    <div className="rounded-2xl border border-line bg-slate-50 px-3 py-2.5">
       <div className="flex items-center gap-1.5 text-slate-500">
-        <span className="text-emerald-400">{icon}</span>
+        <span className="text-primary">{icon}</span>
         <span className="text-[9px] uppercase tracking-[0.14em]">{label}</span>
       </div>
-      <p className="mt-1 text-base font-semibold text-white">{value}</p>
+      <p className="mt-1 text-base font-semibold text-slate-900">{value}</p>
     </div>
   );
 }

@@ -43,32 +43,32 @@ const PERIOD_DEFINITIONS = [
     title: "Morning",
     range: "6 AM – 12 PM",
     icon: Sunrise,
-    accent: "text-amber-300",
-    chip: "border-amber-400/15 bg-amber-400/[0.06]",
+    accent: "text-amber-600",
+    chip: "border-amber-200 bg-amber-50",
   },
   {
     id: "afternoon",
     title: "Afternoon",
     range: "12 PM – 4 PM",
     icon: Sun,
-    accent: "text-sky-300",
-    chip: "border-sky-400/15 bg-sky-400/[0.06]",
+    accent: "text-sky-600",
+    chip: "border-sky-200 bg-sky-50",
   },
   {
     id: "evening",
     title: "Evening Peak",
     range: "4 PM – 10 PM",
     icon: Sunset,
-    accent: "text-orange-300",
-    chip: "border-orange-400/15 bg-orange-400/[0.06]",
+    accent: "text-orange-600",
+    chip: "border-orange-200 bg-orange-50",
   },
   {
     id: "late",
     title: "Late Night",
     range: "10 PM – 11 PM",
     icon: MoonStar,
-    accent: "text-violet-300",
-    chip: "border-violet-400/15 bg-violet-400/[0.06]",
+    accent: "text-violet-600",
+    chip: "border-violet-200 bg-violet-50",
   },
 ] satisfies {
   id: PeriodId;
@@ -430,39 +430,42 @@ export function SlotRangeSelector({
   return (
     <>
       <div className="animate-fade-up">
-        <section className="relative overflow-hidden rounded-3xl border border-white/[0.07] bg-surface/70 p-5 backdrop-blur-md">
+        <section className="relative overflow-hidden rounded-3xl border border-line bg-card p-5 shadow-card">
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-16 -top-24 size-56 rounded-full bg-emerald-500/10 blur-3xl"
+          className="pointer-events-none absolute -right-16 -top-24 size-56 rounded-full bg-primary/10 blur-3xl"
         />
         <div className="relative flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-400">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
               Multi-hour booking
             </p>
-            <h2 className="mt-1 text-2xl font-semibold tracking-tight text-white">
+            <h2 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900">
               Build your session
             </h2>
-            <p className="mt-1.5 max-w-md text-xs leading-relaxed text-slate-400">
+            <p className="mt-1.5 max-w-md text-xs leading-relaxed text-slate-500">
               Tap an open hour to set your start. Then tap a later hour or use
               the duration pills to lock in your range.
             </p>
           </div>
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/15 bg-emerald-400/[0.06] px-2.5 py-1 text-[10px] font-medium text-emerald-300">
-            <Zap className="size-3.5 text-emerald-300" />
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-primary-soft px-2.5 py-1 text-[10px] font-medium text-emerald-700">
+            <Zap className="size-3.5 text-emerald-600" />
             1-hour blocks
           </span>
         </div>
       </section>
 
-      <section className="mt-4 rounded-3xl border border-white/[0.07] bg-surface/70 p-4 backdrop-blur-md">
+      <div className="sticky top-[3.25rem] z-30 -mx-4 bg-page/95 px-4 py-2 backdrop-blur-xl">
+      <section className="rounded-3xl border border-line bg-card p-4 shadow-card">
         <div className="flex items-center justify-between gap-3">
           <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">
-            <CalendarDays className="size-3.5 text-emerald-400" />
+            <CalendarDays className="size-3.5 text-primary" />
             Select date
           </p>
-          <span className="text-[10px] text-slate-500">
-            {selectedDay?.dateLabel}
+          <span className="truncate text-[10px] text-slate-500">
+            {selectedCourt
+              ? `${selectedCourt.name} · ${formatINR(selectedCourt.price)}/hr`
+              : selectedDay?.dateLabel}
           </span>
         </div>
 
@@ -477,15 +480,15 @@ export function SlotRangeSelector({
                 onClick={() => handleDateChange(day.key)}
                 aria-pressed={active}
                 aria-label={`Book ${day.dateLabel}`}
-                className={`flex min-w-[68px] shrink-0 flex-col items-center rounded-2xl border px-3 py-2.5 transition-all duration-100 active:scale-95 ease-out cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 ${
+                className={`flex min-w-[68px] h-16 shrink-0 flex-col items-center justify-center rounded-2xl border px-3 transition-all duration-100 active:scale-95 ease-out cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
                   active
-                    ? "border-emerald-400/60 bg-emerald-500 text-white shadow-[0_10px_30px_-14px_rgba(16,185,129,0.9)]"
-                    : "border-white/8 bg-slate-900/45 text-slate-300 hover:border-emerald-400/30 hover:bg-emerald-500/[0.06] hover:text-white"
+                    ? "border-primary bg-primary text-white shadow-primary"
+                    : "border-line bg-white text-slate-700 shadow-card hover:border-primary/40 hover:text-slate-900"
                 }`}
               >
                 <span
                   className={`text-[10px] font-semibold uppercase tracking-wide ${
-                    active ? "text-white/80" : "text-slate-500"
+                    active ? "text-white/80" : "text-slate-400"
                   }`}
                 >
                   {day.label}
@@ -495,7 +498,7 @@ export function SlotRangeSelector({
                 </span>
                 <span
                   className={`mt-1 text-[9px] uppercase tracking-wider ${
-                    active ? "text-white/70" : "text-slate-600"
+                    active ? "text-white/70" : "text-slate-400"
                   }`}
                 >
                   {day.month}
@@ -505,8 +508,9 @@ export function SlotRangeSelector({
           })}
         </div>
       </section>
+      </div>
 
-      <section className="mt-4 rounded-3xl border border-white/[0.07] bg-surface/70 p-4 backdrop-blur-md">
+      <section className="mt-4 rounded-3xl border border-line bg-card p-4 shadow-card">
         <div className="flex items-center justify-between gap-3">
           <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">
             Court
@@ -526,20 +530,20 @@ export function SlotRangeSelector({
                 type="button"
                 onClick={() => handleCourtChange(court.id)}
                 aria-pressed={active}
-                className={`flex shrink-0 items-center gap-2 rounded-2xl border px-3.5 py-2.5 text-xs font-medium transition-all duration-100 active:scale-95 ease-out cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 ${
+                className={`flex shrink-0 items-center gap-2 rounded-2xl border px-3.5 py-2.5 text-xs font-medium transition-all duration-100 active:scale-95 ease-out cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
                   active
-                    ? "border-emerald-400/40 bg-emerald-500/10 text-white"
-                    : "border-white/8 bg-slate-900/45 text-slate-400 hover:border-white/15 hover:text-slate-200"
+                    ? "border-primary/40 bg-primary-soft text-slate-900 shadow-card"
+                    : "border-line bg-white text-slate-500 shadow-card hover:border-primary/30 hover:text-slate-800"
                 }`}
               >
                 <SportIcon
                   sport={court.sportType}
                   className={`size-4 ${
-                    active ? "text-emerald-300" : "text-slate-500"
+                    active ? "text-primary" : "text-slate-400"
                   }`}
                 />
                 {court.name}
-                <span className="text-[10px] text-slate-500">
+                <span className="text-[10px] text-slate-400">
                   {formatINR(court.price)}
                 </span>
               </button>
@@ -549,32 +553,32 @@ export function SlotRangeSelector({
       </section>
 
       <section
-        className={`mt-4 rounded-3xl border p-4 backdrop-blur-md transition ${
+        className={`mt-4 rounded-3xl border p-4 shadow-card transition ${
           selectedStartIso
-            ? "border-emerald-500/25 bg-emerald-500/[0.045]"
-            : "border-white/[0.07] bg-surface/70"
+            ? "border-primary/30 bg-primary-soft/60"
+            : "border-line bg-card"
         }`}
       >
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-400">
+            <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
               <Timer className="size-3.5" />
               {selectedStartIso ? "Your session" : "How it works"}
             </p>
             {selectedStartIso && rangeStart ? (
-              <p className="mt-1.5 text-sm font-semibold text-white">
+              <p className="mt-1.5 text-sm font-semibold text-slate-900">
                 Start {formatTime(new Date(rangeStart.startIso))}
-                <span className="ml-2 font-normal text-emerald-300">
+                <span className="ml-2 font-normal text-emerald-700">
                   {durationLabel(rangeHours)}
                 </span>
               </p>
             ) : (
-              <p className="mt-1.5 text-sm font-medium text-slate-300">
+              <p className="mt-1.5 text-sm font-medium text-slate-600">
                 Tap an available hour to set your start time.
               </p>
             )}
             {!selectedStartIso && (
-              <p className="mt-1 text-[11px] leading-relaxed text-slate-500">
+              <p className="mt-1 text-[11px] leading-relaxed text-slate-400">
                 We automatically lock out any range that crosses a booked or
                 maintenance hour.
               </p>
@@ -586,7 +590,7 @@ export function SlotRangeSelector({
               type="button"
               onClick={clearSelection}
               aria-label="Clear selected time range"
-              className="grid size-8 shrink-0 place-items-center rounded-full border border-white/8 bg-white/[0.03] text-slate-400 transition hover:border-rose-400/25 hover:text-rose-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70"
+              className="grid size-8 shrink-0 place-items-center rounded-full border border-line bg-white text-slate-400 shadow-card transition hover:border-rose-300 hover:text-rose-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
             >
               <X className="size-3.5" />
             </button>
@@ -607,12 +611,12 @@ export function SlotRangeSelector({
                     onClick={() => handleDurationSelect(hours)}
                     aria-pressed={active}
                     aria-disabled={overLimit}
-                    className={`inline-flex h-9 items-center gap-1.5 rounded-full border px-3 text-[11px] font-semibold transition-all duration-100 active:scale-95 ease-out cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 ${
+                    className={`inline-flex h-10 items-center gap-1.5 rounded-full border px-4 text-[11px] font-semibold transition-all duration-100 active:scale-95 ease-out cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
                       overLimit
-                        ? "cursor-not-allowed border-white/5 bg-white/[0.02] text-slate-600"
+                        ? "cursor-not-allowed border-line bg-slate-50 text-slate-400"
                         : active
-                          ? "border-emerald-400/60 bg-emerald-500 text-white shadow-[0_8px_24px_-12px_rgba(16,185,129,0.9)]"
-                          : "border-emerald-500/20 bg-slate-900/50 text-emerald-300 hover:border-emerald-400/50 hover:bg-emerald-500/10"
+                          ? "border-primary bg-primary text-white shadow-primary"
+                          : "border-primary/30 bg-white text-primary hover:bg-primary-soft"
                     }`}
                   >
                     {overLimit ? (
@@ -629,7 +633,7 @@ export function SlotRangeSelector({
             </div>
 
             {firstBlockedSlot && firstBlockedState && (
-              <p className="mt-3 flex items-start gap-1.5 text-[10px] leading-relaxed text-amber-200/75">
+              <p className="mt-3 flex items-start gap-1.5 text-[10px] leading-relaxed text-amber-700">
                 <Info className="mt-0.5 size-3 shrink-0" />
                 <span>
                   The next block at{" "}
@@ -643,7 +647,7 @@ export function SlotRangeSelector({
             {rangeError && (
               <div
                 role="alert"
-                className="mt-3 flex items-start gap-2 rounded-2xl border border-amber-400/25 bg-amber-400/[0.08] px-3 py-2.5 text-[11px] leading-relaxed text-amber-100"
+                className="mt-3 flex items-start gap-2 rounded-2xl border border-amber-300 bg-amber-50 px-3 py-2.5 text-[11px] leading-relaxed text-amber-800"
               >
                 <AlertCircle className="mt-0.5 size-3.5 shrink-0" />
                 <span className="flex-1">{rangeError}</span>
@@ -651,7 +655,7 @@ export function SlotRangeSelector({
                   type="button"
                   onClick={() => setRangeError(null)}
                   aria-label="Dismiss alert"
-                  className="shrink-0 text-amber-200/70 transition hover:text-amber-100"
+                  className="shrink-0 text-amber-700 transition hover:text-amber-900"
                 >
                   <X className="size-3.5" />
                 </button>
@@ -679,7 +683,7 @@ export function SlotRangeSelector({
           return (
             <section
               key={period.id}
-              className="rounded-3xl border border-white/[0.07] bg-surface/70 p-4 backdrop-blur-md"
+              className="rounded-3xl border border-line bg-card p-4 shadow-card"
             >
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2.5">
@@ -689,18 +693,18 @@ export function SlotRangeSelector({
                     <PeriodIcon className="size-4" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-semibold text-white">
+                    <h3 className="text-sm font-semibold text-slate-900">
                       {period.title}
                     </h3>
-                    <p className="text-[10px] text-slate-500">{period.range}</p>
+                    <p className="text-[10px] text-slate-400">{period.range}</p>
                   </div>
                 </div>
-                <span className="rounded-full border border-white/8 bg-white/[0.025] px-2.5 py-1 text-[10px] font-medium text-slate-400">
+                <span className="rounded-full border border-line bg-slate-50 px-2.5 py-1 text-[10px] font-medium text-slate-500">
                   {openCount} open
                 </span>
               </div>
 
-              <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+              <div className="no-scrollbar -mx-4 mt-3 flex gap-2 overflow-x-auto px-4 pb-1">
                 {periodSlots.map((slot) => {
                   const index = daySlots.findIndex(
                     (candidate) => candidate.startIso === slot.startIso,
@@ -729,20 +733,20 @@ export function SlotRangeSelector({
 
                   const cardClass =
                     isStart || isEnd
-                      ? "border-emerald-400 bg-emerald-500 text-white shadow-[0_12px_34px_-14px_rgba(16,185,129,0.9)]"
+                      ? "border-primary bg-primary text-white shadow-primary"
                       : isInRange
-                        ? "border-emerald-500/50 bg-emerald-500/20 text-emerald-100"
+                        ? "border-primary/50 bg-primary-soft text-emerald-700"
                         : isAvailable
-                          ? `border-white/8 bg-slate-900/45 text-emerald-300 hover:border-emerald-400/45 hover:bg-emerald-500/10 ${
+                          ? `border-line bg-white text-slate-900 hover:border-primary/50 hover:shadow-card ${
                               isSelectableEnd
-                                ? "ring-1 ring-emerald-400/20"
+                                ? "ring-1 ring-primary/25"
                                 : ""
                             }`
                           : state === "locked"
-                            ? "cursor-not-allowed border-white/6 bg-slate-800/35 text-slate-500"
+                            ? "cursor-not-allowed border-cyan-200 bg-cyan-50 text-cyan-700"
                             : state === "maintenance"
-                              ? "cursor-not-allowed border-amber-400/15 bg-amber-400/[0.035] text-amber-200/55"
-                              : "cursor-not-allowed border-white/5 bg-slate-800/30 text-slate-600";
+                              ? "cursor-not-allowed border-amber-200 bg-amber-50 text-amber-700"
+                              : "cursor-not-allowed border-line bg-slate-50 text-slate-400";
 
                   const hint = isStart
                     ? "Start time"
@@ -764,20 +768,20 @@ export function SlotRangeSelector({
                       onClick={() => handleSlotSelect(slot)}
                       aria-pressed={isStart || isEnd}
                       aria-label={`${slot.range}, ${hint}`}
-                      className={`group relative flex min-h-[84px] flex-col items-start justify-center rounded-2xl border px-3 py-2.5 text-left transition-all duration-100 ${
+                      className={`group relative flex h-20 min-w-[76px] shrink-0 flex-col items-start justify-center rounded-2xl border px-3 py-2.5 text-left transition-all duration-100 ${
                         isAvailable ? "active:scale-95 cursor-pointer" : ""
-                      } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 ${cardClass}`}
+                      } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${cardClass}`}
                     >
-                      <span className="text-[15px] font-semibold tracking-tight">
+                      <span className="text-[15px] font-semibold leading-none tracking-tight">
                         {slot.label}
                       </span>
                       <span
-                        className={`mt-0.5 text-[10px] font-medium ${
+                        className={`mt-1 text-[10px] font-medium ${
                           isStart || isEnd
                             ? "text-white/75"
                             : isInRange
-                              ? "text-emerald-200/80"
-                              : ""
+                              ? "text-emerald-700/80"
+                              : "text-slate-400"
                         }`}
                       >
                         to {formatTime(new Date(slot.endIso))}
@@ -787,11 +791,11 @@ export function SlotRangeSelector({
                           isStart || isEnd
                             ? "text-white/85"
                             : isInRange
-                              ? "text-emerald-300/90"
+                              ? "text-emerald-700"
                               : isAvailable
                                 ? crossesBlockedHour
-                                  ? "text-amber-300/70"
-                                  : "text-emerald-400/80"
+                                  ? "text-amber-600"
+                                  : "text-primary"
                                 : "opacity-80"
                         }`}
                       >
@@ -803,7 +807,7 @@ export function SlotRangeSelector({
                           <LockKeyhole className="size-2.5" />
                         )}
                         {isInRange && <Check className="size-2.5" />}
-                        {hint}
+                        {isAvailable ? formatINR(selectedCourt?.price ?? 0) : hint}
                       </span>
                     </button>
                   );
@@ -816,12 +820,12 @@ export function SlotRangeSelector({
     </div>
 
       {isRangeReady && selectedDay && selectedCourt && pricing && rangeStart && rangeEndIso && (
-        <div className="fixed inset-x-0 z-40 safe-nav border-t border-emerald-500/15 bg-oled/95 shadow-[0_-18px_50px_-24px_rgba(0,0,0,0.95)] backdrop-blur-2xl">
+        <div className="fixed inset-x-0 z-40 safe-nav border-t border-line bg-white/95 shadow-nav backdrop-blur-2xl">
           <div className="mx-auto max-w-5xl px-4 pb-3 pt-2.5">
-            <div className="mx-auto h-1 w-10 rounded-full bg-white/10 sm:hidden" />
+            <div className="mx-auto h-1 w-10 rounded-full bg-slate-200 sm:hidden" />
 
             {submitError && (
-              <div className="mt-2 flex items-start gap-2 rounded-xl border border-rose-400/20 bg-rose-400/10 px-3 py-2 text-[11px] text-rose-200">
+              <div className="mt-2 flex items-start gap-2 rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-[11px] text-rose-700">
                 <AlertCircle className="mt-0.5 size-3.5 shrink-0" />
                 <span>{submitError}</span>
               </div>
@@ -831,16 +835,16 @@ export function SlotRangeSelector({
               <div className="min-w-0 flex-1">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
-                    <p className="truncate text-[10px] uppercase tracking-[0.16em] text-slate-500">
+                    <p className="truncate text-[10px] uppercase tracking-[0.16em] text-slate-400">
                       {selectedDay.dateLabel} · {selectedCourt.name}
                     </p>
-                    <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-semibold text-white">
-                      <Clock3 className="size-3.5 text-emerald-400" />
+                    <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-semibold text-slate-900">
+                      <Clock3 className="size-3.5 text-primary" />
                       <span>
                         {formatTime(new Date(rangeStart.startIso))} –{" "}
                         {formatTime(new Date(rangeEndIso))}
                       </span>
-                      <span className="rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-300">
+                      <span className="rounded-full border border-emerald-200 bg-primary-soft px-2 py-0.5 text-[10px] font-medium text-emerald-700">
                         ({shortDuration(rangeHours)})
                       </span>
                     </p>
@@ -850,22 +854,22 @@ export function SlotRangeSelector({
                     type="button"
                     onClick={clearSelection}
                     aria-label="Clear selected time range"
-                    className="grid size-8 shrink-0 place-items-center rounded-full border border-white/8 bg-white/[0.03] text-slate-400 transition hover:border-rose-400/25 hover:text-rose-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 md:hidden"
+                    className="grid size-8 shrink-0 place-items-center rounded-full border border-line bg-white text-slate-400 shadow-card transition hover:border-rose-300 hover:text-rose-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 md:hidden"
                   >
                     <X className="size-3.5" />
                   </button>
                 </div>
 
-                <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-slate-400">
-                  <span className="text-slate-300">
+                <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-slate-500">
+                  <span className="text-slate-700">
                     {durationLabel(rangeHours)} @{" "}
                     {formatINR(selectedCourt.price)}/hr ={" "}
                     {formatINR(pricing.courtPrice)}
                   </span>
-                  <span className="text-slate-600">+</span>
+                  <span className="text-slate-300">+</span>
                   <span>{formatINR(pricing.convenienceFee)} fee</span>
-                  <span className="text-slate-600">=</span>
-                  <span className="text-sm font-semibold text-emerald-300">
+                  <span className="text-slate-300">=</span>
+                  <span className="text-sm font-semibold text-primary">
                     {formatINR(pricing.totalPayable)} total
                   </span>
                 </div>
@@ -875,7 +879,7 @@ export function SlotRangeSelector({
                 type="button"
                 onClick={handleProceed}
                 disabled={!isRangeReady || isSubmitting}
-                className="inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-2xl bg-emerald-500 px-5 text-sm font-semibold text-white shadow-[0_14px_34px_-16px_rgba(16,185,129,0.95)] transition-all duration-100 active:scale-95 ease-out hover:bg-emerald-400 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 md:w-auto"
+                className="inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-2xl bg-primary px-5 text-sm font-semibold text-white shadow-primary transition-all duration-100 active:scale-95 ease-out hover:bg-primary-deep disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-500 disabled:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:w-auto"
               >
                 {isSubmitting ? (
                   <>

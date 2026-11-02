@@ -1,4 +1,8 @@
-import { ShimmerBox, SkeletonHeader, SkeletonSlotGrid } from "@/components/ui/Skeleton";
+import {
+  ShimmerBox,
+  SkeletonHeader,
+  SkeletonTimeline,
+} from "@/components/ui/Skeleton";
 
 export default function BookVenueLoading() {
   return (
@@ -6,13 +10,13 @@ export default function BookVenueLoading() {
       <SkeletonHeader />
 
       <main className="mx-auto max-w-5xl px-4 pt-4">
-        <section className="rounded-3xl border border-white/[0.07] bg-surface/70 p-5 backdrop-blur-md">
+        <section className="rounded-3xl border border-line bg-card p-5 shadow-card">
           <ShimmerBox className="h-2.5 w-32" />
           <ShimmerBox className="mt-2 h-7 w-52" />
           <ShimmerBox className="mt-2 h-3.5 w-full max-w-sm" />
         </section>
 
-        <section className="mt-4 rounded-3xl border border-white/[0.07] bg-surface/70 p-4 backdrop-blur-md">
+        <section className="mt-4 rounded-3xl border border-line bg-card p-4 shadow-card">
           <ShimmerBox className="h-2.5 w-24" />
           <div className="no-scrollbar mt-3 flex gap-2 overflow-hidden">
             {[0, 1, 2, 3, 4, 5].map((day) => (
@@ -21,7 +25,7 @@ export default function BookVenueLoading() {
           </div>
         </section>
 
-        <section className="mt-4 rounded-3xl border border-white/[0.07] bg-surface/70 p-4 backdrop-blur-md">
+        <section className="mt-4 rounded-3xl border border-line bg-card p-4 shadow-card">
           <ShimmerBox className="h-2.5 w-16" />
           <div className="mt-3 flex gap-2 overflow-hidden">
             <ShimmerBox className="h-11 w-44 shrink-0" />
@@ -30,8 +34,24 @@ export default function BookVenueLoading() {
         </section>
 
         <div className="mt-4 space-y-4">
-          <SkeletonSlotGrid blocks={3} />
-          <SkeletonSlotGrid blocks={2} />
+          <section className="rounded-3xl border border-line bg-card p-4 shadow-card">
+            <div className="flex items-center justify-between">
+              <ShimmerBox className="h-3.5 w-32" />
+              <ShimmerBox className="h-6 w-16 rounded-full" />
+            </div>
+            <div className="mt-4">
+              <SkeletonTimeline blocks={9} />
+            </div>
+          </section>
+          <section className="rounded-3xl border border-line bg-card p-4 shadow-card">
+            <div className="flex items-center justify-between">
+              <ShimmerBox className="h-3.5 w-32" />
+              <ShimmerBox className="h-6 w-16 rounded-full" />
+            </div>
+            <div className="mt-4">
+              <SkeletonTimeline blocks={7} />
+            </div>
+          </section>
         </div>
       </main>
     </div>

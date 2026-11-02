@@ -84,7 +84,7 @@ export default async function VenuePage({
             href={directionsUrl}
             target="_blank"
             rel="noreferrer"
-            className="grid size-9 place-items-center rounded-full border border-white/8 bg-white/[0.03] text-slate-300 transition hover:border-emerald-400/30 hover:text-emerald-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70"
+            className="grid size-9 place-items-center rounded-full border border-line bg-white text-slate-600 transition hover:border-primary/40 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
             aria-label="Get directions"
           >
             <Navigation className="size-4" />
@@ -110,19 +110,19 @@ export default async function VenuePage({
               className="h-full rounded-3xl"
               showCaption={false}
             />
-            <div className="rounded-3xl border border-white/8 bg-surface/70 p-4">
-              <p className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] text-slate-500">
-                <MapPin className="size-3.5 text-emerald-400" />
+            <div className="rounded-3xl border border-line bg-card p-4 shadow-card">
+              <p className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] text-slate-400">
+                <MapPin className="size-3.5 text-primary" />
                 Find us here
               </p>
-              <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-slate-300">
+              <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-slate-600">
                 {venue.address}
               </p>
               <a
                 href={directionsUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-3 inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-400 hover:text-emerald-300"
+                className="mt-3 inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:text-primary-deep"
               >
                 Open in Maps
                 <Navigation className="size-3" />
@@ -133,23 +133,23 @@ export default async function VenuePage({
 
         <section className="mt-5">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/15 bg-emerald-400/[0.07] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-emerald-300">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-primary-soft px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
               <ShieldCheck className="size-3.5" />
               Verified venue
             </span>
-            <span className="rounded-full border border-white/8 bg-white/[0.03] px-2.5 py-1 text-[10px] text-slate-400">
+            <span className="rounded-full border border-line bg-white px-2.5 py-1 text-[10px] text-slate-500 shadow-card">
               {venue.courts.length} court{venue.courts.length === 1 ? "" : "s"}
             </span>
-            <span className="rounded-full border border-white/8 bg-white/[0.03] px-2.5 py-1 text-[10px] text-slate-400">
+            <span className="rounded-full border border-line bg-white px-2.5 py-1 text-[10px] text-slate-500 shadow-card">
               From {formatINR(minPrice)}/hr
             </span>
           </div>
 
-          <h1 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-white sm:text-4xl">
+          <h1 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-slate-900 sm:text-4xl">
             {venue.name}
           </h1>
-          <p className="mt-2 flex items-start gap-1.5 text-sm text-slate-400">
-            <MapPin className="mt-0.5 size-4 shrink-0 text-emerald-400" />
+          <p className="mt-2 flex items-start gap-1.5 text-sm text-slate-500">
+            <MapPin className="mt-0.5 size-4 shrink-0 text-primary" />
             {venue.address}
           </p>
 
@@ -159,9 +159,9 @@ export default async function VenuePage({
               return (
                 <span
                   key={amenity}
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-white/7 bg-white/[0.025] px-2.5 py-1.5 text-[11px] text-slate-300"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-line bg-white px-2.5 py-1.5 text-[11px] text-slate-600 shadow-card"
                 >
-                  <Icon className="size-3.5 text-emerald-400" />
+                  <Icon className="size-3.5 text-primary" />
                   {amenity}
                 </span>
               );
@@ -180,7 +180,7 @@ export default async function VenuePage({
         />
 
         <section className="mt-10">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
             Good to know
           </h2>
           <div className="mt-3 grid gap-3 sm:grid-cols-3">
@@ -202,13 +202,13 @@ export default async function VenuePage({
           </div>
         </section>
 
-        <section className="mt-8 overflow-hidden rounded-3xl border border-white/8 bg-surface/60">
+        <section className="mt-8 overflow-hidden rounded-3xl border border-line bg-card shadow-card">
           <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-[10px] uppercase tracking-[0.18em] text-slate-500">
+              <p className="text-[10px] uppercase tracking-[0.18em] text-slate-400">
                 Getting there
               </p>
-              <p className="mt-1.5 max-w-xl text-sm text-slate-300">
+              <p className="mt-1.5 max-w-xl text-sm text-slate-600">
                 {venue.address}
               </p>
             </div>
@@ -216,7 +216,7 @@ export default async function VenuePage({
               href={directionsUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-xl border border-emerald-400/20 bg-emerald-400/[0.08] px-4 text-xs font-semibold text-emerald-300 transition hover:bg-emerald-400/15"
+              className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-primary-soft px-4 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-100"
             >
               <Navigation className="size-3.5" />
               Directions
@@ -238,12 +238,12 @@ function InfoCard({
   copy: string;
 }) {
   return (
-    <div className="rounded-2xl border border-white/7 bg-surface/55 p-4">
-      <div className="grid size-9 place-items-center rounded-xl border border-emerald-400/15 bg-emerald-400/[0.07] text-emerald-300">
+    <div className="rounded-2xl border border-line bg-card p-4 shadow-card">
+      <div className="grid size-9 place-items-center rounded-xl border border-emerald-200 bg-primary-soft text-primary">
         {icon}
       </div>
-      <h3 className="mt-3 text-sm font-semibold text-white">{title}</h3>
-      <p className="mt-1 text-xs leading-relaxed text-slate-400">{copy}</p>
+      <h3 className="mt-3 text-sm font-semibold text-slate-900">{title}</h3>
+      <p className="mt-1 text-xs leading-relaxed text-slate-500">{copy}</p>
     </div>
   );
 }

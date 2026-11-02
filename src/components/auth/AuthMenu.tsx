@@ -58,7 +58,7 @@ export function AuthMenu() {
     return (
       <span
         aria-label="Loading account"
-        className="h-9 w-24 animate-pulse rounded-full border border-white/8 bg-white/[0.03]"
+        className="h-9 w-24 animate-pulse rounded-full border border-line bg-slate-900/[0.03]"
       />
     );
   }
@@ -68,7 +68,7 @@ export function AuthMenu() {
       <button
         type="button"
         onClick={() => openLogin()}
-        className="inline-flex h-9 items-center gap-1.5 rounded-full border border-emerald-400/20 bg-emerald-400/[0.08] px-3 text-xs font-semibold text-emerald-200 transition hover:border-emerald-400/40 hover:bg-emerald-400/[0.12] hover:text-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70"
+        className="inline-flex h-9 items-center gap-1.5 rounded-full border border-emerald-200 bg-primary-soft px-3 text-xs font-semibold text-emerald-700 transition hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
       >
         <LogIn className="size-3.5" />
         Sign in
@@ -101,9 +101,9 @@ export function AuthMenu() {
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
         aria-haspopup="menu"
-        className="inline-flex h-9 items-center gap-2 rounded-full border border-white/8 bg-white/[0.03] pl-1.5 pr-2 text-slate-300 transition hover:border-emerald-400/30 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70"
+        className="inline-flex h-9 items-center gap-2 rounded-full border border-line bg-white pl-1.5 pr-2 text-slate-600 transition hover:border-emerald-300 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
       >
-        <span className="grid size-6 place-items-center rounded-full border border-emerald-400/20 bg-emerald-400/10 text-[9px] font-semibold text-emerald-200">
+        <span className="grid size-6 place-items-center rounded-full border border-emerald-200 bg-primary-soft text-[9px] font-semibold text-emerald-700">
           {initialsForName(user.name) || "P"}
         </span>
         <span className="hidden max-w-[7.5rem] truncate text-[11px] font-medium sm:inline">
@@ -122,19 +122,19 @@ export function AuthMenu() {
         <div
           role="menu"
           aria-label="Account menu"
-          className="absolute right-0 top-11 z-50 w-72 animate-pop overflow-hidden rounded-2xl border border-white/10 bg-surface/95 shadow-[0_30px_90px_-25px_rgba(0,0,0,0.95)] backdrop-blur-xl"
+          className="absolute right-0 top-11 z-50 w-72 animate-pop overflow-hidden rounded-2xl border border-line bg-card/95 shadow-lift backdrop-blur-xl"
         >
-          <div className="border-b border-white/6 px-4 py-3.5">
+          <div className="border-b border-line px-4 py-3.5">
             <div className="flex items-center justify-between gap-2">
-              <p className="truncate text-sm font-semibold text-white">
+              <p className="truncate text-sm font-semibold text-slate-900">
                 {user.name}
               </p>
               <RoleBadge role={user.role} />
             </div>
-            <p className="mt-1 text-xs font-medium text-slate-400">
+            <p className="mt-1 text-xs font-medium text-slate-500">
               {displayPhone(user.phone)}
             </p>
-            <p className="mt-0.5 text-[10px] text-slate-600">
+            <p className="mt-0.5 text-[10px] text-slate-400">
               Signed in · {roleLabel(user.role)}
             </p>
           </div>
@@ -175,13 +175,13 @@ export function AuthMenu() {
             )}
           </div>
 
-          <div className="border-t border-white/6 p-1.5">
+          <div className="border-t border-line p-1.5">
             <button
               type="button"
               onClick={() => void handleSignOut()}
               disabled={signingOut}
               role="menuitem"
-              className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-left text-xs font-medium text-slate-400 transition hover:bg-rose-400/[0.06] hover:text-rose-200 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400/60"
+              className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-left text-xs font-medium text-slate-500 transition hover:bg-rose-50 hover:text-rose-600 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/50"
             >
               <LogOut className="size-4" />
               {signingOut ? "Signing out…" : "Sign out"}
@@ -213,18 +213,18 @@ function MenuLink({
       href={href}
       role="menuitem"
       onClick={onNavigate}
-      className={`flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 ${
+      className={`flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
         accent
-          ? "border border-emerald-400/15 bg-emerald-400/[0.05] text-emerald-200 hover:bg-emerald-400/10"
-          : "text-slate-300 hover:bg-white/[0.04] hover:text-white"
+          ? "border border-emerald-200 bg-primary-soft text-emerald-700 hover:bg-emerald-100/70"
+          : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
       }`}
     >
-      <span className={accent ? "text-emerald-300" : "text-slate-500"}>
+      <span className={accent ? "text-emerald-600" : "text-slate-500"}>
         {icon}
       </span>
       <span className="flex-1">{label}</span>
       {hint && (
-        <span className="text-[9px] uppercase tracking-[0.1em] text-slate-600">
+        <span className="text-[9px] uppercase tracking-[0.1em] text-slate-400">
           {hint}
         </span>
       )}

@@ -37,18 +37,18 @@ const VARIANT_STYLES: Record<
 > = {
   success: {
     icon: CheckCircle2,
-    accent: "text-emerald-300",
-    ring: "border-emerald-400/25 bg-emerald-400/[0.07]",
+    accent: "text-emerald-600",
+    ring: "border-emerald-200 bg-emerald-50",
   },
   error: {
     icon: AlertCircle,
-    accent: "text-rose-300",
-    ring: "border-rose-400/25 bg-rose-400/[0.07]",
+    accent: "text-rose-600",
+    ring: "border-rose-200 bg-rose-50",
   },
   info: {
     icon: Info,
-    accent: "text-cyan-300",
-    ring: "border-cyan-400/25 bg-cyan-400/[0.07]",
+    accent: "text-cyan-700",
+    ring: "border-cyan-200 bg-cyan-50",
   },
 };
 
@@ -116,15 +116,15 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
             <div
               key={item.id}
               role={item.variant === "error" ? "alert" : "status"}
-              className={`pointer-events-auto flex w-full max-w-sm animate-pop items-start gap-3 rounded-2xl border bg-surface/95 p-3.5 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.9)] backdrop-blur-xl ${style.ring}`}
+              className={`pointer-events-auto flex w-full max-w-sm animate-pop items-start gap-3 rounded-2xl border bg-card p-3.5 shadow-lift backdrop-blur-xl ${style.ring}`}
             >
               <Icon className={`mt-0.5 size-4 shrink-0 ${style.accent}`} />
               <div className="min-w-0 flex-1">
-                <p className="text-xs font-semibold leading-snug text-white">
+                <p className="text-xs font-semibold leading-snug text-slate-900">
                   {item.title}
                 </p>
                 {item.description && (
-                  <p className="mt-1 text-[11px] leading-relaxed text-slate-400">
+                  <p className="mt-1 text-[11px] leading-relaxed text-slate-500">
                     {item.description}
                   </p>
                 )}
@@ -132,7 +132,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
               <button
                 type="button"
                 onClick={() => dismissToast(item.id)}
-                className="-mr-1 -mt-1 grid size-7 shrink-0 place-items-center rounded-lg text-slate-500 transition hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70"
+                className="-mr-1 -mt-1 grid size-7 shrink-0 place-items-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
                 aria-label="Dismiss notification"
               >
                 <X className="size-3.5" />

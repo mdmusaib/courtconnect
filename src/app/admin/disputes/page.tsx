@@ -82,14 +82,14 @@ export default async function AdminDisputesPage({
       >
         <Link
           href="/admin/payouts"
-          className="inline-flex h-9 items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] px-3 text-[11px] font-semibold text-slate-200 transition hover:border-white/20 hover:text-white"
+          className="inline-flex h-9 items-center gap-1.5 rounded-xl border border-line bg-white px-3 text-[11px] font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-900"
         >
           Revenue ledger
           <ArrowRight className="size-3.5" />
         </Link>
         <Link
           href="/admin/venues"
-          className="inline-flex h-9 items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] px-3 text-[11px] font-semibold text-slate-200 transition hover:border-white/20 hover:text-white"
+          className="inline-flex h-9 items-center gap-1.5 rounded-xl border border-line bg-white px-3 text-[11px] font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-900"
         >
           Venue queue
           <ArrowRight className="size-3.5" />
@@ -102,32 +102,32 @@ export default async function AdminDisputesPage({
           label="Open cases"
           value={String(counts.OPEN)}
           hint="Awaiting first review"
-          accent="text-amber-300"
-          iconClass="border-amber-400/20 bg-amber-400/10"
+          accent="text-amber-600"
+          iconClass="border-amber-200 bg-amber-50"
         />
         <Summary
           icon={Clock3}
           label="Under review"
           value={String(counts.UNDER_REVIEW)}
           hint="Venue or payment evidence pending"
-          accent="text-cyan-300"
-          iconClass="border-cyan-400/20 bg-cyan-400/10"
+          accent="text-cyan-600"
+          iconClass="border-cyan-200 bg-cyan-50"
         />
         <Summary
           icon={CheckCircle2}
           label="Resolved"
           value={String(counts.RESOLVED)}
           hint={`${counts.REJECTED} rejected without refund`}
-          accent="text-emerald-300"
-          iconClass="border-emerald-400/20 bg-emerald-400/10"
+          accent="text-primary"
+          iconClass="border-emerald-200 bg-primary-soft"
         />
         <Summary
           icon={Wallet}
           label="Override refunds"
           value={formatINR(overriddenRefunds)}
           hint="Approved through dispute review"
-          accent="text-violet-300"
-          iconClass="border-violet-400/20 bg-violet-400/10"
+          accent="text-violet-600"
+          iconClass="border-violet-200 bg-violet-50"
         />
       </div>
 
@@ -148,16 +148,16 @@ export default async function AdminDisputesPage({
               aria-current={active ? "page" : undefined}
               className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.1em] transition ${
                 active
-                  ? "border-cyan-400/25 bg-cyan-400/10 text-cyan-200"
-                  : "border-white/8 bg-white/[0.02] text-slate-400 hover:border-white/15 hover:text-white"
+                  ? "border-cyan-300 bg-cyan-50 text-cyan-800"
+                  : "border-line bg-white text-slate-500 hover:border-slate-300 hover:text-slate-900"
               }`}
             >
               {label}
               <span
                 className={`rounded-full px-1.5 py-0.5 text-[9px] ${
                   active
-                    ? "bg-cyan-400/15 text-cyan-100"
-                    : "bg-white/[0.05] text-slate-500"
+                    ? "bg-cyan-100 text-cyan-800"
+                    : "bg-slate-100 text-slate-500"
                 }`}
               >
                 {counts[option]}
@@ -168,14 +168,14 @@ export default async function AdminDisputesPage({
       </div>
 
       {disputes.length === 0 ? (
-        <div className="mt-4 rounded-3xl border border-dashed border-white/10 bg-white/[0.02] px-6 py-14 text-center">
-          <div className="mx-auto grid size-14 place-items-center rounded-2xl border border-white/8 bg-surface text-slate-400">
+        <div className="mt-4 rounded-3xl border border-dashed border-slate-300 bg-slate-50 px-6 py-14 text-center">
+          <div className="mx-auto grid size-14 place-items-center rounded-2xl border border-line bg-white text-slate-500">
             <Scale className="size-6" />
           </div>
-          <h2 className="mt-4 text-base font-semibold text-white">
+          <h2 className="mt-4 text-base font-semibold text-slate-900">
             No disputes in this queue.
           </h2>
-          <p className="mx-auto mt-1.5 max-w-sm text-sm leading-relaxed text-slate-400">
+          <p className="mx-auto mt-1.5 max-w-sm text-sm leading-relaxed text-slate-500">
             {status === "OPEN"
               ? "No open cases right now. The support queue is clear."
               : "Try another status filter to see the full dispute history."}
@@ -197,12 +197,12 @@ export default async function AdminDisputesPage({
             return (
               <article
                 key={dispute.id}
-                className="overflow-hidden rounded-3xl border border-white/8 bg-surface/70"
+                className="overflow-hidden rounded-3xl border border-line bg-card"
               >
-                <div className="flex flex-wrap items-start justify-between gap-3 border-b border-white/6 px-5 py-4">
+                <div className="flex flex-wrap items-start justify-between gap-3 border-b border-line px-5 py-4">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
-                      <h2 className="text-base font-semibold tracking-tight text-white">
+                      <h2 className="text-base font-semibold tracking-tight text-slate-900">
                         {dispute.reason}
                       </h2>
                       <DisputeBadge status={dispute.status} />
@@ -215,9 +215,9 @@ export default async function AdminDisputesPage({
                           formatDateKey(new Date(dispute.createdAt)),
                         )}
                       </span>
-                      <span className="text-slate-700">·</span>
+                      <span className="text-slate-300">·</span>
                       <span>Case {dispute.id.slice(0, 8)}</span>
-                      <span className="text-slate-700">·</span>
+                      <span className="text-slate-300">·</span>
                       <span>Booking {dispute.booking.id.slice(0, 8)}</span>
                     </p>
                   </div>
@@ -226,7 +226,7 @@ export default async function AdminDisputesPage({
                     <p className="text-[9px] uppercase tracking-[0.14em] text-slate-500">
                       Player paid
                     </p>
-                    <p className="mt-0.5 text-lg font-semibold text-white">
+                    <p className="mt-0.5 text-lg font-semibold text-slate-900">
                       {formatINR(dispute.booking.paidAmount)}
                     </p>
                   </div>
@@ -234,13 +234,13 @@ export default async function AdminDisputesPage({
 
                 <div className="grid gap-4 px-5 py-4 xl:grid-cols-[1.35fr_1fr]">
                   <div>
-                    <div className="rounded-2xl border border-white/6 bg-black/10 p-3.5">
+                    <div className="rounded-2xl border border-line bg-slate-50 p-3.5">
                       <div className="flex flex-wrap items-start justify-between gap-2">
                         <div>
-                          <p className="text-xs font-semibold text-white">
+                          <p className="text-xs font-semibold text-slate-900">
                             {dispute.booking.venueName}
                           </p>
-                          <p className="mt-0.5 text-[10px] text-slate-400">
+                          <p className="mt-0.5 text-[10px] text-slate-500">
                             {dispute.booking.courtName} ·{" "}
                             {dispute.booking.dateLabel} ·{" "}
                             {dispute.booking.timeLabel}
@@ -262,7 +262,7 @@ export default async function AdminDisputesPage({
                         <Money
                           label="Convenience fee"
                           value={formatINR(dispute.booking.convenienceFee)}
-                          accent="text-amber-200"
+                          accent="text-amber-700"
                         />
                         <Money
                           label="Owner payout"
@@ -271,7 +271,7 @@ export default async function AdminDisputesPage({
                         <Money
                           label="Booking refund"
                           value={formatINR(dispute.booking.refundAmount)}
-                          accent="text-cyan-200"
+                          accent="text-cyan-700"
                         />
                       </div>
 
@@ -279,7 +279,7 @@ export default async function AdminDisputesPage({
                         <RefundBadge
                           status={dispute.booking.refundStatus}
                         />
-                        <span className="text-[9px] text-slate-600">
+                        <span className="text-[9px] text-slate-400">
                           Eligible override cap: {formatINR(maxRefund)} (court
                           fee only)
                         </span>
@@ -287,32 +287,32 @@ export default async function AdminDisputesPage({
                     </div>
 
                     {dispute.details && (
-                      <div className="mt-3 rounded-2xl border border-white/6 bg-white/[0.02] p-3.5">
+                      <div className="mt-3 rounded-2xl border border-line bg-slate-50 p-3.5">
                         <p className="flex items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-500">
                           <MessageSquareText className="size-3" />
                           Player report
                         </p>
-                        <p className="mt-1.5 text-[11px] leading-relaxed text-slate-300">
+                        <p className="mt-1.5 text-[11px] leading-relaxed text-slate-600">
                           {dispute.details}
                         </p>
                       </div>
                     )}
 
                     {closed && (
-                      <div className="mt-3 rounded-2xl border border-white/6 bg-black/10 p-3.5">
+                      <div className="mt-3 rounded-2xl border border-line bg-slate-50 p-3.5">
                         <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-500">
                           Resolution
                         </p>
-                        <p className="mt-1.5 text-[11px] leading-relaxed text-slate-300">
+                        <p className="mt-1.5 text-[11px] leading-relaxed text-slate-600">
                           {dispute.resolutionNote ?? "No resolution note."}
                         </p>
-                        <div className="mt-2 flex flex-wrap items-center gap-2 text-[9px] text-slate-600">
+                        <div className="mt-2 flex flex-wrap items-center gap-2 text-[9px] text-slate-400">
                           <span>
                             {dispute.resolvedBy?.name ?? "Platform admin"}
                           </span>
                           {dispute.resolvedAt && (
                             <>
-                              <span className="text-slate-700">·</span>
+                              <span className="text-slate-300">·</span>
                               <span>
                                 {formatDateKeyLong(
                                   formatDateKey(new Date(dispute.resolvedAt)),
@@ -322,8 +322,8 @@ export default async function AdminDisputesPage({
                           )}
                           {dispute.refundAmount > 0 && (
                             <>
-                              <span className="text-slate-700">·</span>
-                              <span className="font-semibold text-emerald-300">
+                              <span className="text-slate-300">·</span>
+                              <span className="font-semibold text-primary">
                                 {formatINR(dispute.refundAmount)} overridden
                               </span>
                             </>
@@ -334,17 +334,17 @@ export default async function AdminDisputesPage({
                   </div>
 
                   <div>
-                    <div className="rounded-2xl border border-white/6 bg-white/[0.02] p-3.5">
+                    <div className="rounded-2xl border border-line bg-slate-50 p-3.5">
                       <p className="flex items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-500">
                         <UserRound className="size-3" />
                         Player
                       </p>
                       {dispute.player ? (
                         <>
-                          <p className="mt-1.5 text-xs font-semibold text-white">
+                          <p className="mt-1.5 text-xs font-semibold text-slate-900">
                             {dispute.player.name}
                           </p>
-                          <p className="mt-0.5 text-[10px] text-slate-400">
+                          <p className="mt-0.5 text-[10px] text-slate-500">
                             {dispute.player.phone}
                           </p>
                         </>
@@ -354,10 +354,10 @@ export default async function AdminDisputesPage({
                         </p>
                       )}
 
-                      <div className="mt-3 space-y-1.5 border-t border-white/6 pt-2.5">
+                      <div className="mt-3 space-y-1.5 border-t border-line pt-2.5">
                         <div className="flex items-center justify-between gap-3 text-[10px]">
                           <span className="text-slate-500">Booking paid</span>
-                          <span className="font-medium text-white">
+                          <span className="font-medium text-slate-900">
                             {formatINR(dispute.booking.paidAmount)}
                           </span>
                         </div>
@@ -365,13 +365,13 @@ export default async function AdminDisputesPage({
                           <span className="text-slate-500">
                             Eligible court refund
                           </span>
-                          <span className="font-medium text-emerald-300">
+                          <span className="font-medium text-primary">
                             {formatINR(maxRefund)}
                           </span>
                         </div>
                         <div className="flex items-center justify-between gap-3 text-[10px]">
                           <span className="text-slate-500">Case age</span>
-                          <span className="font-medium text-slate-200">
+                          <span className="font-medium text-slate-700">
                             {formatDateKeyLong(
                               formatDateKey(new Date(dispute.createdAt)),
                             )}
@@ -387,7 +387,7 @@ export default async function AdminDisputesPage({
                         existingRefundAmount={dispute.booking.refundAmount}
                       />
                     ) : (
-                      <div className="mt-4 flex items-start gap-2 rounded-xl border border-white/8 bg-white/[0.02] px-3 py-2.5">
+                      <div className="mt-4 flex items-start gap-2 rounded-xl border border-line bg-slate-50 px-3 py-2.5">
                         <Banknote className="mt-0.5 size-3.5 shrink-0 text-slate-500" />
                         <p className="text-[10px] leading-relaxed text-slate-500">
                           This case is closed. Refund overrides are locked to
@@ -422,7 +422,7 @@ function Summary({
   iconClass: string;
 }) {
   return (
-    <div className="rounded-2xl border border-white/8 bg-surface/70 p-3.5">
+    <div className="rounded-2xl border border-line bg-card p-3.5">
       <div className="flex items-center gap-2">
         <span
           className={`grid size-8 place-items-center rounded-xl border ${iconClass}`}
@@ -433,7 +433,7 @@ function Summary({
           {label}
         </p>
       </div>
-      <p className="mt-2.5 text-xl font-semibold tracking-tight text-white">
+      <p className="mt-2.5 text-xl font-semibold tracking-tight text-slate-900">
         {value}
       </p>
       <p className="mt-0.5 truncate text-[9px] text-slate-500">{hint}</p>
@@ -444,14 +444,14 @@ function Summary({
 function Money({
   label,
   value,
-  accent = "text-white",
+  accent = "text-slate-900",
 }: {
   label: string;
   value: string;
   accent?: string;
 }) {
   return (
-    <div className="rounded-xl border border-white/6 bg-white/[0.02] px-2.5 py-2">
+    <div className="rounded-xl border border-line bg-white px-2.5 py-2">
       <p className="text-[8px] uppercase tracking-[0.12em] text-slate-500">
         {label}
       </p>

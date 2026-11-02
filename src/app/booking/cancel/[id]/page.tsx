@@ -67,7 +67,7 @@ export default async function CancelBookingPage({
         title="Cancel booking"
         subtitle={`${booking.court.venue.name} · ${dateLabel}`}
         right={
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/15 bg-amber-400/[0.06] px-2.5 py-1 text-[10px] font-medium text-amber-200">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-[10px] font-medium text-amber-700">
             <Clock3 className="size-3" />
             Policy applies
           </span>
@@ -76,37 +76,37 @@ export default async function CancelBookingPage({
 
       <main className="mx-auto max-w-2xl px-4 pt-6">
         {booking.status === "CANCELLED" ? (
-          <section className="animate-pop rounded-3xl border border-white/8 bg-surface/80 p-6 text-center">
-            <div className="mx-auto grid size-16 place-items-center rounded-full border border-rose-400/20 bg-rose-400/10 text-rose-300">
+          <section className="animate-pop rounded-3xl border border-line bg-card p-6 text-center">
+            <div className="mx-auto grid size-16 place-items-center rounded-full border border-rose-200 bg-rose-50 text-rose-600">
               <Ban className="size-8" />
             </div>
-            <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-rose-300">
+            <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-rose-600">
               Booking cancelled
             </p>
-            <h1 className="mt-1 text-2xl font-semibold tracking-tight text-white">
+            <h1 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900">
               {booking.refundAmount > 0
                 ? `${formatINR(booking.refundAmount)} refund ${booking.refundStatus === "PROCESSED" ? "completed" : "queued"}.`
                 : "This slot has been released."}
             </h1>
-            <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-slate-400">
+            <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-slate-500">
               {booking.cancellationReason ??
                 "The booking was cancelled before the court time."}
             </p>
 
             <div className="mx-auto mt-5 grid max-w-md grid-cols-2 gap-2 text-left">
-              <div className="rounded-2xl border border-white/8 bg-white/[0.025] p-3">
+              <div className="rounded-2xl border border-line bg-slate-900/[0.03] p-3">
                 <p className="text-[9px] uppercase tracking-[0.14em] text-slate-500">
                   Refund
                 </p>
-                <p className="mt-1 text-lg font-semibold text-emerald-300">
+                <p className="mt-1 text-lg font-semibold text-emerald-600">
                   {formatINR(booking.refundAmount)}
                 </p>
               </div>
-              <div className="rounded-2xl border border-white/8 bg-white/[0.025] p-3">
+              <div className="rounded-2xl border border-line bg-slate-900/[0.03] p-3">
                 <p className="text-[9px] uppercase tracking-[0.14em] text-slate-500">
                   Status
                 </p>
-                <p className="mt-1 text-sm font-semibold text-white">
+                <p className="mt-1 text-sm font-semibold text-slate-900">
                   {refundStatusLabel(booking.refundStatus)}
                 </p>
               </div>
@@ -121,14 +121,14 @@ export default async function CancelBookingPage({
             <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-center">
               <Link
                 href="/my-bookings"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-emerald-400 px-5 text-xs font-semibold text-oled transition hover:bg-emerald-300"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-primary px-5 text-xs font-semibold text-white shadow-primary transition hover:bg-primary-deep"
               >
                 <CheckCircle2 className="size-4" />
                 Back to my bookings
               </Link>
               <Link
                 href="/#venues"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-5 text-xs font-semibold text-slate-200 transition hover:border-white/20 hover:text-white"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-line bg-white px-5 text-xs font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-900"
               >
                 Book another court
                 <ArrowRight className="size-3.5" />
@@ -137,9 +137,9 @@ export default async function CancelBookingPage({
           </section>
         ) : (
           <>
-            <div className="mb-4 flex items-start gap-2.5 rounded-2xl border border-white/7 bg-white/[0.02] p-3.5">
-              <ShieldCheck className="mt-0.5 size-4 shrink-0 text-emerald-400" />
-              <p className="text-[11px] leading-relaxed text-slate-400">
+            <div className="mb-4 flex items-start gap-2.5 rounded-2xl border border-line bg-slate-900/[0.03] p-3.5">
+              <ShieldCheck className="mt-0.5 size-4 shrink-0 text-emerald-600" />
+              <p className="text-[11px] leading-relaxed text-slate-500">
                 Cancellation is calculated from the time remaining before the
                 slot starts. The court fee is refundable on a sliding scale; the
                 convenience fee is not.
@@ -165,7 +165,7 @@ export default async function CancelBookingPage({
               quote={quote}
             />
 
-            <div className="mt-4 flex items-center justify-center gap-1.5 text-[10px] text-slate-600">
+            <div className="mt-4 flex items-center justify-center gap-1.5 text-[10px] text-slate-400">
               <RotateCcw className="size-3" />
               Need help instead? Contact the venue before cancelling.
             </div>

@@ -2,9 +2,9 @@ import type { UserRole } from "@/lib/auth-types";
 import { roleLabel } from "@/lib/auth-types";
 
 const STYLES: Record<UserRole, string> = {
-  PLAYER: "border-emerald-400/20 bg-emerald-400/[0.08] text-emerald-200",
-  OWNER: "border-amber-400/20 bg-amber-400/[0.08] text-amber-200",
-  ADMIN: "border-cyan-400/20 bg-cyan-400/[0.08] text-cyan-200",
+  PLAYER: "border-emerald-200 bg-primary-soft text-emerald-700",
+  OWNER: "border-amber-200 bg-amber-50 text-amber-700",
+  ADMIN: "border-cyan-200 bg-cyan-50 text-cyan-700",
 };
 
 export function RoleBadge({

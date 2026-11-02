@@ -46,17 +46,17 @@ export function DemoRoleButtons({
             onClick={() => void onSelect(account.role)}
             disabled={disabled || busy}
             aria-label={`Continue as ${account.label}`}
-            className={`group flex w-full items-center gap-3 rounded-2xl border px-4 py-3 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 disabled:cursor-not-allowed disabled:opacity-55 ${
+            className={`group flex w-full items-center gap-3 rounded-2xl border px-4 py-3 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 disabled:cursor-not-allowed disabled:opacity-55 ${
               isActive
-                ? "border-emerald-400/35 bg-emerald-400/[0.09]"
-                : "border-white/8 bg-white/[0.025] hover:border-emerald-400/30 hover:bg-emerald-400/[0.05]"
+                ? "border-emerald-300 bg-primary-soft"
+                : "border-line bg-white hover:border-emerald-300 hover:bg-primary-soft"
             }`}
           >
             <span
               className={`grid size-10 shrink-0 place-items-center rounded-xl border ${
                 isActive
-                  ? "border-emerald-400/25 bg-emerald-400/15 text-emerald-200"
-                  : "border-white/8 bg-white/[0.03] text-slate-400 group-hover:text-emerald-300"
+                  ? "border-emerald-200 bg-emerald-100/70 text-emerald-700"
+                  : "border-line bg-slate-900/[0.03] text-slate-500 group-hover:text-emerald-600"
               }`}
             >
               {isBusy ? (
@@ -67,10 +67,10 @@ export function DemoRoleButtons({
             </span>
 
             <span className="min-w-0 flex-1">
-              <span className="flex flex-wrap items-center gap-1.5 text-sm font-semibold text-white">
+              <span className="flex flex-wrap items-center gap-1.5 text-sm font-semibold text-slate-900">
                 Continue as {account.label}
                 {isActive && (
-                  <span className="rounded-full border border-emerald-400/25 bg-emerald-400/10 px-1.5 py-0.5 text-[8px] font-semibold uppercase tracking-[0.12em] text-emerald-300">
+                  <span className="rounded-full border border-emerald-200 bg-primary-soft px-1.5 py-0.5 text-[8px] font-semibold uppercase tracking-[0.12em] text-emerald-700">
                     Active
                   </span>
                 )}
@@ -80,7 +80,7 @@ export function DemoRoleButtons({
               </span>
             </span>
 
-            <ArrowRight className="size-4 shrink-0 text-slate-600 transition group-hover:text-emerald-300" />
+            <ArrowRight className="size-4 shrink-0 text-slate-400 transition group-hover:text-emerald-600" />
           </button>
         );
       })}

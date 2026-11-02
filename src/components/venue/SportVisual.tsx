@@ -17,24 +17,23 @@ interface SportTheme {
 const themes: Record<string, SportTheme> = {
   Football: {
     icon: Goal,
-    gradient:
-      "from-emerald-500/30 via-emerald-900/25 to-[#0b0f17]",
-    accent: "text-emerald-300",
-    chip: "border-emerald-400/20 bg-emerald-400/10 text-emerald-300",
+    gradient: "from-emerald-500 via-emerald-700 to-emerald-950",
+    accent: "text-emerald-200",
+    chip: "border-emerald-200 bg-emerald-50 text-emerald-700",
     label: "Football",
   },
   Cricket: {
     icon: CircleDot,
-    gradient: "from-cyan-500/30 via-cyan-900/25 to-[#0b0f17]",
-    accent: "text-cyan-300",
-    chip: "border-cyan-400/20 bg-cyan-400/10 text-cyan-300",
+    gradient: "from-cyan-500 via-cyan-700 to-slate-950",
+    accent: "text-cyan-200",
+    chip: "border-cyan-200 bg-cyan-50 text-cyan-700",
     label: "Cricket",
   },
   Badminton: {
     icon: Feather,
-    gradient: "from-fuchsia-500/25 via-purple-900/25 to-[#0b0f17]",
-    accent: "text-fuchsia-300",
-    chip: "border-fuchsia-400/20 bg-fuchsia-400/10 text-fuchsia-300",
+    gradient: "from-fuchsia-500 via-purple-700 to-purple-950",
+    accent: "text-fuchsia-200",
+    chip: "border-fuchsia-200 bg-fuchsia-50 text-fuchsia-700",
     label: "Badminton",
   },
 };

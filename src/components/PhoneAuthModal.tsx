@@ -89,7 +89,7 @@ export function PhoneAuthModal({
 
   return (
     <div
-      className="fixed inset-0 z-[90] flex items-end justify-center bg-oled/80 p-0 backdrop-blur-sm sm:items-center sm:p-4"
+      className="fixed inset-0 z-[90] flex items-end justify-center bg-slate-900/40 p-0 backdrop-blur-sm sm:items-center sm:p-4"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget && !busyRole) {
           onClose();
@@ -100,23 +100,23 @@ export function PhoneAuthModal({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="relative w-full max-w-md animate-pop overflow-hidden rounded-t-3xl border border-white/10 bg-surface shadow-[0_40px_120px_-30px_rgba(0,0,0,1)] sm:rounded-3xl"
+        className="relative w-full max-w-md animate-pop overflow-hidden rounded-t-3xl border border-line bg-card shadow-lift sm:rounded-3xl"
       >
-        <div className="pointer-events-none absolute -right-16 -top-20 size-48 rounded-full bg-emerald-400/[0.08] blur-3xl" />
+        <div className="pointer-events-none absolute -right-16 -top-20 size-48 rounded-full bg-primary/10 blur-3xl" />
 
-        <div className="relative flex items-start justify-between gap-3 border-b border-white/6 px-5 py-4">
+        <div className="relative flex items-start justify-between gap-3 border-b border-line px-5 py-4">
           <div className="flex items-start gap-3">
-            <span className="grid size-10 shrink-0 place-items-center rounded-2xl border border-emerald-400/20 bg-emerald-400/10 text-emerald-300">
+            <span className="grid size-10 shrink-0 place-items-center rounded-2xl border border-emerald-200 bg-primary-soft text-emerald-600">
               <ShieldCheck className="size-5" />
             </span>
             <div>
               <h2
                 id={titleId}
-                className="text-sm font-semibold tracking-tight text-white"
+                className="text-sm font-semibold tracking-tight text-slate-900"
               >
                 {title}
               </h2>
-              <p className="mt-0.5 text-[11px] text-slate-400">
+              <p className="mt-0.5 text-[11px] text-slate-500">
                 Instant dev sign-in — no OTP, SMS, or Firebase.
               </p>
             </div>
@@ -126,7 +126,7 @@ export function PhoneAuthModal({
             type="button"
             onClick={onClose}
             disabled={Boolean(busyRole)}
-            className="grid size-8 shrink-0 place-items-center rounded-full border border-white/8 bg-white/[0.03] text-slate-400 transition hover:text-white disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70"
+            className="grid size-8 shrink-0 place-items-center rounded-full border border-line bg-slate-900/[0.03] text-slate-500 transition hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
             aria-label="Close sign-in"
           >
             <X className="size-3.5" />
@@ -135,7 +135,7 @@ export function PhoneAuthModal({
 
         <div className="relative px-5 py-5">
           {message && (
-            <div className="mb-4 flex items-start gap-2 rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.055] px-3 py-2.5 text-[11px] leading-relaxed text-cyan-100/90">
+            <div className="mb-4 flex items-start gap-2 rounded-2xl border border-cyan-200 bg-cyan-50 px-3 py-2.5 text-[11px] leading-relaxed text-cyan-700">
               <LockKeyhole className="mt-0.5 size-3.5 shrink-0" />
               {message}
             </div>
@@ -150,14 +150,14 @@ export function PhoneAuthModal({
           {error && (
             <div
               role="alert"
-              className="mt-3 flex items-start gap-2 rounded-2xl border border-rose-400/20 bg-rose-400/[0.06] px-3 py-2.5 text-[11px] leading-relaxed text-rose-100"
+              className="mt-3 flex items-start gap-2 rounded-2xl border border-rose-200 bg-rose-50 px-3 py-2.5 text-[11px] leading-relaxed text-rose-700"
             >
               <AlertCircle className="mt-0.5 size-3.5 shrink-0" />
               {error}
             </div>
           )}
 
-          <p className="mt-5 border-t border-white/6 pt-3 text-center text-[9px] leading-relaxed text-slate-600">
+          <p className="mt-5 border-t border-line pt-3 text-center text-[9px] leading-relaxed text-slate-400">
             Each button writes a signed HTTP-only{" "}
             <code className="text-slate-500">courtconnect_session</code> JWT for
             the selected role. Role checks and phone verification are disabled

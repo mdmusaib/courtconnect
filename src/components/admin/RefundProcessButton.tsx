@@ -54,7 +54,7 @@ export function RefundProcessButton({
 
   if (done) {
     return (
-      <span className="inline-flex items-center gap-1 text-[9px] font-medium text-emerald-300">
+      <span className="inline-flex items-center gap-1 text-[9px] font-medium text-emerald-600">
         <CheckCircle2 className="size-3" />
         {done}
       </span>
@@ -69,7 +69,7 @@ export function RefundProcessButton({
           setPending("PROCESS");
           setError(null);
         }}
-        className="inline-flex h-7 items-center gap-1 rounded-md border border-amber-400/20 bg-amber-400/[0.08] px-2 text-[9px] font-semibold text-amber-200 transition hover:border-amber-400/40 hover:bg-amber-400/[0.14] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300"
+        className="inline-flex h-7 items-center gap-1 rounded-md border border-amber-200 bg-amber-50 px-2 text-[9px] font-semibold text-amber-700 transition hover:border-amber-300 hover:bg-amber-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/50"
       >
         Mark paid
       </button>
@@ -77,21 +77,21 @@ export function RefundProcessButton({
   }
 
   return (
-    <div className="min-w-[9.5rem] rounded-lg border border-amber-400/15 bg-amber-400/[0.04] p-2">
-      <p className="text-[9px] leading-relaxed text-amber-100">
+    <div className="min-w-[9.5rem] rounded-lg border border-amber-200 bg-amber-50 p-2">
+      <p className="text-[9px] leading-relaxed text-amber-800">
         {pending === "PROCESS"
           ? `Confirm ${formatINR(amount)} reached the player?`
           : `Mark ${formatINR(amount)} as failed?`}
       </p>
       {error && (
-        <p className="mt-1 text-[9px] text-rose-300">{error}</p>
+        <p className="mt-1 text-[9px] text-rose-600">{error}</p>
       )}
       <div className="mt-1.5 flex flex-wrap items-center gap-1">
         <button
           type="button"
           onClick={() => submit(pending)}
           disabled={busy}
-          className="inline-flex h-6 items-center gap-1 rounded-md bg-amber-300 px-1.5 text-[9px] font-semibold text-oled transition hover:bg-amber-200 disabled:opacity-60"
+          className="inline-flex h-6 items-center gap-1 rounded-md bg-amber-500 px-1.5 text-[9px] font-semibold text-white transition hover:bg-amber-600 disabled:opacity-60"
         >
           {busy ? (
             <Loader2 className="size-2.5 animate-spin" />
@@ -104,7 +104,7 @@ export function RefundProcessButton({
           type="button"
           onClick={() => setPending(pending === "PROCESS" ? "FAIL" : null)}
           disabled={busy}
-          className="inline-flex h-6 items-center gap-1 rounded-md border border-rose-400/20 px-1.5 text-[9px] font-medium text-rose-200 transition hover:bg-rose-400/[0.08] disabled:opacity-60"
+          className="inline-flex h-6 items-center gap-1 rounded-md border border-rose-200 px-1.5 text-[9px] font-medium text-rose-600 transition hover:bg-rose-50 disabled:opacity-60"
         >
           <XCircle className="size-2.5" />
           {pending === "PROCESS" ? "Mark failed" : "Cancel"}
@@ -116,7 +116,7 @@ export function RefundProcessButton({
             setError(null);
           }}
           disabled={busy}
-          className="h-6 px-1 text-[9px] text-slate-500 transition hover:text-white disabled:opacity-60"
+          className="h-6 px-1 text-[9px] text-slate-500 transition hover:text-slate-900 disabled:opacity-60"
         >
           Close
         </button>

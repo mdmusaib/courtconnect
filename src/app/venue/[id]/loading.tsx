@@ -33,7 +33,7 @@ export default function VenueLoading() {
             <ShimmerBox className="h-11 w-36" />
             <ShimmerBox className="h-11 w-36" />
           </div>
-          <div className="mt-4 rounded-3xl border border-white/8 bg-surface/80 p-5">
+          <div className="mt-4 rounded-3xl border border-line bg-card p-5 shadow-card">
             <div className="flex items-start justify-between gap-4">
               <div className="flex gap-3">
                 <ShimmerBox className="size-11" />

@@ -46,7 +46,7 @@ export function BookingTabs({ bookings }: { bookings: BookingListItem[] }) {
 
   return (
     <div className="mt-6">
-      <div className="flex rounded-2xl border border-white/8 bg-surface/60 p-1">
+      <div className="flex rounded-2xl border border-line bg-surface p-1">
         <TabButton
           active={tab === "active"}
           onClick={() => setTab("active")}
@@ -89,10 +89,10 @@ export function BookingTabs({ bookings }: { bookings: BookingListItem[] }) {
         </div>
       )}
 
-      <div className="mt-4 flex items-start gap-2.5 rounded-2xl border border-white/7 bg-white/[0.02] p-3.5">
-        <WifiOff className="mt-0.5 size-4 shrink-0 text-slate-500" />
+      <div className="mt-4 flex items-start gap-2.5 rounded-2xl border border-line bg-white p-3.5">
+        <WifiOff className="mt-0.5 size-4 shrink-0 text-slate-400" />
         <p className="text-[10px] leading-relaxed text-slate-500">
-          <span className="font-semibold text-slate-300">Offline ready.</span>{" "}
+          <span className="font-semibold text-slate-700">Offline ready.</span>{" "}
           This page and recent passes are cached on your device by the CourtConnect
           service worker.
         </p>
@@ -119,17 +119,17 @@ function TabButton({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 ${
+      className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
         active
-          ? "bg-emerald-400 text-oled shadow-[0_6px_24px_-10px_rgba(16,185,129,0.8)]"
-          : "text-slate-400 hover:text-slate-200"
+          ? "bg-white text-slate-900 shadow-card"
+          : "text-slate-500 hover:text-slate-800"
       }`}
     >
       {icon}
       {label}
       <span
         className={`rounded-full px-1.5 py-0.5 text-[9px] ${
-          active ? "bg-oled/15 text-oled" : "bg-white/[0.05] text-slate-500"
+          active ? "bg-primary-soft text-emerald-700" : "bg-slate-100 text-slate-500"
         }`}
       >
         {count}
@@ -146,21 +146,21 @@ function BookingCard({ booking }: { booking: BookingListItem }) {
   const amount = isPending ? booking.dueAmount : booking.paidAmount;
 
   return (
-    <article className="overflow-hidden rounded-3xl border border-white/8 bg-surface/80 transition hover:border-white/12">
+    <article className="overflow-hidden rounded-3xl border border-line bg-card shadow-card transition hover:shadow-lift">
       <div className="p-4">
         <div className="flex items-start gap-3">
-          <div className="grid size-12 shrink-0 place-items-center rounded-2xl border border-white/8 bg-white/[0.03]">
+          <div className="grid size-12 shrink-0 place-items-center rounded-2xl border border-line bg-slate-50">
             <SportIcon
               sport={booking.court.sportType}
-              className="size-5 text-emerald-300"
+              className="size-5 text-primary"
             />
           </div>
 
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
               {holdExpired ? (
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-500/30 bg-slate-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-400">
-                  <span className="size-1.5 rounded-full bg-slate-500" />
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-300 bg-slate-100 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-500">
+                  <span className="size-1.5 rounded-full bg-slate-400" />
                   Hold expired
                 </span>
               ) : (
@@ -170,10 +170,10 @@ function BookingCard({ booking }: { booking: BookingListItem }) {
                 {booking.court.sportType}
               </span>
             </div>
-            <h3 className="mt-2 truncate text-sm font-semibold text-white">
+            <h3 className="mt-2 truncate text-sm font-semibold text-slate-900">
               {booking.venue.name}
             </h3>
-            <p className="mt-0.5 truncate text-[11px] text-slate-400">
+            <p className="mt-0.5 truncate text-[11px] text-slate-500">
               {booking.court.name}
             </p>
           </div>
@@ -181,31 +181,31 @@ function BookingCard({ booking }: { booking: BookingListItem }) {
           <div className="shrink-0 text-right">
             <p
               className={`text-base font-semibold tracking-tight ${
-                isPending ? "text-amber-300" : "text-white"
+                isPending ? "text-amber-600" : "text-slate-900"
               }`}
             >
               {formatINR(amount)}
             </p>
-            <p className="text-[9px] uppercase tracking-wider text-slate-500">
+            <p className="text-[9px] uppercase tracking-wider text-slate-400">
               {isPending ? "Due" : "Paid"}
             </p>
           </div>
         </div>
 
         <div className="mt-3 grid grid-cols-2 gap-2">
-          <div className="flex items-center gap-1.5 rounded-xl border border-white/6 bg-white/[0.02] px-2.5 py-2 text-[11px] text-slate-300">
-            <CalendarDays className="size-3.5 shrink-0 text-emerald-400" />
+          <div className="flex items-center gap-1.5 rounded-xl border border-line bg-slate-50 px-2.5 py-2 text-[11px] text-slate-700">
+            <CalendarDays className="size-3.5 shrink-0 text-primary" />
             <span className="truncate">{booking.dateLabel}</span>
           </div>
-          <div className="flex items-center gap-1.5 rounded-xl border border-white/6 bg-white/[0.02] px-2.5 py-2 text-[11px] text-slate-300">
-            <Clock3 className="size-3.5 shrink-0 text-cyan-400" />
+          <div className="flex items-center gap-1.5 rounded-xl border border-line bg-slate-50 px-2.5 py-2 text-[11px] text-slate-700">
+            <Clock3 className="size-3.5 shrink-0 text-cyan-600" />
             <span className="truncate">{booking.timeLabel}</span>
           </div>
         </div>
 
         {booking.status === "CANCELLED" && (
-          <div className="mt-2 flex items-center justify-between gap-3 rounded-xl border border-rose-400/12 bg-rose-400/[0.035] px-2.5 py-2">
-            <span className="text-[10px] text-slate-400">
+          <div className="mt-2 flex items-center justify-between gap-3 rounded-xl border border-rose-200 bg-rose-50 px-2.5 py-2">
+            <span className="text-[10px] text-slate-500">
               {booking.refundAmount > 0
                 ? booking.refundStatus === "PROCESSED"
                   ? "Refund completed"
@@ -216,7 +216,7 @@ function BookingCard({ booking }: { booking: BookingListItem }) {
             </span>
             <span
               className={`text-[11px] font-semibold ${
-                booking.refundAmount > 0 ? "text-emerald-300" : "text-slate-400"
+                booking.refundAmount > 0 ? "text-primary" : "text-slate-400"
               }`}
             >
               {formatINR(booking.refundAmount)}
@@ -225,8 +225,8 @@ function BookingCard({ booking }: { booking: BookingListItem }) {
         )}
       </div>
 
-      <div className="flex items-center justify-between gap-3 border-t border-white/6 bg-white/[0.012] px-4 py-3">
-        <p className="min-w-0 truncate font-mono text-[9px] text-slate-600">
+      <div className="flex items-center justify-between gap-3 border-t border-line bg-slate-50 px-4 py-3">
+        <p className="min-w-0 truncate font-mono text-[9px] text-slate-400">
           #{booking.id.slice(0, 8).toUpperCase()}
         </p>
 
@@ -234,7 +234,7 @@ function BookingCard({ booking }: { booking: BookingListItem }) {
           {isConfirmed && booking.isActive && (
             <Link
               href={`/booking/success/${booking.id}`}
-              className="inline-flex h-8 items-center gap-1 rounded-lg bg-emerald-400 px-3 text-[10px] font-semibold text-oled transition hover:bg-emerald-300"
+              className="inline-flex h-8 items-center gap-1 rounded-lg bg-primary px-3 text-[10px] font-semibold text-white transition hover:bg-primary-deep"
             >
               <Ticket className="size-3" />
               View pass
@@ -244,7 +244,7 @@ function BookingCard({ booking }: { booking: BookingListItem }) {
           {canPay && (
             <Link
               href={`/checkout/${booking.id}`}
-              className="inline-flex h-8 items-center gap-1 rounded-lg bg-amber-400 px-3 text-[10px] font-semibold text-oled transition hover:bg-amber-300"
+              className="inline-flex h-8 items-center gap-1 rounded-lg bg-amber-500 px-3 text-[10px] font-semibold text-white transition hover:bg-amber-600"
             >
               Complete payment
               <ArrowRight className="size-3" />
@@ -254,7 +254,7 @@ function BookingCard({ booking }: { booking: BookingListItem }) {
           {booking.canCancel && (
             <Link
               href={`/booking/cancel/${booking.id}`}
-              className="inline-flex h-8 items-center gap-1 rounded-lg border border-rose-400/20 bg-rose-400/[0.06] px-3 text-[10px] font-semibold text-rose-200 transition hover:border-rose-400/40 hover:bg-rose-400/[0.1]"
+              className="inline-flex h-8 items-center gap-1 rounded-lg border border-rose-200 bg-rose-50 px-3 text-[10px] font-semibold text-rose-600 transition hover:border-rose-300 hover:bg-rose-100"
             >
               <Ban className="size-3" />
               Cancel
@@ -265,7 +265,7 @@ function BookingCard({ booking }: { booking: BookingListItem }) {
             (isConfirmed && !booking.isActive)) && (
             <Link
               href={`/venue/${booking.venue.id}/book?courtId=${booking.court.id}`}
-              className="inline-flex h-8 items-center gap-1 rounded-lg border border-white/10 bg-white/[0.03] px-3 text-[10px] font-semibold text-slate-300 transition hover:border-emerald-400/30 hover:text-emerald-300"
+              className="inline-flex h-8 items-center gap-1 rounded-lg border border-line bg-white px-3 text-[10px] font-semibold text-slate-600 transition hover:border-primary/40 hover:text-primary"
             >
               Book again
               <ArrowRight className="size-3" />

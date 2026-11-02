@@ -6,28 +6,28 @@ const styles: Record<
 > = {
   PENDING: {
     label: "Payment pending",
-    className: "border-amber-400/20 bg-amber-400/10 text-amber-300",
-    dot: "bg-amber-400",
+    className: "border-amber-200 bg-amber-50 text-amber-700",
+    dot: "bg-amber-500",
   },
   CONFIRMED: {
     label: "Confirmed",
-    className: "border-emerald-400/20 bg-emerald-400/10 text-emerald-300",
-    dot: "bg-emerald-400",
+    className: "border-emerald-200 bg-emerald-50 text-emerald-700",
+    dot: "bg-emerald-600",
   },
   CANCELLED: {
     label: "Cancelled",
-    className: "border-rose-400/20 bg-rose-400/10 text-rose-300",
-    dot: "bg-rose-400",
+    className: "border-rose-200 bg-rose-50 text-rose-600",
+    dot: "bg-rose-500",
   },
   EXPIRED: {
     label: "Expired",
-    className: "border-slate-500/30 bg-slate-500/10 text-slate-400",
-    dot: "bg-slate-500",
+    className: "border-slate-200 bg-slate-100 text-slate-500",
+    dot: "bg-slate-400",
   },
   MAINTENANCE: {
     label: "Maintenance",
-    className: "border-cyan-400/20 bg-cyan-400/10 text-cyan-300",
-    dot: "bg-cyan-400",
+    className: "border-cyan-200 bg-cyan-50 text-cyan-700",
+    dot: "bg-cyan-600",
   },
 };
 

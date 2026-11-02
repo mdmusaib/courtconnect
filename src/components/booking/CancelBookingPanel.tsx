@@ -129,38 +129,38 @@ export function CancelBookingPanel({
 
   if (result) {
     return (
-      <section className="animate-pop overflow-hidden rounded-3xl border border-emerald-400/20 bg-gradient-to-br from-emerald-400/[0.09] via-surface to-surface p-6 text-center">
-        <div className="mx-auto grid size-16 place-items-center rounded-full border border-emerald-400/25 bg-emerald-400/10 text-emerald-300 shadow-[0_0_50px_-15px_rgba(16,185,129,0.65)]">
+      <section className="animate-pop overflow-hidden rounded-3xl border border-emerald-200 bg-gradient-to-br from-primary-soft via-white to-white p-6 text-center">
+        <div className="mx-auto grid size-16 place-items-center rounded-full border border-emerald-200 bg-primary-soft text-emerald-600 shadow-primary">
           <CheckCircle2 className="size-8" />
         </div>
-        <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-300">
+        <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-600">
           {result.alreadyCancelled ? "Already cancelled" : "Cancellation confirmed"}
         </p>
-        <h2 className="mt-1 text-2xl font-semibold tracking-tight text-white">
+        <h2 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900">
           {result.refundAmount > 0
             ? `${formatINR(result.refundAmount)} refund queued.`
             : "Your slot has been released."}
         </h2>
-        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-slate-400">
+        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-slate-500">
           {result.refundAmount > 0
             ? `${result.eta ?? "Refunds are returned to the original UPI account."} The venue has been notified and the slot is available again.`
             : "No refund is due under the cancellation window. The court is now open for other players."}
         </p>
 
         <div className="mx-auto mt-5 grid max-w-md grid-cols-2 gap-2 text-left">
-          <div className="rounded-2xl border border-white/8 bg-white/[0.025] p-3">
+          <div className="rounded-2xl border border-line bg-slate-900/[0.03] p-3">
             <p className="text-[9px] uppercase tracking-[0.14em] text-slate-500">
               Refund amount
             </p>
-            <p className="mt-1 text-lg font-semibold text-emerald-300">
+            <p className="mt-1 text-lg font-semibold text-emerald-600">
               {formatINR(result.refundAmount)}
             </p>
           </div>
-          <div className="rounded-2xl border border-white/8 bg-white/[0.025] p-3">
+          <div className="rounded-2xl border border-line bg-slate-900/[0.03] p-3">
             <p className="text-[9px] uppercase tracking-[0.14em] text-slate-500">
               Refund status
             </p>
-            <p className="mt-1 text-sm font-semibold capitalize text-white">
+            <p className="mt-1 text-sm font-semibold capitalize text-slate-900">
               {result.refundStatus === "PENDING"
                 ? "Processing"
                 : result.refundStatus.toLowerCase()}
@@ -175,14 +175,14 @@ export function CancelBookingPanel({
         <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-center">
           <Link
             href="/my-bookings"
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-emerald-400 px-5 text-xs font-semibold text-oled transition hover:bg-emerald-300"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-primary px-5 text-xs font-semibold text-white shadow-primary transition hover:bg-primary-deep"
           >
             <Ticket className="size-4" />
             My bookings
           </Link>
           <Link
             href="/#venues"
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-5 text-xs font-semibold text-slate-200 transition hover:border-white/20 hover:text-white"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-line bg-white px-5 text-xs font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-900"
           >
             Find another court
             <ArrowRight className="size-3.5" />
@@ -201,107 +201,107 @@ export function CancelBookingPanel({
 
   return (
     <div className="space-y-4">
-      <section className="rounded-3xl border border-white/8 bg-surface/80 p-5">
+      <section className="rounded-3xl border border-line bg-card p-5">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-amber-300">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-amber-700">
               Cancellation request
             </p>
-            <h2 className="mt-1 text-xl font-semibold tracking-tight text-white">
+            <h2 className="mt-1 text-xl font-semibold tracking-tight text-slate-900">
               {booking.venueName}
             </h2>
-            <p className="mt-0.5 text-xs text-slate-400">
+            <p className="mt-0.5 text-xs text-slate-500">
               {booking.courtName} · {booking.sportType}
             </p>
           </div>
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/8 bg-white/[0.03] px-3 py-1.5 text-[10px] text-slate-300">
-            <CalendarDays className="size-3 text-emerald-400" />
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-slate-900/[0.03] px-3 py-1.5 text-[10px] text-slate-600">
+            <CalendarDays className="size-3 text-emerald-600" />
             {booking.dateLabel}
           </span>
         </div>
 
         <div className="mt-4 grid gap-2 sm:grid-cols-3">
-          <div className="rounded-xl border border-white/6 bg-white/[0.02] px-3 py-2.5">
+          <div className="rounded-xl border border-line bg-slate-900/[0.03] px-3 py-2.5">
             <p className="text-[9px] uppercase tracking-[0.14em] text-slate-500">
               Court time
             </p>
-            <p className="mt-1 flex items-center gap-1.5 text-xs font-semibold text-white">
-              <Clock3 className="size-3.5 text-cyan-400" />
+            <p className="mt-1 flex items-center gap-1.5 text-xs font-semibold text-slate-900">
+              <Clock3 className="size-3.5 text-cyan-600" />
               {booking.timeLabel}
             </p>
           </div>
-          <div className="rounded-xl border border-white/6 bg-white/[0.02] px-3 py-2.5">
+          <div className="rounded-xl border border-line bg-slate-900/[0.03] px-3 py-2.5">
             <p className="text-[9px] uppercase tracking-[0.14em] text-slate-500">
               Amount paid
             </p>
-            <p className="mt-1 text-xs font-semibold text-white">
+            <p className="mt-1 text-xs font-semibold text-slate-900">
               {formatINR(booking.paidAmount)}
             </p>
           </div>
-          <div className="rounded-xl border border-white/6 bg-white/[0.02] px-3 py-2.5">
+          <div className="rounded-xl border border-line bg-slate-900/[0.03] px-3 py-2.5">
             <p className="text-[9px] uppercase tracking-[0.14em] text-slate-500">
               Eligible now
             </p>
-            <p className="mt-1 text-xs font-semibold text-emerald-300">
+            <p className="mt-1 text-xs font-semibold text-emerald-600">
               {formatINR(quote.refundAmount)}
             </p>
           </div>
         </div>
       </section>
 
-      <section className="overflow-hidden rounded-3xl border border-emerald-400/15 bg-gradient-to-br from-emerald-400/[0.07] via-surface to-surface p-5">
+      <section className="overflow-hidden rounded-3xl border border-emerald-200 bg-gradient-to-br from-primary-soft via-white to-white p-5">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-300">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-600">
               Refund estimate
             </p>
-            <p className="mt-2 text-3xl font-semibold tracking-tight text-white">
+            <p className="mt-2 text-3xl font-semibold tracking-tight text-slate-900">
               {formatINR(quote.refundAmount)}
             </p>
-            <p className="mt-1 text-xs text-slate-400">{quote.policyLabel}</p>
+            <p className="mt-1 text-xs text-slate-500">{quote.policyLabel}</p>
           </div>
-          <div className="grid size-12 place-items-center rounded-2xl border border-emerald-400/20 bg-emerald-400/10 text-emerald-300">
+          <div className="grid size-12 place-items-center rounded-2xl border border-emerald-200 bg-primary-soft text-emerald-600">
             <RotateCcw className="size-5" />
           </div>
         </div>
 
-        <div className="mt-4 space-y-2 rounded-2xl border border-white/6 bg-black/10 p-3.5 text-xs">
+        <div className="mt-4 space-y-2 rounded-2xl border border-line bg-slate-50 p-3.5 text-xs">
           <div className="flex items-center justify-between gap-4">
-            <span className="text-slate-400">Court fee paid</span>
-            <span className="font-medium text-slate-200">
+            <span className="text-slate-500">Court fee paid</span>
+            <span className="font-medium text-slate-700">
               {formatINR(quote.courtFeePaid)}
             </span>
           </div>
           <div className="flex items-center justify-between gap-4">
-            <span className="text-slate-400">Refund percentage</span>
-            <span className="font-medium text-slate-200">
+            <span className="text-slate-500">Refund percentage</span>
+            <span className="font-medium text-slate-700">
               {quote.refundPercent}%
             </span>
           </div>
           <div className="flex items-center justify-between gap-4">
-            <span className="flex items-center gap-1.5 text-slate-400">
+            <span className="flex items-center gap-1.5 text-slate-500">
               <Wallet className="size-3 text-slate-500" />
               Convenience fee
             </span>
-            <span className="font-medium text-amber-300">
+            <span className="font-medium text-amber-700">
               {formatINR(quote.nonRefundableFee)} non-refundable
             </span>
           </div>
-          <div className="flex items-center justify-between gap-4 border-t border-white/8 pt-2">
-            <span className="font-semibold text-white">Refund now</span>
-            <span className="text-base font-semibold text-emerald-300">
+          <div className="flex items-center justify-between gap-4 border-t border-line pt-2">
+            <span className="font-semibold text-slate-900">Refund now</span>
+            <span className="text-base font-semibold text-emerald-600">
               {formatINR(quote.refundAmount)}
             </span>
           </div>
         </div>
 
         <p className="mt-3 flex items-start gap-1.5 text-[10px] leading-relaxed text-slate-500">
-          <ShieldCheck className="mt-0.5 size-3.5 shrink-0 text-emerald-400" />
+          <ShieldCheck className="mt-0.5 size-3.5 shrink-0 text-emerald-600" />
           {quote.note}
         </p>
       </section>
 
-      <section className="rounded-3xl border border-white/8 bg-surface/80 p-5">
+      <section className="rounded-3xl border border-line bg-card p-5">
         <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">
           Why are you cancelling?
         </p>
@@ -312,10 +312,10 @@ export function CancelBookingPanel({
               type="button"
               onClick={() => setReason(option)}
               aria-pressed={reason === option}
-              className={`rounded-xl border px-3 py-2.5 text-left text-[11px] font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 ${
+              className={`rounded-xl border px-3 py-2.5 text-left text-[11px] font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
                 reason === option
-                  ? "border-emerald-400/35 bg-emerald-400/[0.09] text-emerald-200"
-                  : "border-white/8 bg-white/[0.02] text-slate-400 hover:border-white/15 hover:text-slate-200"
+                  ? "border-emerald-300 bg-primary-soft text-emerald-700"
+                  : "border-line bg-white text-slate-500 hover:border-slate-300 hover:text-slate-700"
               }`}
             >
               {option}
@@ -325,7 +325,7 @@ export function CancelBookingPanel({
 
         <label className="mt-3 block">
           <span className="text-[10px] font-medium text-slate-500">
-            Add a note <span className="text-slate-600">optional</span>
+            Add a note <span className="text-slate-400">optional</span>
           </span>
           <textarea
             value={note}
@@ -333,12 +333,12 @@ export function CancelBookingPanel({
             maxLength={240}
             rows={2}
             placeholder="Anything the venue should know?"
-            className="mt-1.5 w-full rounded-xl border border-white/10 bg-oled/70 px-3 py-2.5 text-xs text-white outline-none transition placeholder:text-slate-600 focus:border-emerald-400/40 focus:ring-2 focus:ring-emerald-400/15"
+            className="mt-1.5 w-full rounded-xl border border-line bg-white px-3 py-2.5 text-xs text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-primary/40 focus:ring-2 focus:ring-primary/15"
           />
         </label>
 
-        <div className="mt-4 rounded-2xl border border-amber-400/15 bg-amber-400/[0.045] p-3.5">
-          <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-amber-200">
+        <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-3.5">
+          <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-amber-700">
             <AlertTriangle className="size-3.5" />
             Cancellation policy
           </p>
@@ -348,11 +348,11 @@ export function CancelBookingPanel({
                 key={tier.minHours}
                 className="flex items-center justify-between gap-3 text-[10px]"
               >
-                <span className="text-slate-400">{tier.label}</span>
+                <span className="text-slate-500">{tier.label}</span>
                 <span
                   className={
                     tier.percent === quote.refundPercent && quote.courtFeePaid > 0
-                      ? "font-semibold text-emerald-300"
+                      ? "font-semibold text-emerald-600"
                       : "text-slate-500"
                   }
                 >
@@ -361,14 +361,14 @@ export function CancelBookingPanel({
               </div>
             ))}
           </div>
-          <p className="mt-2 border-t border-white/8 pt-2 text-[9px] leading-relaxed text-slate-500">
+          <p className="mt-2 border-t border-line pt-2 text-[9px] leading-relaxed text-slate-500">
             {NON_REFUNDABLE_FEE_NOTE} Refunds are calculated from the court fee
             only and are returned to the original UPI account.
           </p>
         </div>
 
         {!quote.canCancel && (
-          <div className="mt-3 rounded-xl border border-rose-400/20 bg-rose-400/[0.07] px-3 py-2.5 text-xs text-rose-200">
+          <div className="mt-3 rounded-xl border border-rose-200 bg-rose-50 px-3 py-2.5 text-xs text-rose-700">
             {quote.reason}
           </div>
         )}
@@ -376,7 +376,7 @@ export function CancelBookingPanel({
         {error && (
           <div
             role="alert"
-            className="mt-3 rounded-xl border border-rose-400/20 bg-rose-400/[0.07] px-3 py-2.5 text-xs leading-relaxed text-rose-200"
+            className="mt-3 rounded-xl border border-rose-200 bg-rose-50 px-3 py-2.5 text-xs leading-relaxed text-rose-700"
           >
             {error}
           </div>
@@ -386,10 +386,10 @@ export function CancelBookingPanel({
           type="button"
           onClick={handleCancel}
           disabled={submitting || !quote.canCancel}
-          className={`mt-4 inline-flex h-12 w-full items-center justify-center gap-2 rounded-2xl text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:cursor-not-allowed disabled:opacity-50 ${
+          className={`mt-4 inline-flex h-12 w-full items-center justify-center gap-2 rounded-2xl text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:cursor-not-allowed disabled:opacity-50 ${
             quote.refundAmount > 0
-              ? "bg-rose-400 text-oled hover:bg-rose-300 focus-visible:ring-rose-300"
-              : "border border-white/10 bg-white/[0.04] text-slate-200 hover:border-white/20 hover:text-white focus-visible:ring-emerald-400/70"
+              ? "bg-rose-500 text-white hover:bg-rose-600 focus-visible:ring-rose-500/50"
+              : "border border-line bg-white text-slate-700 hover:border-slate-300 hover:text-slate-900 focus-visible:ring-primary/50"
           }`}
         >
           {submitting ? (
@@ -405,7 +405,7 @@ export function CancelBookingPanel({
           )}
         </button>
 
-        <p className="mt-2 text-center text-[9px] text-slate-600">
+        <p className="mt-2 text-center text-[9px] text-slate-400">
           This action cannot be undone. The court will be released immediately.
         </p>
       </section>

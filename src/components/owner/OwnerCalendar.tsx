@@ -143,7 +143,7 @@ function hourLabel(hour: number): string {
 }
 
 function rowBackground(rowHeight: number): string {
-  return `repeating-linear-gradient(to bottom, rgba(255,255,255,0.055) 0, rgba(255,255,255,0.055) 1px, transparent 1px, transparent ${rowHeight}px)`;
+  return `repeating-linear-gradient(to bottom, rgba(15,23,42,0.06) 0, rgba(15,23,42,0.06) 1px, transparent 1px, transparent ${rowHeight}px)`;
 }
 
 function layoutDayBookings(dayBookings: OwnerBookingRow[]): {
@@ -342,32 +342,32 @@ export function OwnerCalendar({
 
   return (
     <>
-      <section className="rounded-3xl border border-white/8 bg-surface/70 p-4 sm:p-5">
+      <section className="rounded-3xl border border-line bg-card p-4 sm:p-5">
         <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-400">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
               Unified multi-court calendar
             </p>
-            <h1 className="mt-1 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+            <h1 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
               Every court, one timeline.
             </h1>
-            <p className="mt-1 max-w-xl text-xs leading-relaxed text-slate-400">
+            <p className="mt-1 max-w-xl text-xs leading-relaxed text-slate-500">
               Drag across a time range or tap any slot to set recurring memberships or maintenance blocks.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <div className="inline-flex rounded-xl border border-white/8 bg-white/[0.03] p-1">
+            <div className="inline-flex rounded-xl border border-line bg-surface p-1">
               {(["day", "week"] as const).map((option) => (
                 <button
                   key={option}
                   type="button"
                   onClick={() => navigate(selectedDateKey, option)}
                   aria-pressed={view === option}
-                  className={`rounded-lg px-3 py-1.5 text-[11px] font-semibold capitalize transition-all duration-100 active:scale-95 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 ${
+                  className={`rounded-lg px-3 py-1.5 text-[11px] font-semibold capitalize transition-all duration-100 active:scale-95 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
                     view === option
-                      ? "bg-emerald-400 text-oled"
-                      : "text-slate-400 hover:text-white"
+                      ? "bg-white text-slate-900 shadow-card"
+                      : "text-slate-500 hover:text-slate-900"
                   }`}
                 >
                   {option}
@@ -380,9 +380,9 @@ export function OwnerCalendar({
               type="button"
               onClick={() => openBlockModal()}
               disabled={courts.length === 0}
-              className="inline-flex h-10 items-center justify-center gap-1.5 rounded-xl border border-indigo-500/40 bg-indigo-500/15 px-3.5 text-xs font-semibold text-indigo-200 transition-all duration-100 active:scale-95 ease-out hover:bg-indigo-500/25 hover:border-indigo-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
+              className="inline-flex h-10 items-center justify-center gap-1.5 rounded-xl border border-indigo-200 bg-indigo-50 px-3.5 text-xs font-semibold text-indigo-700 transition-all duration-100 active:scale-95 ease-out hover:bg-indigo-100 hover:border-indigo-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50"
             >
-              <Lock className="size-3.5 text-indigo-400" />
+              <Lock className="size-3.5 text-indigo-600" />
               Block slot / Schedule
             </button>
 
@@ -391,7 +391,7 @@ export function OwnerCalendar({
               type="button"
               onClick={() => openQuickEntry()}
               disabled={courts.length === 0}
-              className="inline-flex h-10 items-center justify-center gap-1.5 rounded-xl bg-emerald-400 px-3.5 text-xs font-semibold text-oled transition-all duration-100 active:scale-95 ease-out hover:bg-emerald-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex h-10 items-center justify-center gap-1.5 rounded-xl bg-primary px-3.5 text-xs font-semibold text-white shadow-primary transition-all duration-100 active:scale-95 ease-out hover:bg-primary-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:cursor-not-allowed disabled:opacity-50"
             >
               <Plus className="size-3.5" strokeWidth={2.6} />
               Quick entry
@@ -399,15 +399,15 @@ export function OwnerCalendar({
           </div>
         </div>
 
-        <div className="mt-4 flex flex-col gap-3 border-t border-white/6 pt-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="mt-4 flex flex-col gap-3 border-t border-line pt-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex flex-wrap items-center gap-2">
-            <div className="inline-flex overflow-hidden rounded-xl border border-white/8">
+            <div className="inline-flex overflow-hidden rounded-xl border border-line">
               <button
                 type="button"
                 onClick={() =>
                   navigate(addDaysToDateKey(selectedDateKey, view === "week" ? -7 : -1))
                 }
-                className="grid size-9 place-items-center border-r border-white/8 bg-white/[0.03] text-slate-400 transition-all duration-100 active:scale-90 hover:bg-white/[0.06] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-emerald-400/70"
+                className="grid size-9 place-items-center border-r border-line bg-slate-50 text-slate-500 transition-all duration-100 active:scale-90 hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/50"
                 aria-label={view === "week" ? "Previous week" : "Previous day"}
               >
                 <ChevronLeft className="size-4" />
@@ -415,7 +415,7 @@ export function OwnerCalendar({
               <button
                 type="button"
                 onClick={() => navigate(todayKey)}
-                className="bg-white/[0.03] px-3 text-[11px] font-semibold text-slate-300 transition-all duration-100 active:scale-95 hover:bg-white/[0.06] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-emerald-400/70"
+                className="bg-slate-50 px-3 text-[11px] font-semibold text-slate-600 transition-all duration-100 active:scale-95 hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/50"
               >
                 Today
               </button>
@@ -424,7 +424,7 @@ export function OwnerCalendar({
                 onClick={() =>
                   navigate(addDaysToDateKey(selectedDateKey, view === "week" ? 7 : 1))
                 }
-                className="grid size-9 place-items-center border-l border-white/8 bg-white/[0.03] text-slate-400 transition-all duration-100 active:scale-90 hover:bg-white/[0.06] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-emerald-400/70"
+                className="grid size-9 place-items-center border-l border-line bg-slate-50 text-slate-500 transition-all duration-100 active:scale-90 hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/50"
                 aria-label={view === "week" ? "Next week" : "Next day"}
               >
                 <ChevronRight className="size-4" />
@@ -433,9 +433,9 @@ export function OwnerCalendar({
 
             <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <p className="text-sm font-semibold text-white">{rangeLabel}</p>
+                <p className="text-sm font-semibold text-slate-900">{rangeLabel}</p>
                 {isPending && (
-                  <Loader2 className="size-3.5 animate-spin text-emerald-400" />
+                  <Loader2 className="size-3.5 animate-spin text-primary" />
                 )}
               </div>
               <p className="text-[10px] text-slate-500">
@@ -445,8 +445,8 @@ export function OwnerCalendar({
               </p>
             </div>
 
-            <label className="inline-flex items-center gap-1.5 rounded-xl border border-white/8 bg-white/[0.03] px-2.5 py-1.5 text-[10px] text-slate-400">
-              <CalendarDays className="size-3.5 text-cyan-300" />
+            <label className="inline-flex items-center gap-1.5 rounded-xl border border-line bg-slate-50 px-2.5 py-1.5 text-[10px] text-slate-500">
+              <CalendarDays className="size-3.5 text-cyan-600" />
               <span className="sr-only">Jump to date</span>
               <input
                 type="date"
@@ -456,7 +456,7 @@ export function OwnerCalendar({
                     navigate(event.target.value);
                   }
                 }}
-                className="w-[7.4rem] bg-transparent text-[10px] text-slate-200 outline-none [color-scheme:dark]"
+                className="w-[7.4rem] bg-transparent text-[10px] text-slate-700 outline-none [color-scheme:light]"
               />
             </label>
           </div>
@@ -479,16 +479,16 @@ export function OwnerCalendar({
         </div>
 
         {/* Legend bar */}
-        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-white/6 pt-3">
-          <LegendDot color="bg-emerald-400" label="Online" />
-          <LegendDot color="bg-amber-400" label="Walk-in" />
-          <LegendDot color="bg-cyan-400" label="Phone" />
-          <LegendDot color="bg-violet-400" label="Ground QR" />
-          <LegendDot color="bg-indigo-400" label="🔒 Membership Block" />
-          <LegendDot color="bg-rose-400" label="🛠️ Maintenance" />
-          <span className="hidden h-3 w-px bg-white/10 sm:block" />
+        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line pt-3">
+          <LegendDot color="bg-emerald-500" label="Online" />
+          <LegendDot color="bg-amber-500" label="Walk-in" />
+          <LegendDot color="bg-cyan-500" label="Phone" />
+          <LegendDot color="bg-violet-500" label="Ground QR" />
+          <LegendDot color="bg-indigo-500" label="🔒 Membership Block" />
+          <LegendDot color="bg-rose-500" label="🛠️ Maintenance" />
+          <span className="hidden h-3 w-px bg-slate-900/10 sm:block" />
           <span className="inline-flex items-center gap-1 text-[10px] text-slate-500">
-            <ShieldCheck className="size-3 text-emerald-400" />
+            <ShieldCheck className="size-3 text-primary" />
             ₹0 fee direct entries
           </span>
           <span className="ml-auto text-[10px] text-slate-500">
@@ -499,13 +499,13 @@ export function OwnerCalendar({
 
       {/* Main Calendar View */}
       <section
-        className="mt-4 overflow-hidden rounded-3xl border border-white/8 bg-surface/60 select-none"
+        className="mt-4 overflow-hidden rounded-3xl border border-line bg-card select-none"
         onMouseLeave={() => setDragSelection(null)}
       >
-        <div className="flex items-center justify-between gap-3 border-b border-white/6 px-4 py-3 sm:px-5">
+        <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3 sm:px-5">
           <div className="flex items-center gap-2">
-            <Clock3 className="size-4 text-emerald-400" />
-            <p className="text-xs font-semibold text-white">
+            <Clock3 className="size-4 text-primary" />
+            <p className="text-xs font-semibold text-slate-900">
               {view === "day" ? "Court columns" : "Week timeline"}
             </p>
             <span className="hidden text-[10px] text-slate-500 sm:inline">
@@ -521,7 +521,7 @@ export function OwnerCalendar({
 
         {visibleCourts.length === 0 ? (
           <div className="px-5 py-16 text-center">
-            <p className="text-sm font-semibold text-white">No courts found.</p>
+            <p className="text-sm font-semibold text-slate-900">No courts found.</p>
             <p className="mt-1 text-xs text-slate-500">
               Add a court to this venue before using the calendar.
             </p>
@@ -559,12 +559,12 @@ export function OwnerCalendar({
 
       <div className="mt-3 flex flex-wrap items-center justify-between gap-2 px-1 text-[10px] text-slate-500">
         <p className="inline-flex items-center gap-1.5">
-          <Sparkles className="size-3 text-indigo-400" />
+          <Sparkles className="size-3 text-indigo-600" />
           Click or drag across hours to set recurring membership or maintenance blocks. Tap any blocked slot to unblock.
         </p>
         <Link
           href="/owner"
-          className="font-medium text-slate-400 transition hover:text-emerald-300"
+          className="font-medium text-slate-500 transition hover:text-primary"
         >
           Back to overview
         </Link>
@@ -664,7 +664,7 @@ function DayCalendar({
           gridTemplateColumns: `4.5rem repeat(${courts.length}, minmax(180px, 1fr))`,
         }}
       >
-        <div className="sticky left-0 z-20 border-b border-r border-white/6 bg-[#101827] px-2 py-3">
+        <div className="sticky left-0 z-20 border-b border-r border-line bg-white px-2 py-3">
           <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-500">
             IST
           </p>
@@ -672,18 +672,18 @@ function DayCalendar({
         {courts.map((court) => (
           <div
             key={court.id}
-            className="border-b border-r border-white/6 bg-[#101827] px-3 py-3 last:border-r-0"
+            className="border-b border-r border-line bg-white px-3 py-3 last:border-r-0"
           >
             <div className="flex items-center justify-between gap-2">
               <div className="min-w-0">
-                <p className="truncate text-xs font-semibold text-white">
+                <p className="truncate text-xs font-semibold text-slate-900">
                   {court.name}
                 </p>
                 <p className="truncate text-[9px] text-slate-500">
                   {court.venueName} · {formatINR(court.price)}/hr
                 </p>
               </div>
-              <span className="shrink-0 rounded-full border border-white/8 bg-white/[0.03] px-1.5 py-0.5 text-[8px] uppercase tracking-wide text-slate-500">
+              <span className="shrink-0 rounded-full border border-line bg-slate-50 px-1.5 py-0.5 text-[8px] uppercase tracking-wide text-slate-500">
                 {court.sportType}
               </span>
             </div>
@@ -691,13 +691,13 @@ function DayCalendar({
         ))}
 
         <div
-          className="relative sticky left-0 z-20 border-r border-white/6 bg-[#0f1724]"
+          className="relative sticky left-0 z-20 border-r border-line bg-white"
           style={{ height: HOURS.length * DAY_ROW_HEIGHT }}
         >
           {HOURS.map((hour, index) => (
             <div
               key={hour}
-              className="absolute inset-x-0 border-t border-white/[0.045] px-2 pt-1"
+              className="absolute inset-x-0 border-t border-slate-900/5 px-2 pt-1"
               style={{ top: index * DAY_ROW_HEIGHT }}
             >
               <p className="text-[9px] font-medium text-slate-500">
@@ -707,7 +707,7 @@ function DayCalendar({
           ))}
           {showNow && (
             <span
-              className="absolute right-0 z-30 -translate-y-1/2 rounded-l-full bg-rose-400 px-1 py-0.5 text-[7px] font-bold text-oled"
+              className="absolute right-0 z-30 -translate-y-1/2 rounded-l-full bg-rose-500 px-1 py-0.5 text-[7px] font-bold text-white"
               style={{ top: nowTop }}
             >
               NOW
@@ -736,7 +736,7 @@ function DayCalendar({
           return (
             <div
               key={court.id}
-              className="relative border-r border-white/6 last:border-r-0 select-none"
+              className="relative border-r border-line last:border-r-0 select-none"
               style={{
                 height: HOURS.length * DAY_ROW_HEIGHT,
                 backgroundImage: rowBackground(DAY_ROW_HEIGHT),
@@ -751,20 +751,20 @@ function DayCalendar({
                     onStartDrag(court.id, dateKey, hour);
                   }}
                   onMouseEnter={() => onHoverDrag(court.id, dateKey, hour)}
-                  className="group absolute inset-x-0 z-0 border-t border-white/[0.025] cursor-pointer transition hover:bg-indigo-400/[0.05]"
+                  className="group absolute inset-x-0 z-0 border-t border-slate-900/5 cursor-pointer transition hover:bg-indigo-400/10"
                   style={{
                     top: index * DAY_ROW_HEIGHT,
                     height: DAY_ROW_HEIGHT,
                   }}
                 >
-                  <Plus className="absolute right-1.5 top-1.5 size-3 text-slate-600/0 transition group-hover:text-indigo-400/80" />
+                  <Plus className="absolute right-1.5 top-1.5 size-3 text-slate-400/0 transition group-hover:text-indigo-500/80" />
                 </div>
               ))}
 
               {/* Drag selection overlay preview */}
               {isCourtDragging && (
                 <div
-                  className="pointer-events-none absolute inset-x-1 z-30 rounded-xl border-2 border-dashed border-indigo-400/90 bg-indigo-500/25 backdrop-blur-[1px]"
+                  className="pointer-events-none absolute inset-x-1 z-30 rounded-xl border-2 border-dashed border-indigo-500/80 bg-indigo-500/20 backdrop-blur-[1px]"
                   style={{ top: dragTop, height: dragHeight }}
                 >
                   <span className="absolute left-2 top-2 rounded bg-indigo-600 px-1.5 py-0.5 text-[8px] font-bold uppercase text-white shadow">
@@ -786,7 +786,7 @@ function DayCalendar({
                   <div
                     key={booking.id}
                     title={`${theme.label} · ${bookingName(booking)} · ${bookingRange(booking)}`}
-                    className={`absolute inset-x-1 z-10 overflow-hidden rounded-xl border p-1.5 shadow-[0_8px_26px_-18px_rgba(0,0,0,0.9)] ${theme.blockClass}`}
+                    className={`absolute inset-x-1 z-10 overflow-hidden rounded-xl border p-1.5 shadow-sm ${theme.blockClass}`}
                     style={metrics}
                   >
                     <div className="flex items-center gap-1">
@@ -824,32 +824,32 @@ function DayCalendar({
                     title={`Tap to manage: ${block.reason} (${formatSlotRange(new Date(block.slotStart), new Date(block.slotEnd))})`}
                     className={`group absolute inset-x-1 z-20 cursor-pointer overflow-hidden rounded-xl border p-2 transition hover:scale-[1.01] hover:brightness-110 ${
                       isRecurring
-                        ? "border-indigo-500/60 bg-gradient-to-br from-[#1b1c3e] via-[#1e1b4b] to-[#2d1b4e] text-indigo-100 shadow-[0_8px_26px_-18px_rgba(99,102,241,0.7)] ring-1 ring-indigo-500/40"
-                        : "border-rose-500/70 bg-[repeating-linear-gradient(45deg,rgba(225,29,72,0.24),rgba(225,29,72,0.24)_10px,rgba(225,29,72,0.08)_10px,rgba(225,29,72,0.08)_20px)] bg-[#2b1016] text-rose-100 shadow-[0_8px_26px_-18px_rgba(244,63,94,0.7)] ring-1 ring-rose-500/40"
+                        ? "border-indigo-300 bg-gradient-to-br from-indigo-100 via-indigo-50 to-violet-100 text-indigo-900 shadow-sm ring-1 ring-indigo-200"
+                        : "border-rose-300 bg-[repeating-linear-gradient(45deg,rgba(244,63,94,0.10),rgba(244,63,94,0.10)_10px,rgba(244,63,94,0.04)_10px,rgba(244,63,94,0.04)_20px)] bg-rose-50 text-rose-900 shadow-sm ring-1 ring-rose-200"
                     }`}
                     style={metrics}
                   >
                     <div className="flex items-center justify-between gap-1">
                       <div className="flex items-center gap-1 min-w-0">
                         {isRecurring ? (
-                          <Lock className="size-2.5 shrink-0 text-indigo-400" />
+                          <Lock className="size-2.5 shrink-0 text-indigo-600" />
                         ) : (
-                          <Wrench className="size-2.5 shrink-0 text-rose-400" />
+                          <Wrench className="size-2.5 shrink-0 text-rose-600" />
                         )}
                         <span
                           className={`truncate text-[8px] font-extrabold uppercase tracking-[0.1em] ${
-                            isRecurring ? "text-indigo-300" : "text-rose-300"
+                            isRecurring ? "text-indigo-700" : "text-rose-700"
                           }`}
                         >
                           {isRecurring ? "🔒 Membership Block" : "🛠️ Maintenance"}
                         </span>
                       </div>
-                      <span className="hidden font-mono text-[7px] text-white/60 group-hover:inline">
+                      <span className="hidden font-mono text-[7px] text-slate-900/60 group-hover:inline">
                         1-Tap Unblock
                       </span>
                     </div>
 
-                    <p className="mt-0.5 truncate text-[10px] font-bold leading-tight text-white">
+                    <p className="mt-0.5 truncate text-[10px] font-bold leading-tight text-slate-900">
                       {block.reason}
                     </p>
 
@@ -862,7 +862,7 @@ function DayCalendar({
 
               {showNow && (
                 <div
-                  className="pointer-events-none absolute inset-x-0 z-20 border-t border-rose-400/70"
+                  className="pointer-events-none absolute inset-x-0 z-20 border-t border-rose-500"
                   style={{ top: nowTop }}
                 />
               )}
@@ -927,7 +927,7 @@ function WeekCalendar({
           gridTemplateColumns: `4.5rem repeat(${days.length}, minmax(${weekColumnWidth}px, 1fr))`,
         }}
       >
-        <div className="sticky left-0 z-20 border-b border-r border-white/6 bg-[#101827] px-2 py-3">
+        <div className="sticky left-0 z-20 border-b border-r border-line bg-white px-2 py-3">
           <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-500">
             IST
           </p>
@@ -940,18 +940,18 @@ function WeekCalendar({
           return (
             <div
               key={dayKey}
-              className={`border-b border-r border-white/6 px-2.5 py-2.5 last:border-r-0 ${
-                isToday ? "bg-emerald-400/[0.06]" : "bg-[#101827]"
+              className={`border-b border-r border-line px-2.5 py-2.5 last:border-r-0 ${
+                isToday ? "bg-primary-soft" : "bg-white"
               }`}
             >
               <p
                 className={`text-[9px] font-semibold uppercase tracking-[0.14em] ${
-                  isToday ? "text-emerald-300" : "text-slate-500"
+                  isToday ? "text-primary" : "text-slate-500"
                 }`}
               >
                 {formatRelativeDateKey(dayKey)}
               </p>
-              <p className="mt-0.5 truncate text-xs font-semibold text-white">
+              <p className="mt-0.5 truncate text-xs font-semibold text-slate-900">
                 {formatDateKeyLong(dayKey)}
               </p>
               <p className="mt-0.5 text-[9px] text-slate-500">
@@ -962,13 +962,13 @@ function WeekCalendar({
         })}
 
         <div
-          className="relative sticky left-0 z-20 border-r border-white/6 bg-[#0f1724]"
+          className="relative sticky left-0 z-20 border-r border-line bg-white"
           style={{ height: HOURS.length * WEEK_ROW_HEIGHT }}
         >
           {HOURS.map((hour, index) => (
             <div
               key={hour}
-              className="absolute inset-x-0 border-t border-white/[0.045] px-2 pt-1"
+              className="absolute inset-x-0 border-t border-slate-900/5 px-2 pt-1"
               style={{ top: index * WEEK_ROW_HEIGHT }}
             >
               <p className="text-[9px] font-medium text-slate-500">
@@ -999,8 +999,8 @@ function WeekCalendar({
           return (
             <div
               key={dayKey}
-              className={`relative border-r border-white/6 last:border-r-0 select-none ${
-                isToday ? "bg-emerald-400/[0.025]" : ""
+              className={`relative border-r border-line last:border-r-0 select-none ${
+                isToday ? "bg-emerald-50/60" : ""
               }`}
               style={{
                 height: HOURS.length * WEEK_ROW_HEIGHT,
@@ -1017,19 +1017,19 @@ function WeekCalendar({
                   onMouseEnter={() =>
                     onHoverDrag(courts[0]?.id ?? "", dayKey, hour)
                   }
-                  className="group absolute inset-x-0 z-0 border-t border-white/[0.025] cursor-pointer transition hover:bg-indigo-400/[0.05]"
+                  className="group absolute inset-x-0 z-0 border-t border-slate-900/5 cursor-pointer transition hover:bg-indigo-400/10"
                   style={{
                     top: index * WEEK_ROW_HEIGHT,
                     height: WEEK_ROW_HEIGHT,
                   }}
                 >
-                  <Plus className="absolute right-1.5 top-1.5 size-3 text-slate-600/0 transition group-hover:text-indigo-400/80" />
+                  <Plus className="absolute right-1.5 top-1.5 size-3 text-slate-400/0 transition group-hover:text-indigo-500/80" />
                 </div>
               ))}
 
               {isDayDragging && (
                 <div
-                  className="pointer-events-none absolute inset-x-1 z-30 rounded-lg border-2 border-dashed border-indigo-400/90 bg-indigo-500/25 backdrop-blur-[1px]"
+                  className="pointer-events-none absolute inset-x-1 z-30 rounded-lg border-2 border-dashed border-indigo-500/80 bg-indigo-500/20 backdrop-blur-[1px]"
                   style={{ top: dragTop, height: dragHeight }}
                 >
                   <span className="absolute left-2 top-2 rounded bg-indigo-600 px-1 py-0.5 text-[7px] font-bold uppercase text-white shadow">
@@ -1051,7 +1051,7 @@ function WeekCalendar({
                   <div
                     key={booking.id}
                     title={`${theme.label} · ${booking.courtName} · ${bookingName(booking)} · ${bookingRange(booking)}`}
-                    className={`absolute z-10 overflow-hidden rounded-lg border p-1 shadow-[0_8px_26px_-18px_rgba(0,0,0,0.9)] ${theme.blockClass}`}
+                    className={`absolute z-10 overflow-hidden rounded-lg border p-1 shadow-sm ${theme.blockClass}`}
                     style={{
                       ...metrics,
                       left: `calc(${lane * laneWidth}% + 2px)`,
@@ -1088,26 +1088,26 @@ function WeekCalendar({
                     title={`Tap to manage: ${block.reason} · ${block.courtName}`}
                     className={`group absolute inset-x-1 z-20 cursor-pointer overflow-hidden rounded-lg border p-1 transition hover:scale-[1.01] hover:brightness-110 ${
                       isRecurring
-                        ? "border-indigo-500/60 bg-gradient-to-br from-[#1b1c3e] via-[#1e1b4b] to-[#2d1b4e] text-indigo-100 shadow-[0_8px_26px_-18px_rgba(99,102,241,0.7)] ring-1 ring-indigo-500/40"
-                        : "border-rose-500/70 bg-[repeating-linear-gradient(45deg,rgba(225,29,72,0.24),rgba(225,29,72,0.24)_10px,rgba(225,29,72,0.08)_10px,rgba(225,29,72,0.08)_20px)] bg-[#2b1016] text-rose-100 shadow-[0_8px_26px_-18px_rgba(244,63,94,0.7)] ring-1 ring-rose-500/40"
+                        ? "border-indigo-300 bg-gradient-to-br from-indigo-100 via-indigo-50 to-violet-100 text-indigo-900 shadow-sm ring-1 ring-indigo-200"
+                        : "border-rose-300 bg-[repeating-linear-gradient(45deg,rgba(244,63,94,0.10),rgba(244,63,94,0.10)_10px,rgba(244,63,94,0.04)_10px,rgba(244,63,94,0.04)_20px)] bg-rose-50 text-rose-900 shadow-sm ring-1 ring-rose-200"
                     }`}
                     style={metrics}
                   >
                     <div className="flex items-center gap-1">
                       {isRecurring ? (
-                        <Lock className="size-2.5 shrink-0 text-indigo-400" />
+                        <Lock className="size-2.5 shrink-0 text-indigo-600" />
                       ) : (
-                        <Wrench className="size-2.5 shrink-0 text-rose-400" />
+                        <Wrench className="size-2.5 shrink-0 text-rose-600" />
                       )}
                       <span
                         className={`truncate text-[7px] font-extrabold uppercase tracking-[0.08em] ${
-                          isRecurring ? "text-indigo-300" : "text-rose-300"
+                          isRecurring ? "text-indigo-700" : "text-rose-700"
                         }`}
                       >
                         {isRecurring ? "🔒 Membership" : "🛠️ Maintenance"}
                       </span>
                     </div>
-                    <p className="mt-0.5 truncate text-[8px] font-bold leading-tight text-white">
+                    <p className="mt-0.5 truncate text-[8px] font-bold leading-tight text-slate-900">
                       {block.courtName}: {block.reason}
                     </p>
                   </div>
@@ -1116,7 +1116,7 @@ function WeekCalendar({
 
               {isToday && showNow && (
                 <div
-                  className="pointer-events-none absolute inset-x-0 z-20 border-t border-rose-400/70"
+                  className="pointer-events-none absolute inset-x-0 z-20 border-t border-rose-500"
                   style={{ top: nowTop }}
                 />
               )}
@@ -1142,10 +1142,10 @@ function FilterChip({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`rounded-full border px-2.5 py-1 text-[10px] font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 ${
+      className={`rounded-full border px-2.5 py-1 text-[10px] font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
         active
-          ? "border-emerald-400/30 bg-emerald-400/10 text-emerald-200"
-          : "border-white/8 bg-white/[0.025] text-slate-500 hover:border-white/15 hover:text-slate-300"
+          ? "border-primary/30 bg-primary-soft text-emerald-700"
+          : "border-line bg-slate-50 text-slate-500 hover:border-slate-900/15 hover:text-slate-600"
       }`}
     >
       {label}
@@ -1155,7 +1155,7 @@ function FilterChip({
 
 function LegendDot({ color, label }: { color: string; label: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 text-[10px] text-slate-400">
+    <span className="inline-flex items-center gap-1.5 text-[10px] text-slate-500">
       <span className={`size-1.5 rounded-full ${color}`} />
       {label}
     </span>

@@ -46,7 +46,7 @@ export function DevRoleSwitcher({ className = "" }: { className?: string }) {
     <div
       role="group"
       aria-label="Switch demo role"
-      className={`inline-flex items-center gap-0.5 rounded-full border border-white/8 bg-white/[0.03] p-0.5 ${className}`}
+      className={`inline-flex items-center gap-0.5 rounded-full border border-line bg-slate-900/[0.03] p-0.5 ${className}`}
     >
       {DEMO_ACCOUNT_LIST.map((account) => {
         const active = user?.role === account.role;
@@ -61,10 +61,10 @@ export function DevRoleSwitcher({ className = "" }: { className?: string }) {
             aria-label={`Continue as ${account.label}`}
             aria-pressed={active}
             title={`Continue as ${account.label}`}
-            className={`inline-flex h-7 items-center gap-1.5 rounded-full px-2 text-[9px] font-semibold uppercase tracking-[0.08em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 disabled:cursor-not-allowed disabled:opacity-50 ${
+            className={`inline-flex h-7 items-center gap-1.5 rounded-full px-2 text-[9px] font-semibold uppercase tracking-[0.08em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 disabled:cursor-not-allowed disabled:opacity-50 ${
               active
-                ? "bg-emerald-400/15 text-emerald-200"
-                : "text-slate-500 hover:bg-white/[0.05] hover:text-slate-200"
+                ? "bg-primary-soft text-emerald-700"
+                : "text-slate-500 hover:bg-slate-900/[0.05] hover:text-slate-700"
             }`}
           >
             {busy ? (
@@ -72,7 +72,7 @@ export function DevRoleSwitcher({ className = "" }: { className?: string }) {
             ) : (
               <span
                 className={`size-1.5 rounded-full ${
-                  active ? "bg-emerald-300" : "bg-slate-600"
+                  active ? "bg-emerald-600" : "bg-slate-400"
                 }`}
               />
             )}

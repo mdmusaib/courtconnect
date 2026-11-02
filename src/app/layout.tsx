@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   ],
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "default",
     title: "CourtConnect",
   },
   formatDetection: {
@@ -67,8 +67,8 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#0B0F17",
-  colorScheme: "dark",
+  themeColor: "#F6F8F7",
+  colorScheme: "light",
 };
 
 export default function RootLayout({
@@ -77,9 +77,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-oled text-slate-50 antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-page text-slate-900 antialiased`}
       >
         <ToastProvider>
           <AuthProvider>

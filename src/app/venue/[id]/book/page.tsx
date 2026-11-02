@@ -37,8 +37,8 @@ export default async function BookVenuePage({
         title="Choose your hours"
         subtitle={data.venue.name}
         right={
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/15 bg-emerald-400/[0.06] px-2.5 py-1 text-[10px] font-medium text-emerald-300">
-            <span className="size-1.5 animate-pulse rounded-full bg-emerald-400" />
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-primary-soft px-2.5 py-1 text-[10px] font-medium text-emerald-700">
+            <span className="size-1.5 animate-pulse rounded-full bg-emerald-600" />
             Live
           </span>
         }
@@ -46,11 +46,11 @@ export default async function BookVenuePage({
 
       <main className="mx-auto max-w-5xl px-4 pt-4">
         {data.venue.courts.length === 0 ? (
-          <div className="mt-8 rounded-3xl border border-dashed border-white/10 bg-white/[0.02] px-5 py-12 text-center">
-            <p className="text-sm font-semibold text-white">
+          <div className="mt-8 rounded-3xl border border-dashed border-slate-300 bg-slate-50 px-5 py-12 text-center">
+            <p className="text-sm font-semibold text-slate-900">
               No courts are open for booking yet.
             </p>
-            <p className="mt-1 text-xs text-slate-400">
+            <p className="mt-1 text-xs text-slate-500">
               Check back soon or explore another venue.
             </p>
           </div>

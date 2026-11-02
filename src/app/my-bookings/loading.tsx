@@ -6,7 +6,7 @@ export default function MyBookingsLoading() {
       <SkeletonHeader />
 
       <main className="mx-auto max-w-4xl px-4 pt-6">
-        <section className="rounded-3xl border border-white/8 bg-gradient-to-br from-surface via-surface to-oled p-5">
+        <section className="rounded-3xl border border-line bg-white p-5 shadow-card">
           <div className="flex items-start justify-between gap-4">
             <div className="space-y-2">
               <ShimmerBox className="h-2.5 w-28" />
@@ -22,7 +22,7 @@ export default function MyBookingsLoading() {
           </div>
         </section>
 
-        <div className="mt-6 rounded-2xl border border-white/8 bg-surface/60 p-1">
+        <div className="mt-6 rounded-2xl border border-line bg-surface p-1">
           <div className="flex gap-1">
             <ShimmerBox className="h-10 flex-1 rounded-xl" />
             <ShimmerBox className="h-10 flex-1 rounded-xl" />
@@ -33,10 +33,10 @@ export default function MyBookingsLoading() {
           {[0, 1, 2].map((card) => (
             <section
               key={card}
-              className="rounded-3xl border border-white/8 bg-surface/80 p-4"
+              className="rounded-3xl border border-line bg-card p-4 shadow-card"
             >
               <div className="flex items-start gap-3">
-                <ShimmerBox className="size-12" />
+                <ShimmerBox className="size-12 rounded-2xl" />
                 <div className="min-w-0 flex-1 space-y-2">
                   <ShimmerBox className="h-4 w-36" />
                   <ShimmerBox className="h-2.5 w-24" />

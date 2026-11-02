@@ -14,8 +14,8 @@ export function ShimmerBox({
 }) {
   const gradient =
     variant === "emerald"
-      ? "bg-[linear-gradient(100deg,rgba(255,255,255,0.04)_40%,rgba(16,185,129,0.10)_50%,rgba(255,255,255,0.04)_60%)]"
-      : "bg-[linear-gradient(100deg,rgba(255,255,255,0.04)_40%,rgba(255,255,255,0.09)_50%,rgba(255,255,255,0.04)_60%)]";
+      ? "bg-[linear-gradient(100deg,rgba(15,23,42,0.05)_40%,rgba(5,150,105,0.12)_50%,rgba(15,23,42,0.05)_60%)]"
+      : "bg-[linear-gradient(100deg,rgba(15,23,42,0.04)_40%,rgba(15,23,42,0.08)_50%,rgba(15,23,42,0.04)_60%)]";
 
   return (
     <div
@@ -27,7 +27,7 @@ export function ShimmerBox({
 
 export function SkeletonHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-white/5 bg-oled/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-line bg-white/85 backdrop-blur-xl">
       <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-3 pt-[max(0.75rem,env(safe-area-inset-top))]">
         <ShimmerBox variant="neutral" className="size-9 rounded-full" />
         <div className="min-w-0 flex-1 space-y-1.5">
@@ -41,7 +41,7 @@ export function SkeletonHeader() {
 
 export function SkeletonSlotGrid({ blocks = 2 }: { blocks?: number }) {
   return (
-    <section className="rounded-3xl border border-white/[0.07] bg-surface/70 p-4 backdrop-blur-md">
+    <section className="rounded-3xl border border-line bg-card p-4">
       <div className="flex items-center justify-between">
         <ShimmerBox className="h-3.5 w-32" />
         <ShimmerBox className="h-6 w-16 rounded-full" />
@@ -52,5 +52,15 @@ export function SkeletonSlotGrid({ blocks = 2 }: { blocks?: number }) {
         ))}
       </div>
     </section>
+  );
+}
+
+export function SkeletonTimeline({ blocks = 10 }: { blocks?: number }) {
+  return (
+    <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 pb-1">
+      {Array.from({ length: blocks }, (_, index) => (
+        <ShimmerBox key={index} className="h-20 w-[76px] shrink-0" />
+      ))}
+    </div>
   );
 }

@@ -10,8 +10,8 @@
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
   "orientation": "portrait-primary",
-  "background_color": "#0B0F17",
-  "theme_color": "#0B0F17",
+  "background_color": "#F6F8F7",
+  "theme_color": "#F6F8F7",
   "categories": ["sports", "booking", "lifestyle"],
   "prefer_related_applications": false,
   "icons": [

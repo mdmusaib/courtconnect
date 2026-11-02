@@ -57,8 +57,8 @@ const ENTRY_TYPES: EntryTypeOption[] = [
     description: "Collected now",
     icon: Banknote,
     selectedClass:
-      "border-amber-400/50 bg-amber-400/[0.14] text-amber-50 shadow-[0_0_0_1px_rgba(251,191,36,0.15)]",
-    iconClass: "text-amber-300",
+      "border-amber-400 bg-amber-100 text-amber-900",
+    iconClass: "text-amber-700",
     note: "Cash is recorded as collected today.",
   },
   {
@@ -67,8 +67,8 @@ const ENTRY_TYPES: EntryTypeOption[] = [
     description: "Pay at venue",
     icon: Phone,
     selectedClass:
-      "border-cyan-400/50 bg-cyan-400/[0.14] text-cyan-50 shadow-[0_0_0_1px_rgba(34,211,238,0.15)]",
-    iconClass: "text-cyan-300",
+      "border-cyan-400 bg-cyan-100 text-cyan-900",
+    iconClass: "text-cyan-600",
     note: "The court is confirmed; payment stays due at the venue.",
   },
   {
@@ -77,8 +77,8 @@ const ENTRY_TYPES: EntryTypeOption[] = [
     description: "Venue UPI",
     icon: QrCode,
     selectedClass:
-      "border-violet-400/50 bg-violet-400/[0.14] text-violet-50 shadow-[0_0_0_1px_rgba(167,139,250,0.15)]",
-    iconClass: "text-violet-300",
+      "border-violet-400 bg-violet-100 text-violet-900",
+    iconClass: "text-violet-600",
     note: "Direct ground QR payment received by the venue.",
   },
 ];
@@ -392,7 +392,7 @@ export function OwnerQuickEntryModal({
     <button
       type="button"
       onClick={() => setOpen(true)}
-      className="inline-flex h-11 items-center justify-center gap-2 rounded-2xl bg-emerald-400 px-4 text-sm font-semibold text-oled shadow-[0_14px_38px_-16px_rgba(16,185,129,0.9)] transition hover:bg-emerald-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-oled"
+      className="inline-flex h-11 items-center justify-center gap-2 rounded-2xl bg-primary px-4 text-sm font-semibold text-white shadow-primary transition hover:bg-primary-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
     >
       <Plus className="size-4" strokeWidth={2.6} />
       Quick entry
@@ -416,23 +416,23 @@ export function OwnerQuickEntryModal({
               aria-modal="true"
               aria-labelledby="owner-quick-entry-title"
               tabIndex={-1}
-              className="relative max-h-[94dvh] w-full max-w-2xl overflow-y-auto rounded-t-3xl border border-white/10 bg-[#111a29] shadow-[0_40px_120px_-30px_rgba(0,0,0,1)] outline-none sm:rounded-3xl"
+              className="relative max-h-[94dvh] w-full max-w-2xl overflow-y-auto rounded-t-3xl border border-line bg-white shadow-lift outline-none sm:rounded-3xl"
             >
               <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-emerald-400/[0.08] to-transparent" />
 
-              <div className="relative flex items-start justify-between gap-4 border-b border-white/8 px-5 py-4 sm:px-6">
+              <div className="relative flex items-start justify-between gap-4 border-b border-line px-5 py-4 sm:px-6">
                 <div className="flex items-start gap-3">
-                  <div className="grid size-10 shrink-0 place-items-center rounded-2xl border border-emerald-400/20 bg-emerald-400/10 text-emerald-300">
+                  <div className="grid size-10 shrink-0 place-items-center rounded-2xl border border-emerald-200 bg-primary-soft text-primary">
                     <Zap className="size-5" />
                   </div>
                   <div>
                     <h2
                       id="owner-quick-entry-title"
-                      className="text-base font-semibold tracking-tight text-white sm:text-lg"
+                      className="text-base font-semibold tracking-tight text-slate-900 sm:text-lg"
                     >
                       Quick entry
                     </h2>
-                    <p className="mt-0.5 text-[11px] leading-relaxed text-slate-400">
+                    <p className="mt-0.5 text-[11px] leading-relaxed text-slate-500">
                       Log a direct booking in seconds. No screenshot, no AI
                       check, ₹0 platform fee.
                     </p>
@@ -442,7 +442,7 @@ export function OwnerQuickEntryModal({
                   type="button"
                   onClick={() => setOpen(false)}
                   disabled={submitting}
-                  className="grid size-8 shrink-0 place-items-center rounded-full border border-white/8 bg-white/[0.03] text-slate-400 transition hover:border-white/15 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 disabled:opacity-50"
+                  className="grid size-8 shrink-0 place-items-center rounded-full border border-line bg-slate-50 text-slate-500 transition hover:border-slate-900/15 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 disabled:opacity-50"
                   aria-label="Close quick entry"
                 >
                   <X className="size-4" />
@@ -452,22 +452,22 @@ export function OwnerQuickEntryModal({
               {success ? (
                 <div className="relative px-5 py-6 sm:px-6">
                   <div className="flex flex-col items-center text-center">
-                    <div className="grid size-14 place-items-center rounded-2xl border border-emerald-400/25 bg-emerald-400/10 text-emerald-300">
+                    <div className="grid size-14 place-items-center rounded-2xl border border-emerald-200 bg-primary-soft text-primary">
                       <CheckCircle2 className="size-7" />
                     </div>
-                    <h3 className="mt-3 text-lg font-semibold text-white">
+                    <h3 className="mt-3 text-lg font-semibold text-slate-900">
                       Entry logged
                     </h3>
-                    <p className="mt-1 max-w-sm text-xs leading-relaxed text-slate-400">
+                    <p className="mt-1 max-w-sm text-xs leading-relaxed text-slate-500">
                       The court is blocked instantly. Collected and due amounts
                       are recorded below with a ₹0 platform fee.
                     </p>
                   </div>
 
-                  <div className="mt-5 rounded-2xl border border-white/8 bg-white/[0.025] p-4">
+                  <div className="mt-5 rounded-2xl border border-line bg-slate-50 p-4">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <div>
-                        <p className="text-sm font-semibold text-white">
+                        <p className="text-sm font-semibold text-slate-900">
                           {success.booking.courtName}
                         </p>
                         <p className="text-[11px] text-slate-500">
@@ -500,7 +500,7 @@ export function OwnerQuickEntryModal({
                         label="Collected now"
                         value={formatINR(success.collectedNow)}
                         icon={<Banknote className="size-3.5" />}
-                        accent="text-emerald-300"
+                        accent="text-primary"
                       />
                       <SummaryCell
                         label="Due at venue"
@@ -508,15 +508,15 @@ export function OwnerQuickEntryModal({
                         icon={<ShieldCheck className="size-3.5" />}
                         accent={
                           success.dueAtVenue > 0
-                            ? "text-amber-300"
-                            : "text-slate-300"
+                            ? "text-amber-700"
+                            : "text-slate-600"
                         }
                       />
                     </div>
 
-                    <div className="mt-3 flex items-center justify-between border-t border-white/8 pt-3 text-sm">
-                      <span className="text-slate-400">Total court rate</span>
-                      <span className="font-semibold text-white">
+                    <div className="mt-3 flex items-center justify-between border-t border-line pt-3 text-sm">
+                      <span className="text-slate-500">Total court rate</span>
+                      <span className="font-semibold text-slate-900">
                         {formatINR(success.amount)}
                       </span>
                     </div>
@@ -526,7 +526,7 @@ export function OwnerQuickEntryModal({
                     <button
                       type="button"
                       onClick={resetForAnother}
-                      className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] text-sm font-semibold text-white transition hover:border-white/20 hover:bg-white/[0.07] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70"
+                      className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-2xl border border-line bg-slate-50 text-sm font-semibold text-slate-700 transition hover:border-slate-900/20 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
                     >
                       <Plus className="size-4" />
                       Add another
@@ -534,7 +534,7 @@ export function OwnerQuickEntryModal({
                     <button
                       type="button"
                       onClick={() => setOpen(false)}
-                      className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-2xl bg-emerald-400 text-sm font-semibold text-oled transition hover:bg-emerald-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
+                      className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-2xl bg-primary text-sm font-semibold text-white shadow-primary transition hover:bg-primary-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
                     >
                       Done
                     </button>
@@ -557,22 +557,22 @@ export function OwnerQuickEntryModal({
                             type="button"
                             onClick={() => setEntryType(option.value)}
                             aria-pressed={selected}
-                            className={`flex items-center gap-3 rounded-2xl border p-3 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 ${
+                            className={`flex items-center gap-3 rounded-2xl border p-3 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
                               selected
                                 ? option.selectedClass
-                                : "border-white/8 bg-white/[0.025] text-slate-300 hover:border-white/15 hover:bg-white/[0.05]"
+                                : "border-line bg-slate-50 text-slate-600 hover:border-slate-900/15 hover:bg-slate-100"
                             }`}
                           >
                             <span
                               className={`grid size-9 shrink-0 place-items-center rounded-xl border ${
                                 selected
-                                  ? "border-white/10 bg-black/15"
-                                  : "border-white/8 bg-white/[0.03]"
+                                  ? "border-white/70 bg-white/70"
+                                  : "border-line bg-white"
                               }`}
                             >
                               <Icon
                                 className={`size-4 ${
-                                  selected ? option.iconClass : "text-slate-400"
+                                  selected ? option.iconClass : "text-slate-500"
                                 }`}
                               />
                             </span>
@@ -600,7 +600,7 @@ export function OwnerQuickEntryModal({
                         onChange={(event) =>
                           setSelectedCourtId(event.target.value)
                         }
-                        className="mt-1.5 h-11 w-full rounded-xl border border-white/10 bg-oled/70 px-3 text-sm text-white outline-none transition focus:border-emerald-400/50 focus:ring-2 focus:ring-emerald-400/20"
+                        className="mt-1.5 h-11 w-full rounded-xl border border-line bg-slate-50 px-3 text-sm text-slate-900 outline-none transition focus:border-primary/50 focus:ring-2 focus:ring-primary/10"
                       >
                         {courts.map((court) => (
                           <option key={court.id} value={court.id}>
@@ -622,7 +622,7 @@ export function OwnerQuickEntryModal({
                         max={maxDateKey}
                         value={dateKey}
                         onChange={(event) => setDateKey(event.target.value)}
-                        className="mt-1.5 h-11 w-full rounded-xl border border-white/10 bg-oled/70 px-3 text-sm text-white outline-none transition [color-scheme:dark] focus:border-emerald-400/50 focus:ring-2 focus:ring-emerald-400/20"
+                        className="mt-1.5 h-11 w-full rounded-xl border border-line bg-slate-50 px-3 text-sm text-slate-900 outline-none transition [color-scheme:light] focus:border-primary/50 focus:ring-2 focus:ring-primary/10"
                       />
                     </label>
 
@@ -636,7 +636,7 @@ export function OwnerQuickEntryModal({
                           onChange={(event) =>
                             setStartHour(Number(event.target.value))
                           }
-                          className="mt-1.5 h-11 w-full rounded-xl border border-white/10 bg-oled/70 px-3 text-sm text-white outline-none transition focus:border-emerald-400/50 focus:ring-2 focus:ring-emerald-400/20"
+                          className="mt-1.5 h-11 w-full rounded-xl border border-line bg-slate-50 px-3 text-sm text-slate-900 outline-none transition focus:border-primary/50 focus:ring-2 focus:ring-primary/10"
                         >
                           {startOptions.map((hour) => (
                             <option key={hour} value={hour}>
@@ -655,7 +655,7 @@ export function OwnerQuickEntryModal({
                           onChange={(event) =>
                             setDuration(Number(event.target.value))
                           }
-                          className="mt-1.5 h-11 w-full rounded-xl border border-white/10 bg-oled/70 px-3 text-sm text-white outline-none transition focus:border-emerald-400/50 focus:ring-2 focus:ring-emerald-400/20"
+                          className="mt-1.5 h-11 w-full rounded-xl border border-line bg-slate-50 px-3 text-sm text-slate-900 outline-none transition focus:border-primary/50 focus:ring-2 focus:ring-primary/10"
                         >
                           {Array.from(
                             { length: OWNER_ENTRY_MAX_HOURS },
@@ -672,7 +672,7 @@ export function OwnerQuickEntryModal({
                     <label className="sm:col-span-2">
                       <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">
                         Player name / note{" "}
-                        <span className="font-normal normal-case tracking-normal text-slate-600">
+                        <span className="font-normal normal-case tracking-normal text-slate-400">
                           optional
                         </span>
                       </span>
@@ -682,15 +682,15 @@ export function OwnerQuickEntryModal({
                         value={customerName}
                         onChange={(event) => setCustomerName(event.target.value)}
                         placeholder="e.g. Karthik — regular 7v7 group"
-                        className="mt-1.5 h-11 w-full rounded-xl border border-white/10 bg-oled/70 px-3 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-emerald-400/50 focus:ring-2 focus:ring-emerald-400/20"
+                        className="mt-1.5 h-11 w-full rounded-xl border border-line bg-slate-50 px-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-primary/50 focus:ring-2 focus:ring-primary/10"
                       />
                     </label>
                   </div>
 
-                  <div className="mt-4 rounded-2xl border border-white/8 bg-white/[0.025] p-4">
+                  <div className="mt-4 rounded-2xl border border-line bg-slate-50 p-4">
                     <div className="flex items-center justify-between gap-3 text-sm">
                       <div>
-                        <p className="text-white">
+                        <p className="text-slate-900">
                           Court rate
                           <span className="ml-2 text-[11px] text-slate-500">
                             {formatINR(selectedCourt?.price ?? 0)} × {duration}{" "}
@@ -701,40 +701,40 @@ export function OwnerQuickEntryModal({
                           {previewRange}
                         </p>
                       </div>
-                      <p className="font-medium text-white">{formatINR(total)}</p>
+                      <p className="font-medium text-slate-900">{formatINR(total)}</p>
                     </div>
 
                     <div className="mt-2 flex items-center justify-between gap-3 text-sm">
-                      <div className="flex items-center gap-1.5 text-emerald-300">
+                      <div className="flex items-center gap-1.5 text-primary">
                         <ShieldCheck className="size-3.5" />
                         Platform fee
                       </div>
-                      <p className="font-semibold text-emerald-300">₹0</p>
+                      <p className="font-semibold text-primary">₹0</p>
                     </div>
 
-                    <div className="mt-3 flex items-center justify-between border-t border-white/8 pt-3">
-                      <span className="text-sm font-medium text-white">Total</span>
-                      <span className="text-lg font-semibold text-white">
+                    <div className="mt-3 flex items-center justify-between border-t border-line pt-3">
+                      <span className="text-sm font-medium text-slate-900">Total</span>
+                      <span className="text-lg font-semibold text-slate-900">
                         {formatINR(total)}
                       </span>
                     </div>
 
                     <div className="mt-3 grid grid-cols-2 gap-2">
-                      <div className="rounded-xl border border-white/6 bg-white/[0.02] px-3 py-2">
+                      <div className="rounded-xl border border-line bg-white px-3 py-2">
                         <p className="text-[9px] uppercase tracking-[0.14em] text-slate-500">
                           Collected now
                         </p>
-                        <p className="mt-0.5 text-sm font-semibold text-emerald-300">
+                        <p className="mt-0.5 text-sm font-semibold text-primary">
                           {formatINR(collectedNow)}
                         </p>
                       </div>
-                      <div className="rounded-xl border border-white/6 bg-white/[0.02] px-3 py-2">
+                      <div className="rounded-xl border border-line bg-white px-3 py-2">
                         <p className="text-[9px] uppercase tracking-[0.14em] text-slate-500">
                           Due at venue
                         </p>
                         <p
                           className={`mt-0.5 text-sm font-semibold ${
-                            dueAtVenue > 0 ? "text-amber-300" : "text-slate-300"
+                            dueAtVenue > 0 ? "text-amber-700" : "text-slate-600"
                           }`}
                         >
                           {formatINR(dueAtVenue)}
@@ -743,7 +743,7 @@ export function OwnerQuickEntryModal({
                     </div>
 
                     <p className="mt-3 flex items-start gap-1.5 text-[10px] leading-relaxed text-slate-500">
-                      <Sparkles className="mt-0.5 size-3 shrink-0 text-emerald-400" />
+                      <Sparkles className="mt-0.5 size-3 shrink-0 text-primary" />
                       {selectedEntryType.note} AI verification and receipt
                       upload are skipped.
                     </p>
@@ -753,25 +753,25 @@ export function OwnerQuickEntryModal({
                     <div
                       role="alert"
                       aria-live="polite"
-                      className="mt-3 rounded-xl border border-rose-400/25 bg-rose-400/10 px-3 py-2.5 text-xs text-rose-200"
+                      className="mt-3 rounded-xl border border-rose-200 bg-rose-50 px-3 py-2.5 text-xs text-rose-700"
                     >
                       {error}
                     </div>
                   )}
 
-                  <div className="sticky bottom-0 -mx-5 mt-4 flex gap-2 border-t border-white/8 bg-[#111a29]/95 px-5 py-3 backdrop-blur sm:-mx-6 sm:px-6">
+                  <div className="sticky bottom-0 -mx-5 mt-4 flex gap-2 border-t border-line bg-white/95 px-5 py-3 backdrop-blur sm:-mx-6 sm:px-6">
                     <button
                       type="button"
                       onClick={() => setOpen(false)}
                       disabled={submitting}
-                      className="inline-flex h-11 flex-1 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-sm font-semibold text-slate-300 transition hover:border-white/20 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/70 disabled:opacity-50 sm:flex-none sm:px-5"
+                      className="inline-flex h-11 flex-1 items-center justify-center rounded-2xl border border-line bg-slate-50 text-sm font-semibold text-slate-600 transition hover:border-slate-900/20 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 disabled:opacity-50 sm:flex-none sm:px-5"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
                       disabled={submitting || !selectedCourt}
-                      className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-2xl bg-emerald-400 px-4 text-sm font-semibold text-oled transition hover:bg-emerald-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#111a29] disabled:cursor-not-allowed disabled:opacity-60"
+                      className="inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-2xl bg-primary px-4 text-sm font-semibold text-white shadow-primary transition hover:bg-primary-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {submitting ? (
                         <>
@@ -807,7 +807,7 @@ function SummaryCell({
   label,
   value,
   icon,
-  accent = "text-white",
+  accent = "text-slate-900",
 }: {
   label: string;
   value: string;
@@ -815,9 +815,9 @@ function SummaryCell({
   accent?: string;
 }) {
   return (
-    <div className="rounded-xl border border-white/6 bg-white/[0.02] px-3 py-2">
+    <div className="rounded-xl border border-line bg-white px-3 py-2">
       <div className="flex items-center gap-1.5 text-slate-500">
-        <span className="text-emerald-400">{icon}</span>
+        <span className="text-primary">{icon}</span>
         <span className="text-[9px] uppercase tracking-[0.14em]">{label}</span>
       </div>
       <p className={`mt-0.5 text-xs font-semibold ${accent}`}>{value}</p>
